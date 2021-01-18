@@ -17,8 +17,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'phone',
         'password',
     ];
 
@@ -40,4 +42,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $with = ['profile'];
+
+    public function profile()
+    {
+        return $this->morphTo();
+    }
+
+    public function getIsSpecialistAttribute()
+    {
+        return $this->profile_type == SpecialistProfile::class;
+    }
+
+    public function getISPatientAttribute()
+    {
+        return $this->profile_type == PatientProfile::class;
+    }
 }

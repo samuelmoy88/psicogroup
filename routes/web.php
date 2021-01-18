@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    var_dump(auth()->user()->IsSpecialist);
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 

@@ -6,16 +6,11 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PatientRegisteredUserController;
+use App\Http\Controllers\Auth\SpecialistRegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest')
-                ->name('register');
-
-Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
@@ -62,3 +57,19 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
+Route::middleware('guest')->group(function (){
+    Route::get('/register-specialist', [SpecialistRegisteredUserController::class, 'create'])
+        ->name('register.specialist');
+
+    Route::post('/register-specialist', [SpecialistRegisteredUserController::class, 'store'])
+        ->name('store.specialist');
+
+    Route::get('/register-patient', [PatientRegisteredUserController::class, 'create'])
+        ->middleware('guest')
+        ->name('register.patient');
+
+    Route::post('/register-patient', [PatientRegisteredUserController::class, 'store'])
+        ->name('store.patient');
+
+});

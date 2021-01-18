@@ -29,8 +29,11 @@
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                        @if (Route::has('register.patient'))
+                            <a href="{{ route('register.patient') }}" class="ml-4 text-sm text-gray-700 underline">Register as patient</a>
+                        @endif
+                        @if (Route::has('register.specialist'))
+                            <a href="{{ route('register.specialist') }}" class="ml-4 text-sm text-gray-700 underline">Register as specialist</a>
                         @endif
                     @endauth
                 </div>
