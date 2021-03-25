@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class SpecialistRegisteredUserController extends Controller
 {
@@ -43,6 +44,8 @@ class SpecialistRegisteredUserController extends Controller
         $specialist = SpecialistProfile::create();
 
         Auth::login($user = $specialist->user()->create([
+            'uuid' => (string) Str::uuid(),
+            'username' => Str::slug($request->first_name . '-' .$request->last_name),
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -52,6 +55,6 @@ class SpecialistRegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(route('specialist.edit', auth()->user()->username));
     }
 }

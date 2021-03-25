@@ -16,6 +16,7 @@ class CreatePatientProfilesTable extends Migration
         Schema::create('patient_profiles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->morphs('profile');
+            $table->morphs('profile', 'user_profile_fk');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

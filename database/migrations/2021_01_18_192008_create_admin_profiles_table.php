@@ -16,6 +16,7 @@ class CreateAdminProfilesTable extends Migration
         Schema::create('admin_profiles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

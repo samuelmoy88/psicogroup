@@ -3789,11 +3789,48 @@ module.exports = {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
+
+
+__webpack_require__(/*! ./init-alpine */ "./resources/js/init-alpine.js");
+
+var form = document.querySelector('form');
+
+if (form) {
+  var submitButton = document.getElementById('submitButton');
+  form.addEventListener('submit', function () {
+    var buttonText = document.querySelector('#submitButton .slot');
+    var loaderSlot = document.querySelector('#submitButton .loaderSlot');
+    buttonText.innerText = 'Cargando...';
+    loaderSlot.innerHTML = '<i id="loader" class="fa fa-spinner fa-spin mr-2"></i>';
+    submitButton.disabled = true;
+  });
+} else {
+  (function () {
+    var submitButton = document.querySelectorAll('.loading');
+
+    var _loop = function _loop(i) {
+      submitButton[i].addEventListener('click', function () {
+        var buttonText = submitButton[i].querySelector('.slot');
+        var loaderSlot = submitButton[i].querySelector('.loaderSlot');
+        buttonText.innerText = 'Cargando...';
+        loaderSlot.innerHTML = '<i id="loader" class="fa fa-spinner fa-spin mr-2"></i>';
+        submitButton[i].disabled = true;
+      });
+    };
+
+    for (var i = 0; i < submitButton.length; i++) {
+      _loop(i);
+    }
+  })();
+}
 
 /***/ }),
 
@@ -3825,6 +3862,228 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/focus-trap.js":
+/*!************************************!*\
+  !*** ./resources/js/focus-trap.js ***!
+  \************************************/
+/***/ (() => {
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/**
+ * Limit focus to focusable elements inside `element`
+ * @param {HTMLElement} element - DOM element to focus trap inside
+ * @return {Function} cleanup function
+ */
+window.focusTrap = function (element) {
+  var focusableElements = getFocusableElements(element);
+  var firstFocusableEl = focusableElements[0];
+  var lastFocusableEl = focusableElements[focusableElements.length - 1]; // Wait for the case the element was not yet rendered
+
+  setTimeout(function () {
+    return firstFocusableEl.focus();
+  }, 50);
+  /**
+   * Get all focusable elements inside `element`
+   * @param {HTMLElement} element - DOM element to focus trap inside
+   * @return {HTMLElement[]} List of focusable elements
+   */
+
+  function getFocusableElements() {
+    var element = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
+    return _toConsumableArray(element.querySelectorAll('a, button, details, input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(function (e) {
+      return !e.hasAttribute('disabled');
+    });
+  }
+
+  function handleKeyDown(e) {
+    var TAB = 9;
+    var isTab = e.key.toLowerCase() === 'tab' || e.keyCode === TAB;
+    if (!isTab) return;
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableEl) {
+        lastFocusableEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastFocusableEl) {
+        firstFocusableEl.focus();
+        e.preventDefault();
+      }
+    }
+  }
+
+  element.addEventListener('keydown', handleKeyDown);
+  return function cleanup() {
+    element.removeEventListener('keydown', handleKeyDown);
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/init-alpine.js":
+/*!*************************************!*\
+  !*** ./resources/js/init-alpine.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+__webpack_require__(/*! ./focus-trap */ "./resources/js/focus-trap.js");
+
+window.data = function () {
+  return {
+    isSideMenuOpen: false,
+    toggleSideMenu: function toggleSideMenu() {
+      this.isSideMenuOpen = !this.isSideMenuOpen;
+    },
+    closeSideMenu: function closeSideMenu() {
+      this.isSideMenuOpen = false;
+    },
+    isNotificationsMenuOpen: false,
+    toggleNotificationsMenu: function toggleNotificationsMenu() {
+      this.isNotificationsMenuOpen = !this.isNotificationsMenuOpen;
+    },
+    closeNotificationsMenu: function closeNotificationsMenu() {
+      this.isNotificationsMenuOpen = false;
+    },
+    // Profile menu
+    isProfileMenuOpen: false,
+    toggleProfileMenu: function toggleProfileMenu() {
+      this.isProfileMenuOpen = !this.isProfileMenuOpen;
+    },
+    closeProfileMenu: function closeProfileMenu() {
+      this.isProfileMenuOpen = false;
+    },
+    // Account menu
+    isSpecialistMenuOpen: shouldSpecialistMenuBeOpened === 'true',
+    toggleSpecialistMenu: function toggleSpecialistMenu() {
+      this.isSpecialistMenuOpen = !this.isSpecialistMenuOpen;
+    },
+    isAccountMenuOpen: shouldAccountMenuBeOpened === 'true',
+    toggleAccountMenu: function toggleAccountMenu() {
+      this.isAccountMenuOpen = !this.isAccountMenuOpen;
+    },
+    // Modal
+    trapCleanup: null,
+    modals: {},
+    openModal: function openModal(modal) {
+      this.modals[modal] = true;
+      this.trapCleanup = focusTrap(document.querySelector(modal));
+    },
+    closeModal: function closeModal(modal) {
+      this.modals[modal] = false;
+      this.trapCleanup();
+    },
+    triggerFileInput: function triggerFileInput(element) {
+      document.getElementById(element).click();
+    },
+    imagePreview: function imagePreview(element, imageSelector) {
+      var file = document.getElementById(element).files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = function () {
+        document.getElementById(imageSelector).src = reader.result;
+      };
+    }
+  };
+};
+
+window.tabs = function () {
+  return {
+    previousTab: 0,
+    activeTab: 0,
+    width: 0,
+    x: 0,
+    setWidthAndXFromElement: function setWidthAndXFromElement(element) {
+      var _element$getBoundingC = element.getBoundingClientRect(),
+          x = _element$getBoundingC.x,
+          width = _element$getBoundingC.width;
+
+      var default_x = this.$refs.tabs.children[0].getBoundingClientRect()['x'];
+      this.x = x - default_x;
+      this.width = width;
+    },
+    container: _defineProperty({}, 'x-on:load.window', function xOnLoadWindow() {
+      var element = this.$refs.tabs.children[0];
+      this.setWidthAndXFromElement(element);
+      element.classList.add('text-brand-color');
+    }),
+    indicator: _defineProperty({}, 'x-bind:style', function xBindStyle() {
+      return "width: ".concat(this.width, "px; transform: translateX(").concat(this.x, "px)");
+    }),
+    tab: _defineProperty({}, '@click', function click(event) {
+      var element = event.target;
+      this.setWidthAndXFromElement(element);
+      this.previousTab = this.activeTab;
+      this.activeTab = Array.from(this.$refs.tabs.children).indexOf(element);
+      this.$refs.tabs.children[this.previousTab].classList.remove('text-brand-color');
+      document.querySelector("div[x-ref=cards]").children[this.previousTab].classList.add('hidden');
+      document.querySelector("div[x-ref=cards]").children[this.activeTab].classList.remove('hidden');
+      element.classList.add('text-brand-color');
+    })
+  };
+};
+
+window.toggle = function () {
+  return {
+    show: true,
+    toggleElement: function toggleElement(element, action) {
+      if (Array.isArray(element)) {
+        var _iterator = _createForOfIteratorHelper(element),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var e = _step.value;
+            action === 'on' ? e.classList.remove('hidden') : e.classList.add('hidden');
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      } else {
+        action === 'on' ? element.classList.remove('hidden') : element.classList.add('hidden');
+      }
+    },
+    toggleOnlineConsultation: function toggleOnlineConsultation(addressElement, onlineDetailsElement, onlinePaymentDetails, otherInformation, action) {
+      if (action === 'off') {
+        addressElement.classList.remove('hidden');
+        otherInformation.classList.remove('hidden');
+        onlineDetailsElement.classList.add('hidden');
+        onlinePaymentDetails.classList.add('hidden');
+        return;
+      }
+
+      addressElement.classList.add('hidden');
+      otherInformation.classList.add('hidden');
+      onlineDetailsElement.classList.remove('hidden');
+      onlinePaymentDetails.classList.remove('hidden');
+    }
+  };
+};
 
 /***/ }),
 
@@ -21234,6 +21493,30 @@ process.umask = function() { return 0; };
 /******/ 	// It's empty as some runtime module handles the default behavior
 /******/ 	__webpack_require__.x = x => {}
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => module['default'] :
+/******/ 				() => module;
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {

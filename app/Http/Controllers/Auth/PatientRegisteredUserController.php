@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class PatientRegisteredUserController extends Controller
 {
@@ -43,6 +44,7 @@ class PatientRegisteredUserController extends Controller
         $patient = PatientProfile::create();
 
         Auth::login($user = $patient->user()->create([
+            'uuid' => (string) Str::uuid(),
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,

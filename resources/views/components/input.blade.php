@@ -1,3 +1,5 @@
 @props(['disabled' => false])
-
-<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50']) !!}>
+<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'border border-brand-color bg-white text-gray-900 appearance-none block w-full rounded-md py-1 px-4 focus:outline-none']) !!}>
+@error($attributes['name'])
+<div class="text-red-500 mt-2">{{ $message }}</div>
+@enderror

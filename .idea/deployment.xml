@@ -72,6 +72,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="Plusoluciones">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Premiumhouses">
         <serverdata>
           <mappings>
@@ -121,6 +128,20 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="aTemporal">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="bhhslarvia">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="friendlymaterials.com">
         <serverdata>
           <mappings>
@@ -152,7 +173,7 @@
       <paths name="psicogroup">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

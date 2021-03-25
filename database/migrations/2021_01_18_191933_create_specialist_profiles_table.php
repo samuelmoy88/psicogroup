@@ -15,10 +15,11 @@ class CreateSpecialistProfilesTable extends Migration
     {
         Schema::create('specialist_profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('prefix_id')->nullable()->constrained();
             $table->string('license_number')->nullable()->unique();
             $table->string('avatar')->nullable();
+            $table->boolean('is_verified')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

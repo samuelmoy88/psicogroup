@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Psico-Group'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://psicogroup.test'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,4 +230,7 @@ return [
 
     ],
 
+    'per_page' => 15,
+
+    'admin_backend' => 'admin.psicogroup.test',
 ];

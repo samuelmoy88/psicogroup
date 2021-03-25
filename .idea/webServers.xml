@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6c2dc25c-3268-4427-8978-bba6c4540cfb" name="psicogroup" url="http://psico-group.com">
+        <fileTransfer host="psico-group.com" port="21">
+          <advancedOptions>
+            <advancedOptions passiveMode="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
