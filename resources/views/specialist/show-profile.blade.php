@@ -83,7 +83,7 @@
                                             <a href="{{ $address->web_site }}" class="underline text-blue-500" target="_blank" rel="noopener">{{ $address->web_site }}</a>
                                         </div>
                                     @endif
-                                    @if($address->accessibility)
+                                    @if(count($address->accessibility) > 0)
                                         <div class="address_element flex-wrap">
                                             <span class="w-full"><i class="fas fa-wheelchair mr-4"></i>{{ __('Accessibility') }}</span>
                                             <ul class="pl-4">
@@ -93,7 +93,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    @if($address->services)
+                                    @if(count($address->services) > 0)
                                         <div class="address_element flex-wrap">
                                             <span class="w-full"><i class="fas fa-stethoscope mr-4"></i>{{ __('services.services') }}</span>
                                             <ul class="pl-4">
@@ -103,7 +103,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    @if($address->paymentMethods)
+                                    @if(count($address->paymentMethods) > 0)
                                         <div class="address_element flex-wrap">
                                             <span class="w-full"><i class="fas fa-money-bill-alt mr-3"></i>{{ __('Payment methods') }}</span>
                                             <ul class="pl-4">
