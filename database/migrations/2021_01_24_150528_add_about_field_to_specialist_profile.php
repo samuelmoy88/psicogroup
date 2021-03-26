@@ -14,7 +14,7 @@ class AddAboutFieldToSpecialistProfile extends Migration
     public function up()
     {
         Schema::table('specialist_profiles', function (Blueprint $table) {
-            $table->string('about')->after('avatar')->nullable();
+            $table->text('about')->after('avatar')->nullable();
         });
     }
 
