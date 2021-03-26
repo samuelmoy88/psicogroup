@@ -126,4 +126,13 @@ class PaymentMethodController extends Controller
 
         return redirect(route('payment-methods.index'))->with('success', __('payment-methods.deleted_success'));
     }
+
+    public function sort(Request $request)
+    {
+        foreach ($request->models as $model) {
+            PaymentMethod::sort($model['id'], $model['order']);
+        }
+
+        return Response::HTTP_OK;
+    }
 }
