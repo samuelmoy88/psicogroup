@@ -9,7 +9,7 @@
             <div class="">
                 <div class="form-card">
                     <div class="flex flex-wrap justify-between">
-                        <h2 class="font-bold text-lg mb-4">{{ __('specialists.specialist_data') }}</h2>
+                        <h2 class="font-bold text-lg mb-4">{{ __('patients.patient_data') }}</h2>
                     </div>
                     <div class="grid sm:grid-cols-3 gap-4">
                         <div class="">
