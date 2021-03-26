@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Disease;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DiseaseController extends Controller
 {
@@ -17,7 +18,7 @@ class DiseaseController extends Controller
         isAllowedTo('diseases_read');
 
         return view('admin.diseases.index', [
-            'diseases' => Disease::latest('updated_at')->paginate(config('app.per_page')),
+            'diseases' => Disease::orderBy('order')->get(),
             'attributes' => ['title', 'statusLabel', 'createdReadable'],
             'headers' => [
                 __('common.title'),
@@ -105,7 +106,7 @@ class DiseaseController extends Controller
         $disease->fill($request->all());
 
         if ($disease->update()) {
-            return redirect(route('diseases.index'))->with('success', __('diseases.updated_success'));
+            $this->makeResponse('diseases.index', ['success', __('diseases.updated_success')], Response::HTTP_OK);
         }
 
         return back();
