@@ -46,7 +46,7 @@ async function xhr(url, params) {
             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
         body: JSON.stringify(params.body)
-    });
+    }).catch();
 
     return response.json();
 }
@@ -62,26 +62,31 @@ Sortable.create(sortableEl, {
     animation: 150,
     swapThreshold: 0.70,
     direction: 'vertical',
-    onChange: function (event) {
-        reorderModels();
+    onEnd: function (event) {
+        if (event.newIndex !== event.oldIndex) {
+            reorderModels();
+        }
     }
 });
 
 function reorderModels() {
-
     sortableEl.children;
     let order = 1;
+    let models = [];
+
     for (let tr of sortableEl.children) {
-        xhr(tr.dataset.route, {
-            method: 'PUT',
-            body: {
-                id: tr.dataset.id,
-                order: order,
-                title: tr.dataset.title
-            }
-        }).then();
+        models.push({
+            id: tr.dataset.id,
+            order: order
+        });
         order++;
     }
+    xhr(sortableEl.dataset.route, {
+        method: 'PUT',
+        body: {
+            models: models
+        }
+    }).then();
 }
 
 

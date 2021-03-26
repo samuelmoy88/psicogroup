@@ -4033,7 +4033,7 @@ function _xhr() {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               },
               body: JSON.stringify(params.body)
-            });
+            })["catch"]();
 
           case 2:
             response = _context.sent;
@@ -4056,14 +4056,17 @@ sortablejs_modular_sortable_complete_esm_js__WEBPACK_IMPORTED_MODULE_2__.default
   animation: 150,
   swapThreshold: 0.70,
   direction: 'vertical',
-  onChange: function onChange(event) {
-    reorderModels();
+  onEnd: function onEnd(event) {
+    if (event.newIndex !== event.oldIndex) {
+      reorderModels();
+    }
   }
 });
 
 function reorderModels() {
   sortableEl.children;
   var order = 1;
+  var models = [];
 
   var _iterator = _createForOfIteratorHelper(sortableEl.children),
       _step;
@@ -4071,14 +4074,10 @@ function reorderModels() {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var tr = _step.value;
-      xhr(tr.dataset.route, {
-        method: 'PUT',
-        body: {
-          id: tr.dataset.id,
-          order: order,
-          title: tr.dataset.title
-        }
-      }).then();
+      models.push({
+        id: tr.dataset.id,
+        order: order
+      });
       order++;
     }
   } catch (err) {
@@ -4086,6 +4085,13 @@ function reorderModels() {
   } finally {
     _iterator.f();
   }
+
+  xhr(sortableEl.dataset.route, {
+    method: 'PUT',
+    body: {
+      models: models
+    }
+  }).then();
 }
 
 /***/ }),
