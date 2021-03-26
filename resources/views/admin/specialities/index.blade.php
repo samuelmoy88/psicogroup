@@ -7,7 +7,7 @@
         <x-results-table :results="$specialities"
                          :resultsAttributes="$attributes"
                          :headers="$headers"
-                         :actions="['edit' => 'specialities.edit','delete' => 'specialities.destroy']"/>
+                         :actions="['edit' => 'specialities.edit','delete' => 'specialities.destroy', 'sort' => 'specialities.update']"/>
     </div>
     @if(session('success'))
         <x-toast-alert id="flashMessage">

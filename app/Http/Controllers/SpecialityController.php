@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Speciality;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SpecialityController extends Controller
 {
@@ -19,7 +20,7 @@ class SpecialityController extends Controller
         isAllowedTo('specialities_read');
 
         return view('admin.specialities.index', [
-            'specialities' => Speciality::latest('updated_at')->paginate(config('app.per_page')),
+            'specialities' => Speciality::orderBy('order')->get(),
             'attributes' => ['title', 'statusLabel', 'createdReadable'],
             'headers' => [
                 __('common.title'),
@@ -107,7 +108,7 @@ class SpecialityController extends Controller
         $speciality->fill($request->all());
 
         if ($speciality->update()) {
-            return redirect(route('specialities.index'))->with('success', __('specialities.updated_success'));
+            $this->makeResponse('specialities.index', ['success', __('specialities.updated_success')], Response::HTTP_OK);
         }
 
         return back();
