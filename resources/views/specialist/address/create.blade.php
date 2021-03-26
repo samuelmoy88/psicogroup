@@ -50,7 +50,7 @@
                     <div class="mb-4 text-sm w-full md:w-1/4 md:pl-4">
                         <x-label for="zip_code">{{ __("Zip code") }} *</x-label>
                         <x-input type="text" value="" id="zip_code" name="zip_code"/>
-                        <small>Si no conoces tu CP? Haz click <a class="underline text-blue-500" href="http://www.codigopostal.gob.pe" target="_blank">aquí</a></small>
+                        <small>Si no conoces tu CP, haz click <a class="underline text-blue-500" href="http://www.codigopostal.gob.pe" target="_blank">aquí</a></small>
                     </div>
                 </div>
 

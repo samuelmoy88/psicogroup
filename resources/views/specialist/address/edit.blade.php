@@ -41,6 +41,7 @@
                 <div class="mb-4 text-sm w-full md:w-1/4 md:pl-4">
                     <x-label for="zip_code">{{ __("Zip code") }} *</x-label>
                     <x-input type="text" value="{{ $address->zip_code }}" id="zip_code" name="zip_code"/>
+                    <small>Si no conoces tu CP, haz click <a class="underline text-blue-500" href="http://www.codigopostal.gob.pe" target="_blank">aquí</a></small>
                 </div>
 
                 <div class="mb-4 text-sm w-full md:w-1/2 md:pr-4">
