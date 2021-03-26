@@ -39,6 +39,13 @@ Route::domain(config('app.admin_backend'))->group(function ($router) {
     Route::middleware(['auth','active','admin'])->group(function () {
         Route::get('/dashboard', AdminDashboardController::class)->name('admin.dashboard');
 
+        // Sort models
+        Route::put('/specialities/sort', [SpecialityController::class, 'sort'])->name('specialities.sort');
+        Route::put('/services/sort', [ServicesController::class, 'sort'])->name('services.sort');
+        Route::put('/diseases/sort', [DiseaseController::class, 'sort'])->name('diseases.sort');
+        Route::put('/payment-methods/sort', [PaymentMethodController::class, 'sort'])->name('payment-methods.sort');
+        Route::put('/security-measures/sort', [SecurityMeasuresController::class, 'sort'])->name('security-measures.sort');
+
         // Specialities routes
         Route::resource('/specialities', SpecialityController::class);
         Route::resource('/services', ServicesController::class);
