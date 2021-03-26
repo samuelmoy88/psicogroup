@@ -126,4 +126,13 @@ class SecurityMeasuresController extends Controller
 
         return redirect(route('security-measures.index'))->with('success', __('security-measures.deleted_success'));
     }
+
+    public function sort(Request $request)
+    {
+        foreach ($request->models as $model) {
+            SecurityMeasures::sort($model['id'], $model['order']);
+        }
+
+        return Response::HTTP_OK;
+    }
 }
