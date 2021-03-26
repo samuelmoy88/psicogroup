@@ -17,7 +17,7 @@ class PaymentMethodController extends Controller
         isAllowedTo('payment_methods_read');
 
         return view('admin.payment-methods.index', [
-            'paymentMethods' => PaymentMethod::latest('updated_at')->paginate(config('app.per_page')),
+            'paymentMethods' => PaymentMethod::orderBy('order')->get(),
             'attributes' => ['title', 'statusLabel', 'createdReadable'],
             'headers' => [
                 __('common.title'),
