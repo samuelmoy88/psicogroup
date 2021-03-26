@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PaymentMethodController extends Controller
 {
@@ -105,7 +106,7 @@ class PaymentMethodController extends Controller
         $paymentMethod->fill($request->all());
 
         if ($paymentMethod->update()) {
-            return redirect(route('payment-methods.index'))->with('success', __('payment-methods.updated_success'));
+            $this->makeResponse('payment-methods.index', ['success', __('payment-methods.updated_success'], Response::HTTP_OK);
         }
 
         return back();
