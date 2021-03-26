@@ -23,7 +23,7 @@
     @livewireScripts
 </head>
 <body class="font-sans antialiased">
-<div class="flex h-screen bg-gray-100 dark:bg-gray-900">
+<div class="flex min-h-screen bg-gray-100 dark:bg-gray-900">
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         @include('layouts.admin-sidebar')
