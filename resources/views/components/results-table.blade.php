@@ -18,7 +18,7 @@
             >
             @foreach($results as $result)
                 <tr class="text-gray-700 dark:text-gray-400" @if(array_key_exists('sort', $actions)) {!! in_array('title', $resultsAttributes) ? 'data-title="'.$result->title.'"' : "" !!}
-                    data-route="{{ route('services.update', $result->id, false) }}" data-id="{{ $result->id }}" @endif>
+                    data-route="{{ route($actions['sort'], $result->id, false) }}" data-id="{{ $result->id }}" @endif>
                 @foreach($resultsAttributes as $attribute)
                 @if(isset($result->{$attribute}))
                 <td class="px-4 py-3">{{ $result->{$attribute} }}</td>
