@@ -47,6 +47,7 @@ return [
     'role' => 'Rol',
     'roles' => 'Roles',
     'name' => 'Nombre',
+    'sort' => 'Ordenar',
     'select_all' => 'Seleccionar todos',
     'unauthorized_action' => 'Acción no autorizada',
     'status_active' => 'Activo',
