@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Services;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ServicesController extends Controller
 {
@@ -17,7 +18,7 @@ class ServicesController extends Controller
         isAllowedTo('services_read');
 
         return view('admin.services.index', [
-            'services' => Services::latest('updated_at')->paginate(config('app.per_page')),
+            'services' => Services::orderBy('order')->get(),
             'attributes' => ['title', 'statusLabel', 'createdReadable'],
             'headers' => [
                 __('common.title'),
@@ -105,7 +106,7 @@ class ServicesController extends Controller
         $service->fill($request->all());
 
         if ($service->update()) {
-            return redirect(route('services.index'))->with('success', __('services.updated_success'));
+            return $this->makeResponse('services.index', ['success', __('services.updated_success')], Response::HTTP_OK);
         }
 
         return back();
