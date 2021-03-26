@@ -6,10 +6,11 @@ use App\Traits\FormatDates;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Sortable;
 
 class Speciality extends Model
 {
-    use HasFactory, SoftDeletes, FormatDates;
+    use HasFactory, SoftDeletes, FormatDates, Sortable;
 
     protected $guarded = ['id'];
 

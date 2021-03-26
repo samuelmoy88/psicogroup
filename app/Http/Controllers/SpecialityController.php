@@ -83,7 +83,7 @@ class SpecialityController extends Controller
      */
     public function edit(Speciality $speciality)
     {
-        isAllowedTo('specialities_write');
+        isAllowedTo('specialities_update');
 
         return view('admin.specialities.edit', [
             'speciality' => $speciality
@@ -108,7 +108,7 @@ class SpecialityController extends Controller
         $speciality->fill($request->all());
 
         if ($speciality->update()) {
-            $this->makeResponse('specialities.index', ['success', __('specialities.updated_success')], Response::HTTP_OK);
+            return $this->makeResponse('specialities.index', ['success', __('specialities.updated_success')], Response::HTTP_OK);
         }
 
         return back();
@@ -127,5 +127,14 @@ class SpecialityController extends Controller
         $speciality->delete();
 
         return redirect(route('specialities.index'))->with('success', __('specialities.deleted_success'));
+    }
+
+    public function sort(Request $request)
+    {
+        foreach ($request->models as $model) {
+            Speciality::sort($model['id'], $model['order']);
+        }
+
+        return Response::HTTP_OK;
     }
 }
