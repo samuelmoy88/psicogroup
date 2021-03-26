@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SecurityMeasures;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SecurityMeasuresController extends Controller
 {
@@ -17,7 +18,7 @@ class SecurityMeasuresController extends Controller
         isAllowedTo('security_measures_read');
 
         return view('admin.security-measures.index', [
-            'securityMeasures' => SecurityMeasures::latest('updated_at')->paginate(config('app.per_page')),
+            'securityMeasures' => SecurityMeasures::orderBy('order')->get(),
             'attributes' => ['title', 'statusLabel', 'createdReadable'],
             'headers' => [
                 __('common.title'),
@@ -105,7 +106,7 @@ class SecurityMeasuresController extends Controller
         $securityMeasure->fill($request->all());
 
         if ($securityMeasure->update()) {
-            return redirect(route('security-measures.index'))->with('success', __('security-measures.updated_success'));
+            $this->makeResponse('security-measures.index', ['success', __('security-measures.updated_success')], Response::HTTP_OK);
         }
 
         return back();
