@@ -126,4 +126,13 @@ class ServicesController extends Controller
 
         return redirect(route('services.index'))->with('success', __('services.deleted_success'));
     }
+
+    public function sort(Request $request)
+    {
+        foreach ($request->models as $model) {
+            Services::sort($model['id'], $model['order']);
+        }
+
+        return Response::HTTP_OK;
+    }
 }
