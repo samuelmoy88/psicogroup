@@ -106,7 +106,7 @@ class PaymentMethodController extends Controller
         $paymentMethod->fill($request->all());
 
         if ($paymentMethod->update()) {
-            $this->makeResponse('payment-methods.index', ['success', __('payment-methods.updated_success'], Response::HTTP_OK);
+            $this->makeResponse('payment-methods.index', ['success', __('payment-methods.updated_success')], Response::HTTP_OK);
         }
 
         return back();
