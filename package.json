@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@mapbox/mapbox-gl-geocoder": "^4.7.0",
-        "@mapbox/mapbox-sdk": "^0.12.1"
+        "@mapbox/mapbox-sdk": "^0.12.1",
+        "sortablejs": "^1.13.0"
     }
 }
