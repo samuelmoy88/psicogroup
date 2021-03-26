@@ -17,12 +17,21 @@
         <hr>
         <div class="xs:overflow-x-auto mb-4 relative" x-spread="container" x-data="tabs()">
             <ul class="flex" x-ref="tabs">
+                @if($specialist->addresses)
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
                     Consultorios
                 </li>
+                @endif
+                @if($specialist->profile->specialities)
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
                     Servicios
                 </li>
+                @endif
+                @if($specialist->profile->specialities || $specialist->profile->diseases)
+                <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
+                    Especialidades y patologías
+                </li>
+                @endif
                 {{--<li class="mr-2 p-2 border-b-2 border-brand-color-bottom text-brand-color">
                     Opiniones
                 </li>--}}
@@ -151,6 +160,52 @@
                     </ul>
                 </div>
             </div>
+        </div>
+        @endif
+        @if($specialist->profile->specialities || $specialist->profile->diseases)
+        <div class="hidden">
+            @if($specialist->profile->specialities)
+            <div class="form-card sm:w-2/3 mb-4">
+                <div class="mb-4">
+                    Especialidades {{ '('.count($specialist->profile->specialities).')' }}
+                    <div class="mt-4 bg-white border border-gray-200">
+                        <ul class="shadow-box">
+                            @foreach($specialist->profile->specialities as $specialities)
+                                <li class="relative border-b border-gray-200" x-data="{selected:null}">
+                                    <div type="button" class="w-full px-8 py-6 text-left">
+                                        <div class="flex items-center justify-between">
+                                            <span>{{ $specialities->title }}</span>
+                                            <span class="ico-plus"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @endif
+            @if($specialist->profile->diseases)
+            <div class="form-card sm:w-2/3 mb-4">
+                <div class="mb-4">
+                    Patologías {{ '('.count($specialist->profile->diseases).')' }}
+                    <div class="mt-4 bg-white border border-gray-200">
+                        <ul class="shadow-box">
+                            @foreach($specialist->profile->diseases as $diseases)
+                                <li class="relative border-b border-gray-200" x-data="{selected:null}">
+                                    <div type="button" class="w-full px-8 py-6 text-left">
+                                        <div class="flex items-center justify-between">
+                                            <span>{{ $diseases->title }}</span>
+                                            <span class="ico-plus"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
         @endif
     </div>
