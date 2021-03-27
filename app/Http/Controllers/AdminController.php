@@ -60,7 +60,8 @@ class AdminController extends Controller
 
         $request->validate([
             'first_name' => 'required|max:255',
-            'email' => 'required|email:filter|unique:users,email'
+            'email' => 'required|email:filter|unique:users,email',
+            'phone' => 'required|numeric|unique:users,phone'
         ]);
 
         (new AdminProfile())->add($request);
@@ -121,7 +122,7 @@ class AdminController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|email:filter|unique:users,email,'.$user->id,
-            'phone' => 'required|digits:9'
+            'phone' => 'required|numeric|unique:users,phone'
         ]);
 
         $user->profile->edit($request);
