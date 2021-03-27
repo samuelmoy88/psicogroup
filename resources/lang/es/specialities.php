@@ -11,5 +11,6 @@ return [
     'deleted_success' => 'Especialidad eliminada exitosamente',
     'status_active' => 'Activa',
     'status_deleted' => 'Eliminada',
-    'status_inactive' => 'Desactivada'
+    'status_inactive' => 'Desactivada',
+    'specialities_choose' => 'Elija sus especialidades'
 ];

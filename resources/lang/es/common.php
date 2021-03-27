@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'prefix' => 'Tratamiento',
     'title' => 'Titulo',
     'status' => 'Estatus',
     'state' => 'Estado',
@@ -33,11 +34,14 @@ return [
     'how_to_connect' => 'Cómo conectarse a la consulta',
     'view_profile' => 'Ver perfil',
     'description' => 'Descripción',
+    'type_here' => 'Escriba aquí',
     'price' => 'Precio',
     'from' => 'Desde',
     'latest_changes' => 'Últimos cambios',
     'consultations_history' => 'Historial de consultas',
     'specialist' => 'Especialista',
+    'consultations' => 'Consultorios',
+    'specialities_diseases' => 'Especialidades y patologías',
     'field' => 'Campo',
     'old_value' => 'Valor anterior',
     'new_value' => 'Valor nuevo',
@@ -77,6 +81,9 @@ return [
     'new_email_required' => 'El nuevo email es obligatorio',
     'email_invalid' => 'Por favor indique un email válido',
     'email_unique' => 'Este email ya existe en nuestros registros, por favor utilice uno diferente',
-    'email_changed_success' => 'Email cambiado exitosamente'
+    'email_changed_success' => 'Email cambiado exitosamente',
+    'save_changes_success' => 'Cambios guardados',
+    'update_error' => 'Ha ocurrido un error',
+    'save_changes' => 'Guardar cambios'
 
 ];

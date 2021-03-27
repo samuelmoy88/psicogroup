@@ -12,5 +12,10 @@ return [
     'deleted_success' => 'Servicio eliminado exitosamente',
     'status_active' => 'Activo',
     'status_deleted' => 'Eliminado',
-    'status_inactive' => 'Desactivado'
+    'status_inactive' => 'Desactivado',
+    'add' => 'Añadir servicio',
+    'your_services' => 'Tus servicios',
+    'service_details' => 'Indica detalles sobre el servicio para que los pacientes le elijan cuando buscan un especialista',
+    'service_consultations' => 'Consultas donde realiza este servicio',
+    'delete' => 'Eliminar servicio',
 ];

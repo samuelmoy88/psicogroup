@@ -11,5 +11,7 @@ return [
     'deleted_success' => 'patología eliminada exitosamente',
     'status_active' => 'Activa',
     'status_deleted' => 'Eliminada',
-    'status_inactive' => 'Desactivada'
+    'status_inactive' => 'Desactivada',
+    'treatments' => 'Tratamientos',
+    'treatments_copy' => 'A menudo los pacientes buscan especialista introduciendo una enfermedad en el cuadro de búsqueda. Si rellena esa información los pacientes encontrarán su perfil más fácilmente'
 ];
