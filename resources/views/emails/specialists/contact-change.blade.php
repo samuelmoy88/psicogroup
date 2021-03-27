@@ -3,12 +3,10 @@
 
 {{ $body }}
 
-# Equipo de {{ config('app.name') }}
-
 @component('mail::button', ['url' => $url, 'color' => 'brand'])
 Ver perfil
 @endcomponent
 
 Gracias,<br>
-{{ config('app.name') }}
+# Equipo de {{ config('app.name') }}
 @endcomponent

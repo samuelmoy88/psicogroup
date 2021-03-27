@@ -4,7 +4,7 @@
 Esta es tu nueva contraseña: {{ $password }}
 
 @component('mail::button', ['url' => $url, 'color' => 'brand'])
-    Ver perfil
+Ver perfil
 @endcomponent
 
 # Equipo de {{ config('app.name') }}
