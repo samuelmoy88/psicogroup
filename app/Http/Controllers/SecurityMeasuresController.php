@@ -106,7 +106,7 @@ class SecurityMeasuresController extends Controller
         $securityMeasure->fill($request->all());
 
         if ($securityMeasure->update()) {
-            $this->makeResponse('security-measures.index', ['success', __('security-measures.updated_success')], Response::HTTP_OK);
+            return $this->makeResponse('security-measures.index', ['success', __('security-measures.updated_success')], Response::HTTP_OK);
         }
 
         return back();

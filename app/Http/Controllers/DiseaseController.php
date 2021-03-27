@@ -106,7 +106,7 @@ class DiseaseController extends Controller
         $disease->fill($request->all());
 
         if ($disease->update()) {
-            $this->makeResponse('diseases.index', ['success', __('diseases.updated_success')], Response::HTTP_OK);
+            return $this->makeResponse('diseases.index', ['success', __('diseases.updated_success')], Response::HTTP_OK);
         }
 
         return back();
