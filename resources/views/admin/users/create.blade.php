@@ -12,22 +12,18 @@
                 <div class="mb-4 text-sm">
                     <x-label for="first_name">{{ __("common.first_name") }} *</x-label>
                     <x-input type="text" value="" id="first_name" name="first_name"/>
-                    @error('first_name') <li class="text-sm text-red-600 mt-3">{{ $message }}</li> @enderror
                 </div>
                 <div class="mb-4 text-sm">
                     <x-label for="last_name">{{ __("common.last_names") }} *</x-label>
                     <x-input type="text" value="" id="last_name" name="last_name"/>
-                    @error('last_name') <li class="text-sm text-red-600 mt-3">{{ $message }}</li> @enderror
                 </div>
                 <div class="mb-4 text-sm">
                     <x-label for="email">{{ __("common.email") }} *</x-label>
                     <x-input type="email" value="" id="email" name="email"/>
-                    @error('email') <li class="text-sm text-red-600 mt-3">{{ $message }}</li> @enderror
                 </div>
                 <div class="mb-4 text-sm">
                     <x-label for="phone">{{ __("common.phone") }} *</x-label>
                     <x-input type="tel" value="" id="phone" name="phone"/>
-                    @error('phone') <li class="text-sm text-red-600 mt-3">{{ $message }}</li> @enderror
                 </div>
                 <div class="mb-4 text-sm">
                     <x-label class="mb-1">{{ __("config.roles") }} *</x-label>
