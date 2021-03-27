@@ -19,27 +19,27 @@
                        id="photo-upload" class="hidden">
             </div>
             <div class="mb-4 text-sm">
-                <x-label for="prefix">{{ __('Prefix') }}</x-label>
+                <x-label for="prefix">{{ __('common.prefix') }}</x-label>
                 <x-select-options name="profile[prefix_id]" id="prefix" :value="$specialist->profile->prefix_id"
                                   :placeholder="'Choose'" :options="$prefixes"/>
             </div>
             <div class="mb-4 text-sm">
-                <x-label for="first_name">{{ __('First name') }} *</x-label>
+                <x-label for="first_name">{{ __('common.first_name') }} *</x-label>
                 <x-input type="text" value="{{ $specialist->first_name }}" id="first_name" name="first_name" placeholder="Pedro"/>
             </div>
             <div class="mb-4 text-sm">
-                <x-label for="last_name">{{ __('Last name') }} *</x-label>
+                <x-label for="last_name">{{ __('common.last_names') }} *</x-label>
                 <x-input type="text" value="{{ $specialist->last_name }}" id="last_name" name="last_name" placeholder="Perez"/>
             </div>
             <div class="mb-4 text-sm">
-                <x-label for="license_number">{{ __('License number') }} </x-label>
+                <x-label for="license_number">{{ __('common.license_number') }} </x-label>
                 <x-input type="text" value="{{ $specialist->profile->license_number }}" id="license_number"
                          name="profile[license_number]"/>
             </div>
         </div>
 
         <div class="form-card">
-            <h2 class="font-bold text-xl">Sobre mí</h2>
+            <h2 class="font-bold text-xl">{{ __('specialists.field_about') }}</h2>
             <p class="font-normal text-base mb-2">Utilice esta sección para mostrar su experiencia y sus logros. Recuerde que los pacientes que buscan un especialista quieren tener el máximo de información posible para tomar una decisión.</p>
             <div class="mb-4 text-sm">
                 <x-textarea name="profile[about]" id="about">{{ $specialist->profile->about }}</x-textarea>
@@ -47,8 +47,8 @@
         </div>
 
         <div class="form-card">
-            <h2 class="font-bold text-xl">Especialidades</h2>
-            <p class="font-normal text-base mb-2">Elija sus especialidades.</p>
+            <h2 class="font-bold text-xl">{{ __('specialities.specialities') }}</h2>
+            <p class="font-normal text-base mb-2">{{ __('specialities.specialities_choose') }}.</p>
             <div class="mb-4 text-sm flex">
                 @foreach($specialities as $key => $speciality)
                     @if($key == 0 || round(count($specialities) / 2) == $key )
@@ -69,8 +69,8 @@
         </div>
 
         <div class="form-card">
-            <h2 class="font-bold text-xl">Enfermedades tratadas</h2>
-            <p class="font-normal text-base mb-2">A menudo los pacientes buscan especialista introduciendo una enfermedad en el cuadro de búsqueda. Si rellena esa información los pacientes encontrarán su perfil más fácilmente.</p>
+            <h2 class="font-bold text-xl">{{ __('diseases.treatments') }}</h2>
+            <p class="font-normal text-base mb-2">{{ __('diseases.treatments_copy') }}.</p>
             <div class="mb-4 text-sm flex">
                 @foreach($diseases as $key => $disease)
                     @if($key == 0 || round(count($diseases) / 2) == $key )
