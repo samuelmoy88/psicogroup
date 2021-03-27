@@ -4051,17 +4051,20 @@ function _xhr() {
 
 
 var sortableEl = document.getElementById('sortable');
-sortablejs_modular_sortable_complete_esm_js__WEBPACK_IMPORTED_MODULE_2__.default.create(sortableEl, {
-  handle: '.handle',
-  animation: 150,
-  swapThreshold: 0.70,
-  direction: 'vertical',
-  onEnd: function onEnd(event) {
-    if (event.newIndex !== event.oldIndex) {
-      reorderModels();
+
+if (sortableEl) {
+  sortablejs_modular_sortable_complete_esm_js__WEBPACK_IMPORTED_MODULE_2__.default.create(sortableEl, {
+    handle: '.handle',
+    animation: 150,
+    swapThreshold: 0.70,
+    direction: 'vertical',
+    onEnd: function onEnd(event) {
+      if (event.newIndex !== event.oldIndex) {
+        reorderModels();
+      }
     }
-  }
-});
+  });
+}
 
 function reorderModels() {
   sortableEl.children;

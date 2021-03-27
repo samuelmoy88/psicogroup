@@ -57,17 +57,19 @@ import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
 
 let sortableEl = document.getElementById('sortable');
 
-Sortable.create(sortableEl, {
-    handle: '.handle',
-    animation: 150,
-    swapThreshold: 0.70,
-    direction: 'vertical',
-    onEnd: function (event) {
-        if (event.newIndex !== event.oldIndex) {
-            reorderModels();
+if (sortableEl) {
+    Sortable.create(sortableEl, {
+        handle: '.handle',
+        animation: 150,
+        swapThreshold: 0.70,
+        direction: 'vertical',
+        onEnd: function (event) {
+            if (event.newIndex !== event.oldIndex) {
+                reorderModels();
+            }
         }
-    }
-});
+    });
+}
 
 function reorderModels() {
     sortableEl.children;
