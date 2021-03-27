@@ -17,7 +17,6 @@ class ContactSpecialist extends Component
     protected array $listeners = [
         'notifySpecialist',
         'specialistContacted',
-        'refreshComponent' => '$refresh'
     ];
 
     public function mount($modal)

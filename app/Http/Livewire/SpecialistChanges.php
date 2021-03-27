@@ -32,14 +32,14 @@ class SpecialistChanges extends Component
         $this->specialist = $specialist;
     }
 
-    public function getChangeToAccept(SpecialistProfileChanges $change)
+    public function setChangeToAccept(SpecialistProfileChanges $change)
     {
         $this->change = $change;
 
         (new AcceptSpecialistChange('acceptChangeModal'))->setChange($this->change);
     }
 
-    public function getChangeToReject(SpecialistProfileChanges $change)
+    public function setChangeToReject(SpecialistProfileChanges $change)
     {
         $this->change = $change;
 

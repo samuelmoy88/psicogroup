@@ -1,5 +1,5 @@
 <div>
-    <div class="table striped hovered" x-data="changes()">
+    <div class="table striped hovered" x-data="data()">
         <div class="thead">
             <div class="tr">
                 <div class="td">{{ __('common.field') }}</div>
@@ -24,11 +24,11 @@
                         <div class="td">
                             <div class="flex items-center space-x-4 text-sm">
                                 @if($changes->state !== \App\Models\SpecialistProfileChanges::STATE_APPROVED)
-                                    <i title="{{ __('changes-history.approve') }}" x-on:click="openModal('#acceptChangeModal');$wire.getChangeToAccept({{$changes}})"
+                                    <i title="{{ __('changes-history.approve') }}" x-on:click="openModal('#acceptChangeModal');$wire.setChangeToAccept({{$changes}})"
                                          class="cursor-pointer fas fa-check-square text-brand-color"></i>
                                 @endif
                                 @if($changes->state !== \App\Models\SpecialistProfileChanges::STATE_REJECTED)
-                                    <i title="{{ __('changes-history.reject') }}" x-on:click="openModal('#rejectChangeModal');$wire.getChangeToReject({{$changes}})"
+                                    <i title="{{ __('changes-history.reject') }}" x-on:click="openModal('#rejectChangeModal');$wire.setChangeToReject({{$changes}})"
                                         class="cursor-pointer fas fa-times-circle text-brand-color"></i>
                                 @endif
                             </div>
