@@ -3,17 +3,22 @@
         @csrf
         @method('PUT')
         <div class="form-card" x-ref="services">
-            <h2 class="font-bold text-xl">{{ $service->services->title  }}</h2>
+            <div class="flex flex-wrap justify-between mb-4">
+                <h2 class="font-bold text-xl">{{ $service->services->title  }}</h2>
+                <a class="text-blue-500" href="{{ route('specialist.services.index', auth()->user()->username) }}">
+                    <i class="fas fa-chevron-circle-left"></i>
+                    {{ __('services.go_back') }}</a>
+            </div>
             <div class="mt-4 mb-4 services_block">
                 <div class="p-4 mb-4 text-sm w-full flex flex-wrap flex-col md:flex-row bg-gray-100">
                     <div class="flex-1 space-y-2">
-                        <label class="flex items-center mb-2 cursor-pointer">{{ __('Description') }}</label>
-                        <x-textarea rows="2" placeholder="{{ __('Add details about the service so patients want to choose you when looking for a specialist ') }}" name="description">{{ $service->description }}</x-textarea>
+                        <label class="flex items-center mb-2 cursor-pointer">{{ __('common.description') }}</label>
+                        <x-textarea rows="2" placeholder="{{ __('services.service_details') }}" name="description">{{ $service->description }}</x-textarea>
                     </div>
                     <div class="flex flex-wrap space-x-4 items-start">
                         <label class="flex items-center mb-2 cursor-pointer">
                             <x-checkbox name="price_from" checked="{{ $service->price_from == 1 ? true : false }}" value="1"/>
-                            <span class="ml-2">{{ __('From') }}</span>
+                            <span class="ml-2">{{ __('common.from') }}</span>
                         </label>
                         <div class="relative text-gray-500">
                             <x-input type="text" value="{{ $service->price }}" id="" name="price"/>
@@ -22,7 +27,7 @@
                     </div>
                     @if($addresses)
                         <div class="mt-4 flex flex-wrap w-full">
-                            <p class="w-full text-bold text-black mb-4">{{ __('Consultations for this service') }}</p>
+                            <p class="w-full text-bold text-black mb-4">{{ __('services.service_consultations') }}</p>
                             @foreach($addresses as $address)
                                 <label class="flex items-center mb-2 cursor-pointer">
                                     <x-input type="hidden" name="services[addresses][{{ $address->id }}]" value="0"/>
@@ -41,11 +46,11 @@
             <form method="post" action="{{ route('specialist.services.destroy', ['specialist' => auth()->user()->username, 'service' => $service->id]) }}">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="text-red-600">{{ __('Delete service') }}</button>
+                <button type="submit" class="text-red-600">{{ __('services.delete') }}</button>
             </form>
         </div>
         <div class="mb-4 text-sm text-right">
-            <x-button type="submit" form="edit_service">{{ __('Save changes') }}</x-button>
+            <x-button type="submit" form="edit_service">{{ __('common.save_changes') }}</x-button>
         </div>
     </div>
     @if(session('error'))

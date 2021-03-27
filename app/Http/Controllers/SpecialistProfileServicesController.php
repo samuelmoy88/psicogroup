@@ -49,7 +49,7 @@ class SpecialistProfileServicesController extends Controller
                     $addresses = null;
                     if (isset($service['addresses'])) {
                         $addresses = $service['addresses'];
-                        unset($service['addresses']);//todo: if no address is selected, this blows up
+                        unset($service['addresses']);
                     }
                     $user->services()->attach($service_id, $service);
                     $pivot_id = $user->services()->where('service_id', $service['service_id'])->first()->pivot->id;
@@ -65,7 +65,7 @@ class SpecialistProfileServicesController extends Controller
 
         return redirect(route('specialist.services.index', [
             'specialist' => auth()->user()->username
-        ]))->with('success', 'Changes saved successfully');
+        ]))->with('success', __('common.save_changes_success'));
     }
 
     /**
@@ -125,10 +125,10 @@ class SpecialistProfileServicesController extends Controller
 
         if ($service->update()) {
             return redirect(route('specialist.services.index', ['specialist' => $specialist]))
-                ->with('success', 'Changes saved successfully');
+                ->with('success', __('common.save_changes_success'));
         }
 
-        return back()->with('error', 'An error has occurred updating the service');
+        return back()->with('error', __('common.update_error'));
     }
 
     /**
@@ -144,6 +144,6 @@ class SpecialistProfileServicesController extends Controller
         $service->delete();
 
         return redirect(route('specialist.services.index', ['specialist' => $specialist]))
-            ->with('success', 'Service deleted successfully');
+            ->with('success', __('services.deleted_success'));
     }
 }

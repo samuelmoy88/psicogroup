@@ -91,7 +91,7 @@
         </div>
 
         <div class="mb-4 text-sm text-right">
-            <x-button>Guardar cambios</x-button>
+            <x-button>{{ __('common.save_changes') }}</x-button>
         </div>
     </form>
     @if(session('success'))

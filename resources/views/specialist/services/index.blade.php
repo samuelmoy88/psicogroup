@@ -2,7 +2,7 @@
     <div class="form-card">
         <div class="flex justify-between mb-2">
             <h2 class="font-bold text-xl">{{ __('common.services') }}</h2>
-            <a class="text-blue-500" href="{{ route('specialist.services.create', auth()->user()->username) }}">{{ __('Add new service') }}</a>
+            <a class="text-blue-500" href="{{ route('specialist.services.create', auth()->user()->username) }}">{{ __('services.add') }}</a>
         </div>
         @if(isset($success))
             <x-alert-success>{{ $success }}</x-alert-success>
@@ -19,7 +19,9 @@
                                 @endif
                             </div>
                             <div class="flex items-center">
-                                <a class="text-white rounded bg-brand-color py-2 px-3" href="{{ route('specialist.services.edit', ['specialist' => auth()->user()->username, 'service' => $service->pivot->id]) }}">{{ __('Edit service') }}</a>
+                                <a class="text-white rounded bg-brand-color py-2 px-3"
+                                   href="{{ route('specialist.services.edit', ['specialist' => auth()->user()->username, 'service' => $service->pivot->id]) }}"
+                                >{{ __('common.edit') }}</a>
                             </div>
                         </div>
                     </li>

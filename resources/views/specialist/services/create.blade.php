@@ -1,8 +1,13 @@
 <x-app-layout>
     <form action="{{ route('specialist.services.store', auth()->user()->username) }}" method="post">
         @csrf
+        <div class="text-right mb-4">
+            <a class="text-blue-500" href="{{ route('specialist.services.index', auth()->user()->username) }}">
+                <i class="fas fa-chevron-circle-left"></i>
+                {{ __('services.go_back') }}</a>
+        </div>
         <div class="form-card" x-ref="services">
-            <h2 class="font-bold text-xl">{{ __('Your services') }}</h2>
+            <h2 class="font-bold text-xl">{{ __('services.your_services') }}</h2>
             <p class="text-bold text-black mb-4">Hemos seleccionado para usted una lista de los servicios más populares
                 de su especialidad. Por favor, marque los que usted realiza.</p>
             <div class="mt-4 mb-4 services_block">
@@ -16,7 +21,7 @@
                                 <x-checkbox name="services[{{ $service->id }}][service_id]" value="{{ $service->id }}"/>
                                 <span class="ml-2">{{ $service->title }}</span>
                             </label>
-                            <x-textarea rows="2" placeholder="{{ __('Add details about the service so patients want to choose you when looking for a specialist ') }}" name="services[{{ $service->id }}][description]"></x-textarea>
+                            <x-textarea rows="2" placeholder="{{ __('services.service_details') }}" name="services[{{ $service->id }}][description]"></x-textarea>
                         </div>
                         <div class="flex flex-wrap space-x-4 items-start">
                             <label class="flex items-center mb-2 cursor-pointer">
@@ -30,7 +35,7 @@
                         </div>
                         @if($addresses)
                             <div class="mt-2 flex flex-wrap w-full space-x-4">
-                                <p class="w-full text-bold text-black mb-4">{{ __('Consultations for this service') }}</p>
+                                <p class="w-full text-bold text-black mb-4">{{ __('services.service_consultations') }}</p>
                                 @foreach($addresses as $address)
                                     <label class="flex items-center mb-2 cursor-pointer">
                                         <x-checkbox name="services[{{ $service->id }}][addresses][]" value="{{ $address->id }}"/>
@@ -45,7 +50,7 @@
         </div>
 
         <div class="mb-4 text-sm text-right">
-            <x-button>Guardar cambios</x-button>
+            <x-button>{{ __('common.save_changes') }}</x-button>
         </div>
     </form>
 </x-app-layout>
