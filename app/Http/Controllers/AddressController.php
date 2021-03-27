@@ -103,7 +103,7 @@ class AddressController extends Controller
 
         $address->edit($request);
 
-        return redirect(route('specialist.addresses.index', $specialist->username))->with('success', __('Changes saved successfully'));
+        return redirect(route('specialist.addresses.index', $specialist->username))->with('success', __('common.save_changes_success'));
     }
 
     /**
@@ -118,6 +118,6 @@ class AddressController extends Controller
     {
         $address->delete();
 
-        return redirect(route('specialist.addresses.index', $specialist->username))->with('success', __('Address deleted successfully'));
+        return redirect(route('specialist.addresses.index', $specialist->username))->with('success', __('address.delete_success'));
     }
 }
