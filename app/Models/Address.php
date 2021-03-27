@@ -14,6 +14,8 @@ class Address extends Model
 
     protected $with = ['paymentMethods', 'services', 'accessibility'];
 
+    const TYPE_PHYSICAL = 'physical';
+    const TYPE_ONLINE = 'online';
 
     public function users()
     {
