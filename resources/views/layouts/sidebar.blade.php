@@ -25,12 +25,12 @@
                     class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                     aria-label="submenu">
                     <li class="{{ request()->routeIs('specialist.edit') ? 'bg-brand-color' : '' }} rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
-                        <a class="w-full {{ request()->routeIs('specialist.edit') ? 'text-white' : '' }}"
+                        <a class="w-full block {{ request()->routeIs('specialist.edit') ? 'text-white' : '' }}"
                            href="{{ route('specialist.edit', auth()->user()->username) }}">Editar perfil</a>
                     </li>
                     <li class="{{ request()->routeIs('specialist.addresses.*') ? 'bg-brand-color' : '' }}
                         rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
-                        <a class="w-full {{ request()->routeIs('specialist.addresses.*') ? 'text-white' : '' }}
+                        <a class="w-full block {{ request()->routeIs('specialist.addresses.*') ? 'text-white' : '' }}
                          {{ request()->routeIs('specialist.addresses.*') ? 'text-white' : '' }}"
                            href="{{ route('specialist.addresses.index', auth()->user()->username) }}">
                             Direcciones
@@ -38,14 +38,14 @@
                     </li>
                     <li class="{{ request()->routeIs('specialist.services.*') ? 'bg-brand-color' : '' }}
                         rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
-                        <a class="w-full {{ request()->routeIs('specialist.services.*') ? 'text-white' : '' }}
+                        <a class="w-full block {{ request()->routeIs('specialist.services.*') ? 'text-white' : '' }}
                          {{ request()->routeIs('specialist.services.*') ? 'text-white' : '' }}"
                            href="{{ route('specialist.services.index', auth()->user()->username) }}">
                             Servicios
                         </a>
                     </li>
                     <li class="{{ request()->routeIs('specialist.show') ? 'bg-brand-color' : '' }} rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
-                        <a class="w-full {{ request()->routeIs('specialist.show') ? 'text-white' : '' }}"
+                        <a class="w-full block {{ request()->routeIs('specialist.show') ? 'text-white' : '' }}"
                            href="{{ route('specialist.show', ['specialist' => auth()->user()->username, 'uuid' => auth()->user()->uuid]) }}">Ver perfil</a>
                     </li>
                 </ul>
@@ -73,7 +73,7 @@
                     class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                     aria-label="submenu">
                     <li class="{{ request()->routeIs('account.edit') ? 'bg-brand-color' : '' }} rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
-                        <a class="w-full {{ request()->routeIs('account.edit') ? 'text-white' : '' }}"
+                        <a class="w-full block {{ request()->routeIs('account.edit') ? 'text-white' : '' }}"
                            href="{{ route('account.edit') }}">Ver mi cuenta</a>
                     </li>
                     <li class="rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
