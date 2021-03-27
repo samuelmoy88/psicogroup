@@ -97,7 +97,7 @@ class SpecialistsProfileController extends Controller
 
         $specialist->commitChanges($request);
 
-        return redirect(route('specialist.edit', $specialist->user->username))->with('success', __('Changes saved successfully'));
+        return redirect(route('specialist.edit', $specialist->user->username))->with('success', __('common.save_changes_success'));
     }
 
     /**
