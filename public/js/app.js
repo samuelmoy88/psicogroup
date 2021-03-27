@@ -4068,19 +4068,23 @@ window.toggle = function () {
         action === 'on' ? element.classList.remove('hidden') : element.classList.add('hidden');
       }
     },
-    toggleOnlineConsultation: function toggleOnlineConsultation(addressElement, onlineDetailsElement, onlinePaymentDetails, otherInformation, action) {
+    toggleOnlineConsultation: function toggleOnlineConsultation(physicalIndications, onlineIndications, addressElement, onlineDetailsElement, onlinePaymentDetails, otherInformation, action) {
       if (action === 'off') {
         addressElement.classList.remove('hidden');
         otherInformation.classList.remove('hidden');
+        physicalIndications.classList.remove('hidden');
         onlineDetailsElement.classList.add('hidden');
         onlinePaymentDetails.classList.add('hidden');
+        onlineIndications.classList.add('hidden');
         return;
       }
 
       addressElement.classList.add('hidden');
       otherInformation.classList.add('hidden');
+      physicalIndications.classList.add('hidden');
       onlineDetailsElement.classList.remove('hidden');
       onlinePaymentDetails.classList.remove('hidden');
+      onlineIndications.classList.remove('hidden');
     }
   };
 };

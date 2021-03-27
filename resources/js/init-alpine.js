@@ -136,18 +136,22 @@ window.toggle = function () {
                     element.classList.add('hidden');
             }
         },
-        toggleOnlineConsultation(addressElement, onlineDetailsElement, onlinePaymentDetails, otherInformation,  action) {
+        toggleOnlineConsultation(physicalIndications, onlineIndications, addressElement, onlineDetailsElement, onlinePaymentDetails, otherInformation,  action) {
             if (action === 'off') {
                 addressElement.classList.remove('hidden');
                 otherInformation.classList.remove('hidden');
+                physicalIndications.classList.remove('hidden');
                 onlineDetailsElement.classList.add('hidden');
                 onlinePaymentDetails.classList.add('hidden');
+                onlineIndications.classList.add('hidden');
                 return
             }
             addressElement.classList.add('hidden');
             otherInformation.classList.add('hidden');
+            physicalIndications.classList.add('hidden');
             onlineDetailsElement.classList.remove('hidden');
             onlinePaymentDetails.classList.remove('hidden');
+            onlineIndications.classList.remove('hidden');
         }
     }
 }
