@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="form-card">
         <div class="flex justify-between mb-2">
-            <h2 class="font-bold text-xl">{{ __('Addresses') }}</h2>
-            <a class="text-blue-500" href="{{ route('specialist.addresses.create', auth()->user()->username) }}">{{ __('Add new address') }}</a>
+            <h2 class="font-bold text-xl">{{ __('common.addresses') }}</h2>
+            <a class="text-blue-500" href="{{ route('specialist.addresses.create', auth()->user()->username) }}">{{ __('address.add_new') }}</a>
         </div>
         @if(isset($success))
             <x-alert-success>{{ $success }}</x-alert-success>
@@ -20,7 +20,7 @@
                             </address>
                         </div>
                         <div class="flex items-center">
-                            <a class="text-white rounded bg-brand-color py-2 px-3" href="{{ route('specialist.addresses.edit', ['specialist' => auth()->user()->username, 'address' => $address->id]) }}">{{ __('Edit address') }}</a>
+                            <a class="text-white rounded bg-brand-color py-2 px-3" href="{{ route('specialist.addresses.edit', ['specialist' => auth()->user()->username, 'address' => $address->id]) }}">{{ __('address.edit') }}</a>
                         </div>
                     </div>
                 </li>
