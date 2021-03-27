@@ -1,1 +1,1 @@
-<img src="{{ asset('images/logo-small.png') }}" loading="lazy" alt="small logo" height="200" width="200">
+<img src="{{ asset('images/logo-small.png') }}" loading="lazy" alt="small logo" class="object-contain">
