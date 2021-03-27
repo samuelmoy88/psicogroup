@@ -21,7 +21,7 @@
                 <tr class="text-gray-700 dark:text-gray-400" data-id="{{ $result->id }}">
                 @foreach($resultsAttributes as $attribute)
                 @if(isset($result->{$attribute}))
-                <td class="px-4 py-3">{{ $result->{$attribute} }}</td>
+                <td class="px-4 py-3 truncate" title="{{ $result->{$attribute} }}">{{ $result->{$attribute} }}</td>
                 @endif
                 @endforeach
                 @if($actions)

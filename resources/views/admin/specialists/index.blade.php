@@ -21,7 +21,7 @@
                         >
                         @foreach($specialists as $specialist)
                             <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 truncate" title="{{ $specialist->first_name }}">
                                     <div class="flex items-center text-sm">
                                         <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                             <img class="object-cover w-full h-full rounded-full" src="{{ $specialist->profile->avatarPath }}" alt="" loading="lazy">
@@ -31,14 +31,13 @@
                                             <p class="font-semibold">{{ $specialist->first_name }}</p>
                                         </div>
                                     </div>
-
                                 </td>
-                                <td class="px-4 py-3">{{ $specialist->last_name }}</td>
-                                <td class="px-4 py-3">{{ $specialist->profile->license_number ?: '-' }}</td>
-                                <td class="px-4 py-3">{{ $specialist->email }}</td>
-                                <td class="px-4 py-3">{{ $specialist->phone }}</td>
-                                <td class="px-4 py-3">{{ $specialist->createdReadable }}</td>
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 truncate" title="{{ $specialist->last_name }}">{{ $specialist->last_name }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $specialist->profile->license_number }}">{{ $specialist->profile->license_number ?: '-' }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $specialist->email }}">{{ $specialist->email }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $specialist->phone }}">{{ $specialist->phone }}</td>
+                                <td class="px-4 py-3 truncate">{{ $specialist->createdReadable }}</td>
+                                <td class="px-4 py-3 truncate">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a title="{{ __('common.view') }}" href="{{ route('doctors.show', $specialist->uuid) }}">
                                             <i class="fas fa-eye text-brand-color"></i>

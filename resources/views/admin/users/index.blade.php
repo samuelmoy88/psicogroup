@@ -22,12 +22,12 @@
                         >
                         @foreach($admins as $admin)
                             <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">{{ $admin->first_name }}</td>
-                                <td class="px-4 py-3">{{ $admin->last_name }}</td>
-                                <td class="px-4 py-3">{{ $admin->email }}</td>
-                                <td class="px-4 py-3">{{ $admin->phone }}</td>
-                                <td class="px-4 py-3">{{ $admin->roles->pluck('name')->implode(', ') }}</td>
-                                <td class="px-4 py-3">{{ $admin->createdReadable }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $admin->first_name }}">{{ $admin->first_name }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $admin->last_name }}">{{ $admin->last_name }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $admin->email }}">{{ $admin->email }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $admin->phone }}">{{ $admin->phone }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $admin->roles->pluck('name')->implode(', ') }}">{{ $admin->roles->pluck('name')->implode(', ') }}</td>
+                                <td class="px-4 py-3 truncate">{{ $admin->createdReadable }}</td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a title="{{ __('common.edit') }}" href="{{ route('config.users.edit', $admin->id) }}">

@@ -21,13 +21,13 @@
                         >
                         @foreach($patients as $patient)
                             <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 truncate" title="{{ $patient->first_name }}">
                                     {{ $patient->first_name }}</td>
-                                <td class="px-4 py-3">{{ $patient->last_name }}</td>
-                                <td class="px-4 py-3">{{ $patient->email }}</td>
-                                <td class="px-4 py-3">{{ $patient->phone }}</td>
-                                <td class="px-4 py-3">{{ $patient->createdReadable }}</td>
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 truncate" title="{{ $patient->last_name }}">{{ $patient->last_name }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $patient->email }}">{{ $patient->email }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $patient->phone }}">{{ $patient->phone }}</td>
+                                <td class="px-4 py-3 truncate">{{ $patient->createdReadable }}</td>
+                                <td class="px-4 py-3 truncate">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a title="{{ __('common.view') }}" href="{{ route('patients.show', $patient->uuid) }}">
                                             <i class="fas fa-eye text-brand-color"></i>
