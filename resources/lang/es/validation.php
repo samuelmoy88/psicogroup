@@ -150,7 +150,8 @@ return [
     'attributes' => [
         'currentPassword' => __('common.current_password'),
         'newPassword' => __('common.new_password'),
-        'confirmPassword' => __('common.confirm_password')
+        'confirmPassword' => __('common.confirm_password'),
+        'phone' => __('common.phone')
     ],
 
 ];
