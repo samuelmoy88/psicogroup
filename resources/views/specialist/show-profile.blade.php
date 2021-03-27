@@ -9,7 +9,7 @@
                 <h3 class="text-xl font-bold">{{ $specialist->first_name }} {{ $specialist->last_name }}
                     @if($specialist->profile->is_verified) <i class="fas fa-check-circle text-brand-color"></i>@endif</h3>
                 @if($specialist->profile->license_number)
-                    <p class="text-xs mt-3 mb-2">Número de colegiado</p>
+                    <p class="text-xs mt-3 mb-2">{{ __('common.license_number') }}</p>
                     <p class="text-sm">{{ $specialist->profile->license_number }}</p>
                 @endif
             </div>
@@ -19,18 +19,15 @@
             <ul class="flex" x-ref="tabs">
                 @if($specialist->addresses)
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
-                    Consultorios
-                </li>
+                    {{ __('common.consultations') }}</li>
                 @endif
                 @if($specialist->profile->specialities)
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
-                    Servicios
-                </li>
+                    {{ __('common.services') }}</li>
                 @endif
                 @if($specialist->profile->specialities || $specialist->profile->diseases)
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
-                    Especialidades y patologías
-                </li>
+                    {{ __('common.specialities_diseases') }}</li>
                 @endif
                 {{--<li class="mr-2 p-2 border-b-2 border-brand-color-bottom text-brand-color">
                     Opiniones
@@ -54,7 +51,7 @@
                                     x-bind:class="{'border-l-2 border-brand-color-left text-brand-color bg-gray-100' : selected == {{ $loop->index }}}">
                                 <div class="flex items-center justify-between">
                                     <span>{{ $address->title }}</span>
-                                    <span class="ico-plus"></span>
+                                    <i class="fas fa-chevron-circle-down"></i>
                                 </div>
                             </button>
                             <div class="relative overflow-hidden transition-all max-h-0 duration-700" style=""
@@ -136,7 +133,7 @@
                                     x-bind:class="{'border-l-2 border-brand-color-left text-brand-color bg-gray-100' : selected == {{ $loop->index }}}">
                                 <div class="flex items-center justify-between">
                                     <span>{{ $service->title }}</span>
-                                    <span class="ico-plus"></span>
+                                    <i class="fas fa-chevron-circle-down"></i>
                                 </div>
                             </button>
                             <div class="relative overflow-hidden transition-all max-h-0 duration-700" style=""
@@ -175,7 +172,6 @@
                                     <div type="button" class="w-full px-8 py-6 text-left">
                                         <div class="flex items-center justify-between">
                                             <span>{{ $specialities->title }}</span>
-                                            <span class="ico-plus"></span>
                                         </div>
                                     </div>
                                 </li>
@@ -196,7 +192,6 @@
                                     <div type="button" class="w-full px-8 py-6 text-left">
                                         <div class="flex items-center justify-between">
                                             <span>{{ $diseases->title }}</span>
-                                            <span class="ico-plus"></span>
                                         </div>
                                     </div>
                                 </li>
