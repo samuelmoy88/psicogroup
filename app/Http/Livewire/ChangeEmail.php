@@ -27,11 +27,11 @@ class ChangeEmail extends Component
 
 
         $this->messages = [
-            'password.password' => __('Your current password did not match our records'),
-            'password.required' => __("The password is required"),
-            'email.required' => __("New email is required"),
-            'email.email' => __("Please enter a valid email address"),
-            'email.unique' => __("This email address already exists in our records, please use a different one"),
+            'password.password' => __('common.current_password_error'),
+            'password.required' => __("common.password_required"),
+            'email.required' => __("common.new_email_required"),
+            'email.email' => __("common.email_invalid"),
+            'email.unique' => __("common.email_unique"),
         ];
     }
 
@@ -54,7 +54,7 @@ class ChangeEmail extends Component
         if ($user->save()) {
             $this->reset(['password', 'email']);
 
-            session()->flash('message',__('Email changed successfully'));
+            session()->flash('message',__('common.email_changed_success'));
 
             $this->dispatchBrowserEvent('emailChanged');
         }

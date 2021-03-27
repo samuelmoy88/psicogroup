@@ -73,5 +73,10 @@ return [
     'password_requires_number' => 'Un número',
     'password_requires_special' => 'Un caracter especial (@$!%*#?&)',
     'password_requirements' => 'Tu contraseña debe contener:',
+    'password_required' => 'La contraseña es obligatoria',
+    'new_email_required' => 'El nuevo email es obligatorio',
+    'email_invalid' => 'Por favor indique un email válido',
+    'email_unique' => 'Este email ya existe en nuestros registros, por favor utilice uno diferente',
+    'email_changed_success' => 'Email cambiado exitosamente'
 
 ];
