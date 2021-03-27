@@ -38,16 +38,12 @@
             <!-- Mobile sidebar -->
             <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center" style="display: none;"></div>
             <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150" x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu" @keydown.escape="closeSideMenu" style="display: none;">
-                {{--@include('layouts.mobile-sidebar')--}}
+                @include('layouts.sidebar')
             </aside>
 {{--            @include('layouts.navigation')--}}
             <div class="flex flex-col flex-1 w-full overflow-y-auto">
                 <!-- Page Heading -->
-{{--                <header class="bg-white shadow">--}}
-{{--                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">--}}
-{{--                        {{ $header }}--}}
-{{--                    </div>--}}
-{{--                </header>--}}
+                @include('layouts.specialist-header')
                 <!-- Page Content -->
                 <main class="py-5 mx-3 md:mx-8">
                     {{ $slot }}
@@ -55,4 +51,8 @@
             </div>
         </div>
     </body>
+    <script>
+        const shouldSpecialistMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'profile' ? 'true' : 'false' }}';
+        const shouldAccountMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'account' ? 'true' : 'false' }}';
+    </script>
 </html>

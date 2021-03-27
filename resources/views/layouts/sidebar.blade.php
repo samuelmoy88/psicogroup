@@ -3,15 +3,6 @@
         <x-logo-horizontal/>
     </a>
     <ul class="mt-6">
-        {{--<li class="relative px-6 py-3">
-            <span class="absolute inset-y-0 left-0 w-1 bg-brand-color rounded-tr-lg rounded-br-lg"
-                  aria-hidden="true"></span>
-            <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-               href="{{ route('specialist.edit', auth()->user()->username) }}">
-                <i class="fas fa-notes-medical"></i>
-                <span class="ml-4">Mi perfil</span>
-            </a>
-        </li>--}}
         <li class="relative px-6 py-3">
             <button
                 class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -95,8 +86,4 @@
             </template>
         </li>
     </ul>
-    <script>
-        const shouldSpecialistMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'profile' ? 'true' : 'false' }}';
-        const shouldAccountMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'account' ? 'true' : 'false' }}';
-    </script>
 </div>
