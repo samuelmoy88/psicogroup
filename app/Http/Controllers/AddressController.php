@@ -35,10 +35,10 @@ class AddressController extends Controller
     {
         return view('specialist.address.create', [
             'addressAccessibility' => AddressAccessibility::all(),
-            'services' => Services::all(),
+            'services' => Services::orderBy('order')->get(),
             'insuranceSupport' => InsuranceSupport::all(),
-            'securityMeasures' => SecurityMeasures::all(),
-            'paymentMethods' => PaymentMethod::all(),
+            'securityMeasures' => SecurityMeasures::orderBy('order')->get(),
+            'paymentMethods' => PaymentMethod::orderBy('order')->get(),
         ]);
     }
 
@@ -82,10 +82,10 @@ class AddressController extends Controller
         return view('specialist.address.edit',[
             'address' => $address,
             'addressAccessibility' => AddressAccessibility::all(),
-            'services' => Services::all(),
+            'services' => Services::orderBy('order')->get(),
             'insuranceSupport' => InsuranceSupport::all(),
-            'securityMeasures' => SecurityMeasures::all(),
-            'paymentMethods' => PaymentMethod::all(),
+            'securityMeasures' => SecurityMeasures::orderBy('order')->get(),
+            'paymentMethods' => PaymentMethod::orderBy('order')->get(),
         ]);
     }
 

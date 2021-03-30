@@ -73,8 +73,8 @@ class SpecialistsProfileController extends Controller
             return view('specialist.edit-profile', [
                 'specialist' => auth()->user(),
                 'prefixes' => Prefix::all(),
-                'specialities' => Speciality::all(),
-                'diseases' => Disease::all(),
+                'specialities' => Speciality::orderBy('order')->get(),
+                'diseases' => Disease::orderBy('order')->get(),
             ]);
         }
         //TODO: build a cool 404 page
