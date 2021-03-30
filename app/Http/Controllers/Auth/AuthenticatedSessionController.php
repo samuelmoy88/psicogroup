@@ -32,6 +32,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (\auth()->user()->isPatient) {
+            return redirect('/');
+        }
+
         return redirect(RouteServiceProvider::HOME);
     }
 
