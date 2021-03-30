@@ -140,16 +140,20 @@
                                  x-ref="container{{ $loop->index }}"
                                  x-bind:style="selected == {{ $loop->index }} ? 'max-height: ' + $refs.container{{ $loop->index }}.scrollHeight + 'px' : ''">
                                 <div class="p-6">
+                                    @if ($service->pivot->description)
                                     <div class="mb-2">
-                                        <p class="mb-2">{{ __('Details') }}</p>
-                                        <i>{{ $service->pivot->description }}</i>
+                                        <p class="mb-2 font-light">{{ __('common.description') }}</p>
+                                        <i class="font-bold">{{ $service->pivot->description }}</i>
                                     </div>
+                                    @endif
+                                    @if($service->pivot->price)
                                     <div class="mb-2">
                                         @if($service->pivot->price)
-                                            <p class="mb-2">{{ __('Price') }} {{ $service->pivot->price_from ? ' (desde)' : '' }}</p>
-                                            S/@money($service->pivot->price)
+                                            <p class="mb-2 font-light">{{ __('common.price') }} {{ $service->pivot->price_from ? ' (desde)' : '' }}</p>
+                                            <i class="font-bold">S/@money($service->pivot->price)</i>
                                         @endif
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </li>
@@ -169,7 +173,7 @@
                         <ul class="shadow-box">
                             @foreach($specialist->profile->specialities as $specialities)
                                 <li class="relative border-b border-gray-200" x-data="{selected:null}">
-                                    <div type="button" class="w-full px-8 py-6 text-left">
+                                    <div class="w-full px-8 py-6 text-left">
                                         <div class="flex items-center justify-between">
                                             <span>{{ $specialities->title }}</span>
                                         </div>
@@ -189,7 +193,7 @@
                         <ul class="shadow-box">
                             @foreach($specialist->profile->diseases as $diseases)
                                 <li class="relative border-b border-gray-200" x-data="{selected:null}">
-                                    <div type="button" class="w-full px-8 py-6 text-left">
+                                    <div class="w-full px-8 py-6 text-left">
                                         <div class="flex items-center justify-between">
                                             <span>{{ $diseases->title }}</span>
                                         </div>
