@@ -84,6 +84,7 @@ return [
     'email_changed_success' => 'Email cambiado exitosamente',
     'save_changes_success' => 'Cambios guardados',
     'update_error' => 'Ha ocurrido un error',
-    'save_changes' => 'Guardar cambios'
+    'save_changes' => 'Guardar cambios',
+    'details' => 'Descri'
 
 ];
