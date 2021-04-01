@@ -32,11 +32,13 @@
                                         <a title="{{ __('common.view') }}" href="{{ route('patients.show', $patient->uuid) }}">
                                             <i class="fas fa-eye text-brand-color"></i>
                                         </a>
+                                        @if(auth()->user()->can('patients_delete'))
                                         <form action="{{ route('patients.destroy', $patient->uuid) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button title="{{ __('common.delete') }}" type="submit" class="text-red-600"><i class="fas fa-trash-alt text-brand-color"></i></button>
                                         </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
