@@ -89,6 +89,8 @@ return [
     'save_changes_success' => 'Cambios guardados',
     'update_error' => 'Ha ocurrido un error',
     'save_changes' => 'Guardar cambios',
-    'details' => 'Descri'
+    'details' => 'Descri',
+    'account_create' => 'Crear cuenta',
+    'already_registered' => '¿Ya has creado una cuenta?'
 
 ];
