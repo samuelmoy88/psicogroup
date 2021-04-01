@@ -21,4 +21,5 @@ return [
     'field_first_name' => 'Nombre',
     'field_last_name' => 'Apellidos',
     'field_about' => 'Sobre mí',
+    'delete_success' => 'Especialista eliminado exitosamente'
 ];
