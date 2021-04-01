@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form action="{{ route('specialist.addresses.update', ['specialist' => auth()->user()->username, 'address' => $address->id]) }}" method="post" id="edit_address">
+    <form action="{{ route('specialist.addresses.update', ['uuid' => auth()->user()->uuid, 'address' => $address->id]) }}" method="post" id="edit_address">
         @csrf
         @method('PUT')
         <div class="form-card">
@@ -7,7 +7,7 @@
                 <h2 class="font-bold text-xl">
                     {{ $address->consultation_type == 'physical' ? __('address.edit_physical') : __('address.edit_online') }}
                 </h2>
-                <a class="text-blue-500" href="{{ route('specialist.addresses.index', auth()->user()->username) }}">
+                <a class="text-blue-500" href="{{ route('specialist.addresses.index', auth()->user()->uuid) }}">
                     <i class="fas fa-chevron-circle-left"></i>
                     {{ __('address.go_back') }}</a>
             </div>
@@ -175,14 +175,14 @@
 
     <div class="control_buttons flex justify-between">
         <div class="mb-4 text-sm text-right">
-            <form method="post" action="{{ route('specialist.address.destroy', ['specialist' => auth()->user()->username, 'address' => $address->id]) }}">
+            <form method="post" action="{{ route('specialist.address.destroy', ['uuid' => auth()->user()->uuid, 'address' => $address->id]) }}">
                 @csrf
                 @method('DELETE')
-                <button class="text-red-600">{{ __('Delete address') }}</button>
+                <button class="text-red-600">{{ __('common.delete') }}</button>
             </form>
         </div>
         <div class="mb-4 text-sm text-right">
-            <x-button type="submit" form="edit_address">{{ __('Save changes') }}</x-button>
+            <x-button type="submit" form="edit_address">{{ __('common.save_changes') }}</x-button>
         </div>
     </div>
 </x-app-layout>

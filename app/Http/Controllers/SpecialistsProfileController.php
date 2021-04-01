@@ -63,13 +63,13 @@ class SpecialistsProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param User $specialist
+     * @param User $uuid
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $specialist)
+    public function edit(User $uuid)
     {
         //TODO: show an alert before 'save changes' button explaining the user that he has to check everything before submitting the form
-        if ($specialist->id === auth()->user()->id) {
+        if ($uuid->id === auth()->user()->id) {
             return view('specialist.edit-profile', [
                 'specialist' => auth()->user(),
                 'prefixes' => Prefix::all(),
@@ -78,7 +78,7 @@ class SpecialistsProfileController extends Controller
             ]);
         }
         //TODO: build a cool 404 page
-        return view('404');
+        return view('errors.404');
 
     }
 
@@ -97,16 +97,16 @@ class SpecialistsProfileController extends Controller
 
         $specialist->commitChanges($request);
 
-        return redirect(route('specialist.edit', $specialist->user->username))->with('success', __('common.save_changes_success'));
+        return redirect(route('specialist.edit', $specialist->user->uuid))->with('success', __('common.save_changes_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $specialist
+     * @param User $uuid
      * @return void
      */
-    public function destroy(User $specialist)
+    public function destroy(User $uuid)
     {
         //
     }

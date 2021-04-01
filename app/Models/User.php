@@ -95,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getRouteKeyName()
     {
-        return 'username';
+        return 'uuid';
     }
 
     public function toggleRole(int $role_id, string $data)

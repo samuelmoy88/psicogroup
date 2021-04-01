@@ -26,13 +26,13 @@
                     aria-label="submenu">
                     <li class="{{ request()->routeIs('specialist.edit') ? 'bg-brand-color' : '' }} rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
                         <a class="w-full block {{ request()->routeIs('specialist.edit') ? 'text-white' : '' }}"
-                           href="{{ route('specialist.edit', auth()->user()->username) }}">Editar perfil</a>
+                           href="{{ route('specialist.edit', auth()->user()->uuid) }}">Editar perfil</a>
                     </li>
                     <li class="{{ request()->routeIs('specialist.addresses.*') ? 'bg-brand-color' : '' }}
                         rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
                         <a class="w-full block {{ request()->routeIs('specialist.addresses.*') ? 'text-white' : '' }}
                          {{ request()->routeIs('specialist.addresses.*') ? 'text-white' : '' }}"
-                           href="{{ route('specialist.addresses.index', auth()->user()->username) }}">
+                           href="{{ route('specialist.addresses.index', auth()->user()->uuid) }}">
                             Direcciones
                         </a>
                     </li>
@@ -40,7 +40,7 @@
                         rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
                         <a class="w-full block {{ request()->routeIs('specialist.services.*') ? 'text-white' : '' }}
                          {{ request()->routeIs('specialist.services.*') ? 'text-white' : '' }}"
-                           href="{{ route('specialist.services.index', auth()->user()->username) }}">
+                           href="{{ route('specialist.services.index', auth()->user()->uuid) }}">
                             Servicios
                         </a>
                     </li>

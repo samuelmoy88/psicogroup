@@ -53,7 +53,7 @@ class SpecialistProfile extends Model
             'diseases_specialist_profiles',
             'specialist_profile_id',
             'disease_id'
-        );
+        );//todo:ordenar patologias y estas cosas por el campo 'order'
     }
 
     public function services()

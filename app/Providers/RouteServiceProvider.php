@@ -51,6 +51,15 @@ class RouteServiceProvider extends ServiceProvider
             return User::where('id', $value)->firstOrFail();
         });
 
+        Route::bind('specialist', function ($username, $route) {
+            $uuid = $route->parameter('uuid');
+
+            return User::where([
+                'username' => $username,
+                'uuid' => $uuid
+            ])->firstOrFail();
+        });
+
         $this->configureRateLimiting();
 
         $this->routes(function () {

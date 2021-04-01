@@ -6,11 +6,7 @@
             <x-alert-success>{{ $success }}</x-alert-success>
         @endif
         @if(!$specialist->email_verified_at)
-            <div class="mb-4">
-                <div class="flex items-center p-4 md:px-10 md:py-6 bg-brand-color rounded leading-6 font-semibold text-white from-fuchsia-500 to-purple-600">
-                    <span>Aún no has verificado tu cuenta. Por favor, revisa el email con el que te has registrado para completar el proceso de verificación</span>
-                </div>
-            </div>
+            <x-alert-notify>Aún no has verificado tu cuenta. Por favor, revisa el email con el que te has registrado para completar el proceso de verificación</x-alert-notify>
         @endif
         <div class="form-card">
             <h2 class="font-bold text-xl">Tus datos</h2>

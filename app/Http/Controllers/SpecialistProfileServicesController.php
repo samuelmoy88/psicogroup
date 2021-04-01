@@ -64,7 +64,7 @@ class SpecialistProfileServicesController extends Controller
         }
 
         return redirect(route('specialist.services.index', [
-            'specialist' => auth()->user()->username
+            'uuid' => auth()->user()->uuid
         ]))->with('success', __('common.save_changes_success'));
     }
 
@@ -82,11 +82,11 @@ class SpecialistProfileServicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param SpecialistProfile $specialist
+     * @param SpecialistProfile $uuid
      * @param Services $service
      * @return void
      */
-    public function edit(string $specialist, SpecialistProfileServices $service)
+    public function edit(string $uuid, SpecialistProfileServices $service)
     {
 
         return view('specialist.services.edit', [
@@ -98,12 +98,12 @@ class SpecialistProfileServicesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param string $specialist
+     * @param string $uuid
      * @param SpecialistProfileServices $service
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(string $specialist, SpecialistProfileServices $service, Request $request)
+    public function update(string $uuid, SpecialistProfileServices $service, Request $request)
     {
         /*$request->validate([
             'price' => 'numeric'
@@ -124,7 +124,7 @@ class SpecialistProfileServicesController extends Controller
         }
 
         if ($service->update()) {
-            return redirect(route('specialist.services.index', ['specialist' => $specialist]))
+            return redirect(route('specialist.services.index', ['uuid' => $uuid]))
                 ->with('success', __('common.save_changes_success'));
         }
 
@@ -134,16 +134,16 @@ class SpecialistProfileServicesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param string $specialist
+     * @param string $uuid
      * @param \App\Models\SpecialistProfileServices $service
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(string $specialist, SpecialistProfileServices $service)
+    public function destroy(string $uuid, SpecialistProfileServices $service)
     {
         $service->delete();
 
-        return redirect(route('specialist.services.index', ['specialist' => $specialist]))
+        return redirect(route('specialist.services.index', ['uuid' => $uuid]))
             ->with('success', __('services.deleted_success'));
     }
 }

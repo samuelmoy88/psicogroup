@@ -78,35 +78,35 @@ Route::middleware(['auth', 'specialist','active'])->group(function () {
     // Specialists dashboard
     Route::get('/dashboard', SpecialistDashboardController::class)->name('specialist.dashboard');
     // Specialist routes
-    Route::get('/profile/{specialist}/edit', [SpecialistsProfileController::class, 'edit'])->name('specialist.edit');
+    Route::get('/profile/{uuid}/edit', [SpecialistsProfileController::class, 'edit'])->name('specialist.edit');
 
-    Route::put('/profile/{specialist}', [SpecialistsProfileController::class, 'update'])->name('specialist.update');
+    Route::put('/profile/{uuid}', [SpecialistsProfileController::class, 'update'])->name('specialist.update');
 
     // Specialist's address routes
-    Route::get('/profile/{specialist}/addresses', [AddressController::class, 'index'])->name('specialist.addresses.index');
+    Route::get('/profile/{uuid}/addresses', [AddressController::class, 'index'])->name('specialist.addresses.index');
 
-    Route::post('/profile/{specialist}/addresses', [AddressController::class, 'store'])->name('specialist.addresses.store');
+    Route::post('/profile/{uuid}/addresses', [AddressController::class, 'store'])->name('specialist.addresses.store');
 
-    Route::get('/profile/{specialist}/addresses/new', [AddressController::class, 'create'])->name('specialist.addresses.create');
+    Route::get('/profile/{uuid}/addresses/new', [AddressController::class, 'create'])->name('specialist.addresses.create');
 
-    Route::get('/profile/{specialist}/addresses/{address}/edit', [AddressController::class, 'edit'])->name('specialist.addresses.edit');
+    Route::get('/profile/{uuid}/addresses/{address}/edit', [AddressController::class, 'edit'])->name('specialist.addresses.edit');
 
-    Route::put('/profile/{specialist}/addresses/{address}', [AddressController::class, 'update'])->name('specialist.addresses.update');
+    Route::put('/profile/{uuid}/addresses/{address}', [AddressController::class, 'update'])->name('specialist.addresses.update');
 
-    Route::delete('/profile/{specialist}/addresses/{address}/delete', [AddressController::class, 'destroy'])->name('specialist.address.destroy');
+    Route::delete('/profile/{uuid}/addresses/{address}/delete', [AddressController::class, 'destroy'])->name('specialist.address.destroy');
 
     // Specialist's services routes
-    Route::get('/profile/{specialist}/services', [SpecialistProfileServicesController::class, 'index'])->name('specialist.services.index');
+    Route::get('/profile/{uuid}/services', [SpecialistProfileServicesController::class, 'index'])->name('specialist.services.index');
 
-    Route::post('/profile/{specialist}/services', [SpecialistProfileServicesController::class, 'store'])->name('specialist.services.store');
+    Route::post('/profile/{uuid}/services', [SpecialistProfileServicesController::class, 'store'])->name('specialist.services.store');
 
-    Route::get('/profile/{specialist}/services/new', [SpecialistProfileServicesController::class, 'create'])->name('specialist.services.create');
+    Route::get('/profile/{uuid}/services/new', [SpecialistProfileServicesController::class, 'create'])->name('specialist.services.create');
 
-    Route::get('/profile/{specialist}/services/{service}/edit', [SpecialistProfileServicesController::class, 'edit'])->name('specialist.services.edit');
+    Route::get('/profile/{uuid}/services/{service}/edit', [SpecialistProfileServicesController::class, 'edit'])->name('specialist.services.edit');
 
-    Route::put('/profile/{specialist}/services/{service}', [SpecialistProfileServicesController::class, 'update'])->name('specialist.services.update');
+    Route::put('/profile/{uuid}/services/{service}', [SpecialistProfileServicesController::class, 'update'])->name('specialist.services.update');
 
-    Route::delete('/profile/{specialist}/services/{service}/delete', [SpecialistProfileServicesController::class, 'destroy'])->name('specialist.services.destroy');
+    Route::delete('/profile/{uuid}/services/{service}/delete', [SpecialistProfileServicesController::class, 'destroy'])->name('specialist.services.destroy');
 });
 
 // View public profile

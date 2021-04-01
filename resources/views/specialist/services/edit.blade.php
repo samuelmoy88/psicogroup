@@ -1,11 +1,11 @@
 <x-app-layout>
-    <form action="{{ route('specialist.services.update', ['specialist' => auth()->user()->username, 'service' => $service->id]) }}" method="post" id="edit_service">
+    <form action="{{ route('specialist.services.update', ['uuid' => auth()->user()->uuid, 'service' => $service->id]) }}" method="post" id="edit_service">
         @csrf
         @method('PUT')
         <div class="form-card" x-ref="services">
             <div class="flex flex-wrap justify-between mb-4">
                 <h2 class="font-bold text-xl">{{ $service->services->title  }}</h2>
-                <a class="text-blue-500" href="{{ route('specialist.services.index', auth()->user()->username) }}">
+                <a class="text-blue-500" href="{{ route('specialist.services.index', auth()->user()->uuid) }}">
                     <i class="fas fa-chevron-circle-left"></i>
                     {{ __('services.go_back') }}</a>
             </div>
@@ -43,7 +43,7 @@
     </form>
     <div class="control_buttons flex justify-between">
         <div class="mb-4 text-sm text-right">
-            <form method="post" action="{{ route('specialist.services.destroy', ['specialist' => auth()->user()->username, 'service' => $service->id]) }}">
+            <form method="post" action="{{ route('specialist.services.destroy', ['uuid' => auth()->user()->uuid, 'service' => $service->id]) }}">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="text-red-600">{{ __('services.delete') }}</button>

@@ -56,7 +56,7 @@ class AddressController extends Controller
 
         $address->new($request);
 
-        return redirect(route('specialist.addresses.index', auth()->user()->username))->with('success', __('Changes saved successfully'));
+        return redirect(route('specialist.addresses.index', auth()->user()->uuid))->with('success', __('Changes saved successfully'));
 
     }
 
@@ -77,7 +77,7 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function edit(string $specialist, Address $address)
+    public function edit(string $uuid, Address $address)
     {
         return view('specialist.address.edit',[
             'address' => $address,
@@ -92,32 +92,32 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param User $specialist
+     * @param User $uuid
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Address $address
      * @return \Illuminate\Http\Response
      */
-    public function update(User $specialist, Address $address, AddressRequest $request)
+    public function update(User $uuid, Address $address, AddressRequest $request)
     {
         $request->validated();
 
         $address->edit($request);
 
-        return redirect(route('specialist.addresses.index', $specialist->username))->with('success', __('common.save_changes_success'));
+        return redirect(route('specialist.addresses.index', $uuid->uuid))->with('success', __('common.save_changes_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $specialist
+     * @param User $uuid
      * @param \App\Models\Address $address
      * @return void
      * @throws \Exception
      */
-    public function destroy(User $specialist, Address $address)
+    public function destroy(User $uuid, Address $address)
     {
         $address->delete();
 
-        return redirect(route('specialist.addresses.index', $specialist->username))->with('success', __('address.delete_success'));
+        return redirect(route('specialist.addresses.index', $uuid->uuid))->with('success', __('address.delete_success'));
     }
 }
