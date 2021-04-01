@@ -15,6 +15,7 @@ class AddUuidFieldToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->uuid('uuid')->after('id');
+            $table->unique(['username', 'uuid']);
         });
     }
 
