@@ -16,7 +16,7 @@ class PatientsController extends Controller
      */
     public function index()
     {
-        isAllowedTo('doctors_read');
+        isAllowedTo('patients_read');
 
         return view('admin.patients.index', [
             'patients' => User::where('profile_type', PatientProfile::class)->latest('updated_at','DESC')->paginate(config('app.per_page')),
@@ -40,10 +40,21 @@ class PatientsController extends Controller
      */
     public function show(User $patient)
     {
-        isAllowedTo('doctors_read');
+        isAllowedTo('patients_read');
 
         return view('admin.patients.show', [
             'patient' => $patient
         ]);
+    }
+
+    public function destroy(User $patient)
+    {
+        isAllowedTo('patients_delete');
+
+        $patient->profile()->delete();
+
+        $patient->delete();
+
+        return redirect(route('patients.index'))->with('success', __('patients.delete_success'));
     }
 }
