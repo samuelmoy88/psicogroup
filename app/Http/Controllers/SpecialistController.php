@@ -104,6 +104,12 @@ class SpecialistController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        isAllowedTo('doctors_delete');
+
+        $user->profile()->delete();
+
+        $user->delete();
+
+        return redirect(route('doctors.index'))->with('success', __('specialists.delete_success'));
     }
 }

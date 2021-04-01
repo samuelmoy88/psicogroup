@@ -42,6 +42,13 @@
                                         <a title="{{ __('common.view') }}" href="{{ route('doctors.show', $specialist->uuid) }}">
                                             <i class="fas fa-eye text-brand-color"></i>
                                         </a>
+                                        @if(auth()->user()->can('doctors_delete'))
+                                            <form action="{{ route('doctors.destroy', $specialist->uuid) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button title="{{ __('common.delete') }}" type="submit" class="text-red-600"><i class="fas fa-trash-alt text-brand-color"></i></button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
