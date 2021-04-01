@@ -14,14 +14,14 @@
 
         <!-- First name -->
             <div>
-                <x-label for="first_name" :value="__('First name')" />
+                <x-label for="first_name" :value="__('common.first_name')" />
 
                 <x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus />
             </div>
 
             <!-- Last name -->
             <div class="mt-4">
-                <x-label for="last_name" :value="__('Last name')" />
+                <x-label for="last_name" :value="__('common.last_names')" />
 
                 <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autofocus />
             </div>
@@ -35,14 +35,14 @@
 
             <!-- Phone number -->
             <div class="mt-4">
-                <x-label for="phone" :value="__('Phone')" />
+                <x-label for="phone" :value="__('common.phone')" />
 
                 <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('common.password')" />
 
                 <x-input id="password" class="block mt-1 w-full"
                          type="password"
@@ -52,7 +52,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-label for="password_confirmation" :value="__('common.confirm_password')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                          type="password"
@@ -61,11 +61,11 @@
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('common.already_registered') }}
                 </a>
 
                 <x-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('common.account_create') }}
                 </x-button>
             </div>
         </form>
