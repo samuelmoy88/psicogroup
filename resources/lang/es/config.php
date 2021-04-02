@@ -30,4 +30,11 @@ return [
     'role_deleted_success' => 'Rol eliminado exitosamente',
     'user_reset_password' => 'Se enviará un email al usuario con su nueva contraseña, ¿Desea continuar?',
     'user_password_reset_success' => 'Contraseña reestablecida exitosamente.',
+    'account_suspended' => 'Tu cuenta ha sido suspendida',
+    'contact_admin' => 'Por favor, contacta con el administrador',
+    'account_suspended_for' => 'Tu cuenta ha sido suspendida por',
+    'day' => 'día',
+    'days' => 'días',
+    'ban' => 'Banear',
+    'ban_until' => 'Banear hasta'
 ];
