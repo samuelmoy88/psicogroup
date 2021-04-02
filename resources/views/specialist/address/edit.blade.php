@@ -17,13 +17,20 @@
             <h2 class="font-bold text-xl">{{ __('address.where') }}</h2>
             <div class="mt-4 mb-4 text-sm">
                 <label class="mb-1 cursor-pointer mr-2">
-                    <x-radio checked="{{ $address->is_private == '1' ? true : false }}" value="1" name="is_private"/> {{__('address.private')}}
+                    <x-radio checked="{{ $address->is_private == '1' ? true : false }}"  @click="toggleElement($refs.clinicName, 'off')"
+                             value="1" name="is_private"/> {{__('address.private')}}
                 </label>
                 <label class="mb-1 cursor-pointer mr-2">
-                    <x-radio checked="{{ $address->is_private == '0' ? true : false }}" value="0" name="is_private"/> {{__('address.medical')}}
+                    <x-radio checked="{{ $address->is_private == '0' ? true : false }}"  @click="toggleElement($refs.clinicName, 'on')"
+                             value="0" name="is_private"/> {{__('address.medical')}}
                 </label>
             </div>
             <div class="flex flex-wrap">
+                <div class="mb-4 text-sm w-full {{ $address->is_private == '1' ? 'hidden' : '' }}" x-ref="clinicName">
+                    <x-label for="clinic_name">{{ __("address.clinic_name") }} *</x-label>
+                    <x-input type="text" value="{{ $address->clinic_name }}" id="clinic_name" name="clinic_name"/>
+                </div>
+
                 <div class="mb-4 text-sm w-full">
                     <x-label for="title">{{ __("address.consultation_name") }} *</x-label>
                     <x-input type="text" value="{{ $address->title }}" id="title" name="title"/>
