@@ -14,7 +14,9 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
+            @if (session('message'))
+                <x-alert-danger>{{ session('message') }}</x-alert-danger>
+            @endif
             <!-- Email Address -->
             <div>
                 <x-label for="email" :value="__('Email')" />
