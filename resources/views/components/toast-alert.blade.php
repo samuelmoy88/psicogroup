@@ -1,5 +1,5 @@
 @props(['id' => ''])
-<div class="alert-toast fixed bottom-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+<div class="fade-in fade-out fixed top-5 right-5 md:w-full max-w-sm z-10">
     <input type="checkbox" class="hidden" id="{{ $id }}">
 
     <label class="close cursor-pointer flex items-start justify-between w-full p-2 bg-green-500 h-24 rounded shadow-lg text-white" title="close" for="{{ $id }}">
