@@ -1,5 +1,5 @@
 @props(['id' => ''])
-<div class="alert-toast fixed bottom-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+<div class="fade-in fade-out fixed top-5 right-5 md:w-full max-w-sm z-10">
     <input type="checkbox" class="hidden" id="{{ $id }}">
 
     <label class="close cursor-pointer flex items-start justify-between w-full p-2 bg-red-500 h-24 rounded shadow-lg text-white" title="close" for="{{ $id }}">
@@ -11,6 +11,29 @@
 </div>
 <script>
     setTimeout(() => {
-        document.querySelector('#{!! $id !!}').click();
+        let alert = document.querySelector('#{!! $id !!}');
+
+        if (alert) {
+            alert.click();
+        }
     }, 2000);
+
+    let el = document.querySelector('#{!! $id !!}');
+
+    el.addEventListener('click', fadeOutEffect);
+
+    function fadeOutEffect() {
+        let fadeTarget = document.getElementById("{!! $id !!}");
+        let fadeEffect = setInterval(function () {
+            if (!fadeTarget.style.opacity) {
+                fadeTarget.style.opacity = 1;
+            }
+            if (fadeTarget.style.opacity > 0) {
+                fadeTarget.style.opacity -= 0.1;
+                fadeTarget.parentNode.remove();
+            } else {
+                clearInterval(fadeEffect);
+            }
+        }, 200);
+    }
 </script>
