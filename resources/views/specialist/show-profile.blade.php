@@ -50,7 +50,7 @@
                                     @click="selected !== {{ $loop->index }} ? selected = {{ $loop->index }} : selected = null"
                                     x-bind:class="{'border-l-2 border-brand-color-left text-brand-color bg-gray-100' : selected == {{ $loop->index }}}">
                                 <div class="flex items-center justify-between">
-                                    <span>{{ $address->title }}</span>
+                                    <span>{{ $address->clinic_name ? $address->clinic_name . ' - ' : '' }} {{ $address->title }}</span>
                                     <i class="fas fa-chevron-circle-down"></i>
                                 </div>
                             </button>
