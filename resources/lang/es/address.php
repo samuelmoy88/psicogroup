@@ -21,5 +21,6 @@ return [
     'request_payment_after' => 'Solicitar el pago sólo cuando haya terminado la consulta',
     'payment_details' => 'Detalles del pago',
     'more_info' => 'Más información',
-    'delete_success' => 'Dirección eliminada'
+    'delete_success' => 'Dirección eliminada',
+    'clinic_name' => 'Nombre del centro médico'
 ];
