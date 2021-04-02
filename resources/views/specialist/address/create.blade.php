@@ -33,7 +33,7 @@
             </div>
             <div class="flex flex-wrap">
                 <div class="mb-4 text-sm w-full hidden" x-ref="clinicName">
-                    <x-label for="clinic_name">{{ __("address.clinic_name") }} *</x-label>
+                    <x-label for="clinic_name">{{ __("address.clinic_name") }}</x-label>
                     <x-input type="text" value="" id="clinic_name" name="clinic_name"/>
                 </div>
 
