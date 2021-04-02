@@ -91,5 +91,27 @@ function reorderModels() {
     }).then();
 }
 
+let ban = document.getElementById('ban');
+
+let banUntil = document.getElementById('ban_until');
+
+let banUntilDate = '';
+banUntil.addEventListener('change', function () {
+    banUntilDate = this.value;
+});
+
+ban.addEventListener('change', function () {
+    if (!this.checked) {
+        banUntil.parentElement.classList.add('hidden');
+        banUntil.value = '';
+    } else {
+        banUntil.parentElement.classList.remove('hidden');
+        banUntil.setAttribute('name', 'banned_until');
+        if (banUntilDate) {
+            banUntil.value = banUntilDate;
+        }
+    }
+});
+
 
 

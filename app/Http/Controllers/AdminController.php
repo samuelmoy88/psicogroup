@@ -122,7 +122,7 @@ class AdminController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|email:filter|unique:users,email,'.$user->id,
-            'phone' => 'required|numeric|unique:users,phone'
+            'phone' => 'required|numeric|unique:users,phone,'.$user->id,
         ]);
 
         $user->profile->edit($request);

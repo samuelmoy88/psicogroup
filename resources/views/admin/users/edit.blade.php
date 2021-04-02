@@ -49,6 +49,14 @@
                         @endforeach
                     </div>
                 </div>
+                <div class="mb-4 text-sm">
+                    <x-label for="ban">{{ __("config.ban") }}</x-label>
+                    <x-checkbox checked="{{ $user->banned_until ? true : false }}" id="ban"/>
+                </div>
+                <div class="mb-4 text-sm {{ !$user->banned_until ? 'hidden' : '' }}">
+                    <x-label for="ban_until">{{ __("config.ban_until") }}</x-label>
+                    <x-input type="date" name="banned_until" value="{{ $user->banned_until ? $user->banned_until->format('Y-m-d') : '' }}" min="{{ now()->format('Y-m-d') }}" id="ban_until"/>
+                </div>
             </div>
         </div>
     </form>
