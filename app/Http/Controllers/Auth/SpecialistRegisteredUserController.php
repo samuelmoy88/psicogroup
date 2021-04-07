@@ -55,6 +55,6 @@ class SpecialistRegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(route('specialist.edit', auth()->user()->username));
+        return redirect(route('specialist.edit', auth()->user()->uuid));
     }
 }
