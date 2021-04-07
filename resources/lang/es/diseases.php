@@ -13,5 +13,5 @@ return [
     'status_deleted' => 'Eliminada',
     'status_inactive' => 'Desactivada',
     'treatments' => 'Tratamientos',
-    'treatments_copy' => 'A menudo los pacientes buscan especialista introduciendo una enfermedad en el cuadro de búsqueda. Si rellena esa información los pacientes encontrarán su perfil más fácilmente'
+    'treatments_copy' => 'A menudo los pacientes buscan especialista introduciendo una patología en el cuadro de búsqueda. Si rellena esa información los pacientes encontrarán su perfil fácilmente'
 ];

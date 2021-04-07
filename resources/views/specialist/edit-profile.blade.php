@@ -72,7 +72,7 @@
         </div>
 
         <div class="form-card">
-            <h2 class="font-bold text-xl">{{ __('diseases.treatments') }}</h2>
+            <h2 class="font-bold text-xl">{{ __('diseases.diseases') }}</h2>
             <p class="font-normal text-base mb-2">{{ __('diseases.treatments_copy') }}.</p>
             <div class="mb-4 text-sm flex">
                 @foreach($diseases as $key => $disease)
