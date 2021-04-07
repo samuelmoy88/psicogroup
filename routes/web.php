@@ -109,6 +109,7 @@ Route::middleware(['auth', 'specialist','active'])->group(function () {
 // View public profile
 Route::get('/{specialist}/psicologo/{uuid}', [SpecialistsProfileController::class, 'show'])->name('specialist.show');
 
+// Front end routes
 Route::get('/', function () {
     return view('welcome');
 });
