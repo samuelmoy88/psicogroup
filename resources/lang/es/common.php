@@ -91,6 +91,7 @@ return [
     'save_changes' => 'Guardar cambios',
     'details' => 'Descri',
     'account_create' => 'Crear cuenta',
-    'already_registered' => '¿Ya has creado una cuenta?'
+    'already_registered' => '¿Ya has creado una cuenta?',
+    'experience' => 'Experiencia'
 
 ];

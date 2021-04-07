@@ -27,7 +27,7 @@
                 @endif
                 @if($specialist->profile->specialities || $specialist->profile->diseases)
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
-                    {{ __('common.specialities_diseases') }}</li>
+                    {{ __('common.experience') }}</li>
                 @endif
                 {{--<li class="mr-2 p-2 border-b-2 border-brand-color-bottom text-brand-color">
                     Opiniones
@@ -68,7 +68,7 @@
                                         @if($address->address_indications)
                                             <div class="w-full mt-4 ml-8">
                                                 <p>{{ $address->consultation_type == 'physical' ?
-                                            __('Indications to arrive') : __('How to connect to the consultation') }}</p>
+                                            __('address.address_indications') : __('address.online_address_indications') }}</p>
                                                 {{ $address->address_indications }}
                                             </div>
                                         @endif
@@ -82,7 +82,7 @@
                                     @endif
                                     @if(count($address->accessibility) > 0)
                                         <div class="address_element flex-wrap">
-                                            <span class="w-full"><i class="fas fa-wheelchair mr-4"></i>{{ __('Accessibility') }}</span>
+                                            <span class="w-full font-light"><i class="fas fa-wheelchair mr-4"></i>{{ __('common.accessibility') }}</span>
                                             <ul class="pl-4">
                                             @foreach($address->accessibility as $accessibility)
                                                 <li class="ml-4">{{ $accessibility->title }}</li>
@@ -102,7 +102,7 @@
                                     @endif
                                     @if(count($address->paymentMethods) > 0)
                                         <div class="address_element flex-wrap">
-                                            <span class="w-full"><i class="fas fa-money-bill-alt mr-3"></i>{{ __('Payment methods') }}</span>
+                                            <span class="w-full"><i class="fas fa-money-bill-alt mr-3"></i>{{ __('payment-methods.payment_methods') }}</span>
                                             <ul class="pl-4">
                                                 @foreach($address->paymentMethods as $paymentMethod)
                                                     <li class="ml-4">{{ $paymentMethod->title }}</li>
@@ -165,6 +165,16 @@
         @endif
         @if($specialist->profile->specialities || $specialist->profile->diseases)
         <div class="hidden">
+            @if ($specialist->profile->about)
+                <div class="form-card sm:w-2/3 mb-4">
+                    <div class="mb-4 flex flex-wrap">
+                        <span class="w-full font-light">{{ __('specialists.field_about') }}</span>
+                        <i class="fas fa-quote-left text-xs"></i>
+                        <span class="px-2">{{ $specialist->profile->about }}</span>
+                        <i class="fas fa-quote-right text-xs"></i>
+                    </div>
+                </div>
+            @endif
             @if($specialist->profile->specialities)
             <div class="form-card sm:w-2/3 mb-4">
                 <div class="mb-4">
