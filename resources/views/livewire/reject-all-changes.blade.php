@@ -4,7 +4,7 @@
         <div class="mt-4 mb-6">
             <div class="mb-4">
                 <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                    {{ __('changes-history.accept_prompt') }}
+                    {{ __('changes-history.reject_all_prompt') }}
                 </p>
             </div>
         </div>

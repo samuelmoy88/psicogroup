@@ -52,8 +52,8 @@
         </div>
     @endif
     <livewire:contact-specialist :modal="'contactSpecialist'" :specialist="$specialist"/>
-    <livewire:reject-all-changes :modal="'acceptAllChanges'"/>
-    <livewire:accept-all-changes :modal="'rejectAllChanges'"/>
+    <livewire:accept-all-changes :modal="'acceptAllChanges'"/>
+    <livewire:reject-all-changes :modal="'rejectAllChanges'"/>
     @if(session('success'))
         <x-toast-alert id="flashMessage">
             {{ session('success') }}
