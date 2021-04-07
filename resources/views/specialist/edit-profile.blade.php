@@ -16,7 +16,7 @@
                 <div @click="triggerFileInput('photo-upload')"
                      class="rounded-b text-center cursor-pointer w-full absolute bottom-0 text-white bg-black opacity-60">
                     <small><i
-                            class="fas fa-pencil-alt"></i> {{ $specialist->profile->avatar ? __('Change picture') : __('Upload picture') }}
+                            class="fas fa-pencil-alt"></i> {{ $specialist->profile->avatar ? __('common.change_picture') : __('common.upload_picture') }}
                     </small></div>
                 <input @change="imagePreview('photo-upload', 'specialist-avatar')" type="file" name="profile[avatar]"
                        id="photo-upload" class="hidden">
@@ -24,7 +24,7 @@
             <div class="mb-4 text-sm">
                 <x-label for="prefix">{{ __('common.prefix') }}</x-label>
                 <x-select-options name="profile[prefix_id]" id="prefix" :value="$specialist->profile->prefix_id"
-                                  :placeholder="'Choose'" :options="$prefixes"/>
+                                  :placeholder="'Elegir'" :options="$prefixes"/>
             </div>
             <div class="mb-4 text-sm">
                 <x-label for="first_name">{{ __('common.first_name') }} *</x-label>

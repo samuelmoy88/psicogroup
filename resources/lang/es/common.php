@@ -92,6 +92,9 @@ return [
     'details' => 'Descri',
     'account_create' => 'Crear cuenta',
     'already_registered' => '¿Ya has creado una cuenta?',
-    'experience' => 'Experiencia'
+    'experience' => 'Experiencia',
+    'choose' => 'Elegir',
+    'change_picture' => 'Cambiar foto',
+    'upload_picture' => 'Subir foto'
 
 ];
