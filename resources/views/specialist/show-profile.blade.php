@@ -169,9 +169,7 @@
                 <div class="form-card sm:w-2/3 mb-4">
                     <div class="mb-4 flex flex-wrap">
                         <span class="w-full font-light">{{ __('specialists.field_about') }}</span>
-                        <i class="fas fa-quote-left text-xs"></i>
                         <span class="px-2">{{ $specialist->profile->about }}</span>
-                        <i class="fas fa-quote-right text-xs"></i>
                     </div>
                 </div>
             @endif
