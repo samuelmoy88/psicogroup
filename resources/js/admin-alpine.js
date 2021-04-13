@@ -56,6 +56,10 @@ window.data = function () {
         toggleDiseasesMenu() {
             this.isDiseasesMenuOpen = !this.isDiseasesMenuOpen
         },
+        isUneasinessMenuOpen: shouldUneasinessMenuBeOpened === 'true',
+        toggleUneasinessMenu() {
+            this.isUneasinessMenuOpen = !this.isUneasinessMenuOpen
+        },
         isPaymentMethodsMenuOpen: shouldPaymentMethodsMenuBeOpened === 'true',
         togglePaymentMethodsMenu() {
             this.isPaymentMethodsMenuOpen = !this.isPaymentMethodsMenuOpen
