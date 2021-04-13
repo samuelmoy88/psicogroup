@@ -28,5 +28,34 @@
 <script>
     window.addEventListener('specialistContacted', () => {
         document.querySelector(`#{!! $modal !!} .close-modal`).click();
+        let form = document.querySelector('form');
+
+        if (form) {
+            let submitButton = document.getElementById('submitButton');
+            form.addEventListener('submit', function () {
+                let buttonText = document.querySelector('#submitButton .slot');
+                let loaderSlot = document.querySelector('#submitButton .loaderSlot');
+
+                buttonText.innerText = 'Guardar cambios';
+                loaderSlot.innerHTML = '';
+
+                submitButton.disabled = false;
+            })
+        } else {
+            let submitButton = document.querySelectorAll('.loading');
+            for (let i = 0; i < submitButton.length; i++) {
+                submitButton[i].addEventListener('click', function () {
+
+                    let buttonText = submitButton[i].querySelector('.slot');
+                    let loaderSlot = submitButton[i].querySelector('.loaderSlot');
+
+                    buttonText.innerText = 'Guardar cambios';
+                    loaderSlot.innerHTML = '';
+
+                    submitButton[i].disabled = false;
+                })
+            }
+        }
+
     });
 </script>
