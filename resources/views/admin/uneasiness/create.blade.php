@@ -1,12 +1,12 @@
 <x-admin-layout>
-    <form action="{{ route('diseases.store') }}" method="post">
+    <form action="{{ route('uneasiness.store') }}" method="post">
         @csrf
         <div class="form-card">
             <div class="flex flex-wrap justify-between">
-                <h2 class="font-bold text-xl mb-4">{{ __('diseases.create_disease') }}</h2>
-                <a class="text-blue-500" href="{{ route('diseases.index') }}">
+                <h2 class="font-bold text-xl mb-4">{{ __('uneasiness.create_unease') }}</h2>
+                <a class="text-blue-500" href="{{ route('uneasiness.index') }}">
                     <i class="fas fa-chevron-circle-left"></i>
-                    {{ __('diseases.go_back') }}</a>
+                    {{ __('uneasiness.go_back') }}</a>
             </div>
             <div class="mb-4 text-sm w-full">
                 <x-label for="title">{{ __("common.title") }} *</x-label>

@@ -1,13 +1,13 @@
 <x-admin-layout>
     <div class="mb-4">
         <div class="flex justify-between mb-2">
-            <h2 class="font-bold text-xl">{{ __('diseases.diseases') }}</h2>
-            <a class="text-blue-500" href="{{ route('diseases.create') }}">{{ __('diseases.new_disease') }}</a>
+            <h2 class="font-bold text-xl">{{ __('uneasiness.uneasiness') }}</h2>
+            <a class="text-blue-500" href="{{ route('uneasiness.create') }}">{{ __('uneasiness.new_unease') }}</a>
         </div>
-        <x-results-table :results="$diseases"
+        <x-results-table :results="$uneasiness"
                          :resultsAttributes="$attributes"
                          :headers="$headers"
-                         :actions="['edit' => 'diseases.edit','delete' => 'diseases.destroy', 'sort' => 'diseases.sort']"/>
+                         :actions="['edit' => 'uneasiness.edit','delete' => 'uneasiness.destroy', 'sort' => 'uneasiness.sort']"/>
     </div>
     @if(session('success'))
         <x-toast-alert id="flashMessage">
