@@ -44,6 +44,7 @@
     <script>
         const shouldSpecialitiesMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'specialities' ? 'true' : 'false' }}';
         const shouldDiseasesMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'diseases' ? 'true' : 'false' }}';
+        const shouldUneasinessMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'diseases' ? 'true' : 'false' }}';
         const shouldPaymentMethodsMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'payment-methods' ? 'true' : 'false' }}';
         const shouldSecurityMeasuresMethodsMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'security-measures' ? 'true' : 'false' }}';
         const shouldServicesMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'services' ? 'true' : 'false' }}';
