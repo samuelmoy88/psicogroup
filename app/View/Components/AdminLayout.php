@@ -124,6 +124,29 @@ class AdminLayout extends Component
                 'dropdown-click-event' => 'toggleDiseasesMenu'
             ],
             [
+                'name' => __('uneasiness.uneasiness'),
+                'icon' => '<i class="fas fa-head-side-virus"></i>',
+                'permission' => 'uneasiness_read',
+                'sub-modules' => [
+                    [
+                        'name' => __('uneasiness.uneasiness_list'),
+                        'uri' => route('uneasiness.index'),
+                        'list_class' => request()->routeIs('uneasiness.index') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('uneasiness.index') ? 'text-white' : '',
+                        'permission' => 'uneasiness_read',
+                    ],
+                    [
+                        'name' => __('uneasiness.new_unease'),
+                        'uri' => route('uneasiness.create'),
+                        'list_class' => request()->routeIs('uneasiness.create') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('uneasiness.create') ? 'text-white' : '',
+                        'permission' => 'uneasiness_create',
+                    ],
+                ],
+                'dropdown-variable' => 'isUneasinessMenuOpen',
+                'dropdown-click-event' => 'toggleUneasinessMenu'
+            ],
+            [
                 'name' => 'Metodos de pago',
                 'icon' => '<i class="fas fa-money-check-alt"></i>',
                 'permission' => 'payment_methods_read',
