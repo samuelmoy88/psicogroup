@@ -15,6 +15,16 @@ class Unease extends Model
 
     protected $table = 'uneasiness';
 
+    public function users()
+    {
+        return $this->belongsToMany(
+            Unease::class,
+            'uneasiness_users',
+            'uneasiness_id',
+            'user_id'
+        );
+    }
+
     public function getStatusLabelAttribute()
     {
         switch ($this->attributes['status']) {

@@ -80,6 +80,16 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function uneasiness()
+    {
+        return $this->belongsToMany(
+            Unease::class,
+            'uneasiness_users',
+            'user_id',
+            'uneasiness_id'
+        )->withPivot('profile_type');
+    }
+
     public function getIsSpecialistAttribute()
     {
         return $this->profile_type == SpecialistProfile::class;
@@ -108,6 +118,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
         if ($data == '0' && $this->hasRole($role_id)) {
             $this->removeRole($role_id);
+        }
+    }
+
+    public function toggleUnease(int $unease_id, $value)
+    {
+        $profile = $this->isSpecialist ? SpecialistProfile::class : PatientProfile::class;
+
+        if (!$this->uneasiness->contains($unease_id) && $value) {
+            $this->uneasiness()->attach($unease_id, ['profile_type' => $profile]);
+        }
+
+        if ($this->uneasiness->contains($unease_id) && $value == '0') {
+            $this->uneasiness()->detach($unease_id);
         }
     }
 

@@ -93,6 +93,29 @@
             </div>
         </div>
 
+        @if(count($uneasiness) > 0)
+        <div class="form-card">
+            <h2 class="font-bold text-xl">{{ __('uneasiness.uneasiness') }}</h2>
+            <p class="font-normal text-base mb-2">{{ __('uneasiness.uneasiness_copy') }}</p>
+            <div class="mb-4 text-sm flex">
+                @foreach($uneasiness as $key => $unease)
+                    @if($key == 0 || round(count($uneasiness) / 2) == $key )
+                        <div class="w-full md:w-1/2">
+                            @endif
+                            <label class="flex items-center mb-1 cursor-pointer">
+                                <input type="hidden" name="uneasiness[{{ $unease->id }}]" value="0">
+                                <input type="checkbox" name="uneasiness[{{ $unease->id }}]" value="1"
+                                       {{ $specialist->uneasiness && $specialist->uneasiness->contains($unease->id) ? 'checked' : '' }}
+                                       class="text-brand-color rounded form-checkbox focus:border-brand-color focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                <span class="ml-2">{{ $unease->title }}</span>
+                            </label>
+                            @if($key == (count($uneasiness) - 1) || round(count($uneasiness) / 2) == ($key + 1))
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+        @endif
         <div class="mb-4 text-sm text-right">
             <x-button>{{ __('common.save_changes') }}</x-button>
         </div>

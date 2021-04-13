@@ -130,6 +130,12 @@ class SpecialistProfile extends Model
 
         $this->toggleDiseases($request->diseases);
 
+        if ($request->uneasiness) {
+            foreach ($request->uneasiness as $id => $value) {
+                $user->toggleUnease($id, $value);
+            }
+        }
+
         if ($this->isDirty() || $this->user->isDirty()) {
             $this->is_verified = 0;
         }

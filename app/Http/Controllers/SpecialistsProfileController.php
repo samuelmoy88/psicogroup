@@ -9,6 +9,7 @@ use App\Models\Prefix;
 use App\Models\Services;
 use App\Models\SpecialistProfile;
 use App\Models\Speciality;
+use App\Models\Unease;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -75,6 +76,7 @@ class SpecialistsProfileController extends Controller
                 'prefixes' => Prefix::all(),
                 'specialities' => Speciality::orderBy('order')->get(),
                 'diseases' => Disease::orderBy('order')->get(),
+                'uneasiness' => Unease::orderBy('order')->get(),
             ]);
         }
         //TODO: build a cool 404 page
