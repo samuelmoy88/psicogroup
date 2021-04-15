@@ -232,5 +232,5 @@ return [
 
     'per_page' => 15,
 
-    'admin_backend' => 'admin.psicogroup.test',
+    'admin_backend' => 'http://admin.psicogroup.test',
 ];

@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckBanned;
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\EnsureUserIsSpecialist;
+use App\Http\Middleware\RedirectAdminUsers;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'specialist' => EnsureUserIsSpecialist::class,
         'admin' => EnsureUserIsAdmin::class,
         'active' => EnsureUserIsActive::class,
+        'admin.redirect' => RedirectAdminUsers::class
     ];
 }

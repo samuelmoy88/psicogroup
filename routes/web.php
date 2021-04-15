@@ -33,10 +33,14 @@ use App\Http\Controllers\AdminController;
 |
 */
 
+Route::middleware(['admin.redirect'])->group(function () {
+    Route::get('/', [FrontEndController::class, 'index'])->name('front.home');
+});
+
 Route::domain(config('app.admin_backend'))->group(function ($router) {
     Route::middleware(['auth','active','admin'])->group(function () {
         Route::get('/dashboard', AdminDashboardController::class)->name('admin.dashboard');
-        Route::permanentRedirect('/', \App\Providers\RouteServiceProvider::DASHBOARD);
+
 
         // Sort models
         Route::put('/specialities/sort', [SpecialityController::class, 'sort'])->name('specialities.sort');
@@ -112,9 +116,5 @@ Route::middleware(['auth', 'specialist','active'])->group(function () {
 
 // View public profile
 Route::get('/{specialist}/psicologo/{uuid}', [SpecialistsProfileController::class, 'show'])->name('specialist.show');
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 require __DIR__.'/auth.php';
