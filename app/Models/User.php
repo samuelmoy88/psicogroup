@@ -246,7 +246,7 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         }
 
-        return cache()->store('file')->set($this->uuid, collect($data), now()->addHours(24));
+        return cache()->store(config('cache.default'))->set($this->uuid, collect($data), now()->addDays(5));
     }
 
     /**
