@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="flex relative" x-spread="container" x-data="tabs()">
-                @if(count($specialist['addresses']))
+                @if(isset($specialist['addresses']) && count($specialist['addresses']))
                     <ul class="flex" x-ref="tabs">
                         @foreach($specialist['addresses'] as $key => $address)
                             <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
@@ -39,33 +39,35 @@
                 @endif
             </div>
             <hr class="bg-gray-100"/>
-            <div x-ref="cards">
-                @if(count($specialist['addresses']) > 0)
-                    @foreach($specialist['addresses'] as $key => $address)
-                        <div class="mt-3 transition-all duration-700 {{ $key !== 0 ? 'hidden' : '' }}"
-                             style="">
-                            @if($address['consultation_type'] !== 'online')
-                                <div class="flex mb-2">
-                                    <i class="fas fa-map-marked-alt mr-2 text-gray-500"></i>
-                                    <div>
-                                        <p>{{ $address['street'] }}, {{ $address['city'] }}
-                                            , {{ $address['zip_code'] }}</p>
-                                        <p>{{ $address['title'] }}</p>
+            <div class="max-h-24 overflow-y-auto">
+                <div x-ref="cards">
+                    @if(isset($specialist['addresses']) && count($specialist['addresses']) > 0)
+                        @foreach($specialist['addresses'] as $key => $address)
+                            <div class="mt-3 transition-all duration-700 {{ $key !== 0 ? 'hidden' : '' }}"
+                                 style="">
+                                @if($address['consultation_type'] !== 'online')
+                                    <div class="flex mb-2">
+                                        <i class="fas fa-map-marked-alt mr-2 text-gray-500"></i>
+                                        <div>
+                                            <p>{{ $address['street'] }}, {{ $address['city'] }}
+                                                , {{ $address['zip_code'] }}</p>
+                                            <p>{{ $address['title'] }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            @endif
-                            @foreach($address['services'] as $service)
-                                <div class="flex">
-                                    <i class="fas fa-money-bill-alt mr-2 text-gray-500"></i>
-                                    <div>
-                                        <p>{{ $service['title'] }}
-                                            <i class="font-bold">S/@money($service['price'])</i></p>
+                                @endif
+                                @foreach($address['services'] as $service)
+                                    <div class="flex">
+                                        <i class="fas fa-money-bill-alt mr-2 text-gray-500"></i>
+                                        <div>
+                                            <p>{{ $service['title'] }}
+                                                <i class="font-bold">S/@money($service['price'])</i></p>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endforeach
-                @endif
+                                @endforeach
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>@php //var_dump($specialist); @endphp
     @endforeach
