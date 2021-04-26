@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\CacheEntity;
+use App\Traits\Cachable;
 use App\Traits\FormatDates;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,9 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PaymentMethod extends Model
 {
-    use HasFactory, SoftDeletes, FormatDates, Sortable;
+    use HasFactory, SoftDeletes, FormatDates, Sortable, Cachable;
 
     protected $guarded = ['id'];
+
+    protected $dispatchesEvents = [
+        'saved' => CacheEntity::class
+    ];
 
     public function addresses()
     {

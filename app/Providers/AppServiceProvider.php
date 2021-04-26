@@ -27,5 +27,15 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('money', function ($money) {
             return "<?= floatval(number_format($money, 2)); ?>";
         });
+
+        Blade::directive('transition', function ($transitionDirectives) {
+            $directives = "";
+
+            foreach (explode(',', $transitionDirectives) as $directive) {
+                $directives .= "x-transition:$directive ";
+            }
+
+            return "<?= '$directives'; ?>";
+        });
     }
 }

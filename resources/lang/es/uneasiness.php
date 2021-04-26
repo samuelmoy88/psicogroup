@@ -12,5 +12,6 @@ return [
     'status_active' => 'Activa',
     'status_deleted' => 'Eliminada',
     'status_inactive' => 'Desactivada',
-    'specialities_choose' => 'Elija sus inquietudes'
+    'uneasiness_choose' => 'Elija sus inquietudes',
+    'uneasiness_copy' => 'A menudo los pacientes buscan especialista indicando inquietudes en su perfil. Si rellena esa información los pacientes encontrarán su perfil fácilmente'
 ];

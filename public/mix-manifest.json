@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/admin.js": "/js/admin.js",
     "/js/geocoding.js": "/js/geocoding.js",
+    "/js/front.js": "/js/front.js",
     "/css/app.css": "/css/app.css"
 }

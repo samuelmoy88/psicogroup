@@ -20,7 +20,6 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/geocoding.js') }}" defer></script>
         <script src="https://kit.fontawesome.com/0333ea10da.js" crossorigin="anonymous"></script>
         @livewireStyles
         @livewireScripts
@@ -36,14 +35,22 @@
                 @endif
             @endauth
             <!-- Mobile sidebar -->
+            @auth
+                @if(auth()->user()->isSpecialist)
             <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center" style="display: none;"></div>
             <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150" x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu" @keydown.escape="closeSideMenu" style="display: none;">
                 @include('layouts.sidebar')
             </aside>
+                @endif
+            @endauth
 {{--            @include('layouts.navigation')--}}
             <div class="flex flex-col flex-1 w-full overflow-y-auto">
                 <!-- Page Heading -->
+            @auth
+                @if(auth()->user()->isSpecialist)
                 @include('layouts.specialist-header')
+                @endif
+            @endauth
                 <!-- Page Content -->
                 <main class="py-5 mx-3 md:mx-8">
                     {{ $slot }}
@@ -51,6 +58,10 @@
             </div>
         </div>
     </body>
+    <script src="{{ asset('js/geocoding.js') }}" defer></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnj4H7RbfHk_hq4vDZuXn32QAlnrn5cQc&libraries=places">
+    </script>
     <script>
         const shouldSpecialistMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'profile' ? 'true' : 'false' }}';
         const shouldAccountMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'account' ? 'true' : 'false' }}';

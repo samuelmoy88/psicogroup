@@ -9,6 +9,7 @@ use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SecurityMeasuresController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SpecialistChangesController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\AdminController;
 
 Route::middleware(['admin.redirect'])->group(function () {
     Route::get('/', [FrontEndController::class, 'index'])->name('front.home');
+    Route::get('/search', SearchController::class)->name('search.index');
 });
 
 Route::domain(config('app.admin_backend'))->group(function ($router) {

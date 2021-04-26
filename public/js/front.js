@@ -3826,15 +3826,105 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
 window.loginDropdown = function () {
   return {
-    signUpOpen: false
+    signUpOpen: false,
+    isMobileMenuOpen: false,
+    mobileSignUpOpen: false
   };
 };
+
+window.tabs = function () {
+  return {
+    previousTab: 0,
+    activeTab: 0,
+    width: 0,
+    x: 0,
+    setWidthAndXFromElement: function setWidthAndXFromElement(element) {
+      var _element$getBoundingC = element.getBoundingClientRect(),
+          x = _element$getBoundingC.x,
+          width = _element$getBoundingC.width;
+
+      var default_x = this.$refs.tabs.children[0].getBoundingClientRect()['x'];
+      this.x = x - default_x;
+      this.width = width;
+    },
+    container: _defineProperty({}, 'x-on:load.window', function xOnLoadWindow() {
+      var element = this.$refs.tabs.children[0];
+      this.setWidthAndXFromElement(element);
+      element.classList.add('text-brand-color');
+    }),
+    indicator: _defineProperty({}, 'x-bind:style', function xBindStyle() {
+      return "width: ".concat(this.width, "px; transform: translateX(").concat(this.x, "px)");
+    }),
+    tab: _defineProperty({}, '@click', function click(event) {
+      var element = event.target;
+      this.setWidthAndXFromElement(element);
+      this.previousTab = this.activeTab;
+      this.activeTab = Array.from(this.$refs.tabs.children).indexOf(element);
+      this.$refs.tabs.children[this.previousTab].classList.remove('text-brand-color');
+      document.querySelector("div[x-ref=cards]").children[this.previousTab].classList.add('hidden');
+      document.querySelector("div[x-ref=cards]").children[this.activeTab].classList.remove('hidden');
+      element.classList.add('text-brand-color');
+    })
+  };
+};
+
+window.searchInputs = function () {
+  return {
+    previousBox: 0,
+    activeBox: 0,
+    input: _defineProperty({}, '@click', function click(event) {
+      var element = event.target;
+      var parent = element;
+
+      if (element.classList.contains('form-item-title') || element.classList.contains('form-item-counter') || element.classList.contains('fas')) {
+        parent = element.parentElement.parentElement;
+      } else if (element.classList.contains('form-item-container')) {
+        parent = element.parentElement;
+      } else {
+        return;
+      }
+
+      this.previousBox = this.activeBox;
+      this.activeBox = Array.from(this.$refs.inputs.children).indexOf(parent);
+      this.$refs.inputs.children[this.previousBox].classList.remove('bg-brand-color', 'text-white'); // Toggle children
+
+      if (parent.children[1].classList.contains('hidden')) {
+        parent.children[1].classList.remove('hidden', 'form-box-closed');
+        parent.children[1].classList.add('form-box-opened');
+        parent.classList.add('text-white', 'bg-brand-color');
+      } else {
+        parent.children[1].classList.add('hidden', 'form-box-closed');
+        parent.children[1].classList.remove('form-box-opened');
+        parent.classList.remove('text-white', 'bg-brand-color');
+      }
+
+      var otherBoxes = document.querySelectorAll("div[x-ref=\"box\"].form-box-opened");
+
+      for (var i = 0; i < otherBoxes.length; i++) {
+        if (otherBoxes.length === 1) break;
+        if (i === this.activeBox) continue;
+        otherBoxes[i].classList.add('hidden');
+      }
+    })
+  };
+};
+
+var formBoxes = document.querySelectorAll('div[x-ref="box"]');
+
+if (formBoxes) {
+  for (var i in formBoxes) {
+    formBoxes[i].addEventListener('focusout', function () {// formBoxes[i].classList.add('hidden');
+    });
+  }
+}
 
 /***/ }),
 

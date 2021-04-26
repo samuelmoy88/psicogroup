@@ -1,5 +1,5 @@
 <div class="py-4 text-gray-500 dark:text-gray-400">
-    <a class="block p-3 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+    <a title="Inicio" class="block p-3 text-lg font-bold text-gray-800 dark:text-gray-200" href="/">
         <x-logo-horizontal/>
     </a>
     <ul class="">

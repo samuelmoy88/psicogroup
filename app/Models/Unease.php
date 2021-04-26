@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\CacheEntity;
+use App\Traits\Cachable;
 use App\Traits\FormatDates;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,11 +11,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unease extends Model
 {
-    use HasFactory, FormatDates, Sortable;
+    use HasFactory, FormatDates, Sortable, Cachable;
 
     protected $guarded = ['id'];
 
     protected $table = 'uneasiness';
+
+    protected $dispatchesEvents = [
+        'saved' => CacheEntity::class,
+    ];
 
     public function users()
     {

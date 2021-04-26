@@ -40,7 +40,7 @@
                     <input type="hidden" name="latitude" id="latitude" value="{{ $address->latitude }}">
                     <input type="hidden" name="longitude" id="longitude" value="{{ $address->longitude }}">
                     <x-label for="street">{{ __("common.street") }} *</x-label>
-                    <x-input type="text" value="{{ $address->street }}" id="street" name="street"/>
+                    <x-input type="text" value="{{ $address->street }}" id="route" name="street"/>
                     <div id="street-results" class="absolute w-half hidden geo-coder-results"></div>
                 </div>
 
@@ -52,7 +52,7 @@
 
                 <div class="mb-4 text-sm w-full md:w-1/4 md:pl-4">
                     <x-label for="zip_code">{{ __("common.zip") }} *</x-label>
-                    <x-input type="text" value="{{ $address->zip_code }}" id="zip_code" name="zip_code"/>
+                    <x-input type="text" value="{{ $address->zip_code }}" id="postal_code" name="zip_code"/>
                     <small>Si no conoces tu CP, haz click <a class="underline text-blue-500" href="http://www.codigopostal.gob.pe" target="_blank">aquí</a></small>
                 </div>
 

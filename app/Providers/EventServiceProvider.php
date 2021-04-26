@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\CacheEntity;
+use App\Events\CacheSpecialist;
 use App\Events\UpdatingSpecialist;
+use App\Listeners\CacheEntities;
+use App\Listeners\CacheSpecialistAfterSave;
 use App\Listeners\TrackSpecialistChanges;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,6 +26,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         UpdatingSpecialist::class => [
             TrackSpecialistChanges::class
+        ],
+        CacheSpecialist::class => [
+            CacheSpecialistAfterSave::class
+        ],
+        CacheEntity::class => [
+            CacheEntities::class
         ],
     ];
 

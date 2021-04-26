@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Events\CacheSpecialist;
 use App\Events\UpdatingSpecialist;
 use App\Traits\FormatDates;
+use App\Traits\Searchable;
 use App\Traits\TrackChanges;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,7 +19,7 @@ use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoles, FormatDates, TrackChanges;
+    use HasFactory, Notifiable, HasRoles, FormatDates, TrackChanges, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -59,7 +61,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $with = ['profile'];
 
     protected $dispatchesEvents = [
-        'updating' => UpdatingSpecialist::class
+        'updating' => UpdatingSpecialist::class,
+        'saved' => CacheSpecialist::class,
+    ];
+
+    protected $searchable = [
+        'first_name',
+        'last_name'
     ];
 
     const STATUS_ACTIVE = 'active';
@@ -145,6 +153,102 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->update();
     }
 
+    public function saveToCache()
+    {
+        $data['full_name'] = $this->first_name . ' ' . $this->last_name;
+        $data['uuid'] = $this->uuid;
+        $data['username'] = $this->username;
+        $data['status'] = $this->status;
+        $data['banned_until'] = $this->banned_until;
+        $data['prefix'] = $this->profile->prefixLabel;
+        $data['license_number'] = $this->profile->license_number;
+        $data['is_verified'] = $this->profile->is_verified;
+        $data['avatar'] = $this->profile->avatarPath;
+        $data['about'] = $this->profile->about;
+        $data['has_online_consultation'] = false;
+
+        if ($this->profile->services) {
+            foreach ($this->profile->services as $service) {
+                $data['services'][] = [
+                    'title' => $service->title,
+                    'description' => $service->pivot->description,
+                    'price' => $service->pivot->price,
+                    'price_from' => $service->pivot->price_from,
+                ];
+            }
+        }
+
+        if ($this->addresses) {
+            $allServices = Services::all();
+            foreach ($this->addresses as $address) {
+                $services = [];
+                $payments = [];
+                $accessibility = [];
+
+                if (count($address->services) > 0) {
+                    foreach ($address->services as $service) {
+                        $data['services'][] = [
+                            'description' => $service->description,
+                            'price' => $service->price,
+                            'price_from' => $service->price_from,
+                            'duration' => $service->duration,
+                            'title' => $allServices->firstWhere('id', $service->service_id)->title
+                        ];
+                        $services[] = [
+                            'description' => $service->description,
+                            'price' => $service->price,
+                            'price_from' => $service->price_from,
+                            'duration' => $service->duration,
+                            'title' => $allServices->firstWhere('id', $service->service_id)->title
+                        ];
+                    }
+                }
+
+                if (count($address->paymentMethods) > 0) {
+                    foreach ($address->paymentMethods as $paymentMethod) {
+                        $payments[] = $paymentMethod->title;
+                    }
+                }
+
+                if (count($address->accessibility) > 0) {
+                    foreach ($address->accessibility as $_accessibility) {
+                        $accessibility[] = $_accessibility->title;
+                    }
+                }
+                if ($address->consultation_type === 'online')
+                    $data['has_online_consultation'] = true;
+                    $data['addresses'][] = [
+                        'clinic_name' => $address->clinic_name,
+                        'title' => $address->title,
+                        'street' => $address->street,
+                        'city' => $address->city,
+                        'country' => $address->country,
+                        'zip_code' => $address->zip_code,
+                        'address_indications' => $address->address_indications,
+                        'web_site' => $address->web_site,
+                        'consultation_type' => $address->consultation_type,
+                        'accessibility' => $accessibility,
+                        'services' => $services,
+                        'payment_methods' =>  $payments,
+                    ];
+            }
+        }
+
+        if ($this->profile->specialities) {
+            foreach ($this->profile->specialities as $speciality) {
+                $data['specialities'][] = $speciality->title;
+            }
+        }
+
+        if ($this->profile->diseases) {
+            foreach ($this->profile->diseases as $disease) {
+                $data['diseases'][] = $disease->title;
+            }
+        }
+
+        return cache()->store('file')->set($this->uuid, collect($data), now()->addHours(24));
+    }
+
     /**
      * Send the email verification notification.
      *
@@ -153,5 +257,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail);
+    }
+
+    public function scopeSpecialistProfile($query)
+    {
+        return $query->where('profile_type', SpecialistProfile::class)->where('status', 'active')->whereNull('banned_until');
     }
 }

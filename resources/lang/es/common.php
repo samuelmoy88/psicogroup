@@ -19,6 +19,7 @@ return [
     'phone' => 'Teléfono',
     'license_number' => 'Número de colegiado',
     'addresses' => 'Direcciones',
+    'address' => 'Dirección',
     'practice_type' => 'Tipo de práctica',
     'private_practice' => 'Consultorio privado',
     'medical_center' => 'Centro médico',
@@ -95,6 +96,19 @@ return [
     'experience' => 'Experiencia',
     'choose' => 'Elegir',
     'change_picture' => 'Cambiar foto',
-    'upload_picture' => 'Subir foto'
-
+    'upload_picture' => 'Subir foto',
+    'register_as_patient' => 'Como paciente',
+    'register_as_specialist' => 'Como especialista',
+    'home' => 'Inicio',
+    'specialities' => 'Especialidades',
+    'service' => 'Servicio',
+    'speciality' => 'Especialidad',
+    'searching...' => 'Buscando...',
+    'specialistByService' => 'Especialista',
+    'specialistBySpeciality' => 'Especialista',
+    'specialist_avatar' => 'Avatar del especialista',
+    'has_online_consultation' => 'Tiene consulta online',
+    'apply_filters' => 'Aplicar filtros',
+    'diseases' => 'Patologías',
+    'faq' => 'Preguntas frecuentes'
 ];

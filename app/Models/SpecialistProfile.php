@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\CacheSpecialist;
 use App\Events\UpdatingSpecialist;
 use App\Http\Requests\UpdateSpecialistRequest;
 use App\Jobs\NotifySpecialistProfileChange;
@@ -143,7 +144,6 @@ class SpecialistProfile extends Model
         //Save the user's changes
         $this->save();
         $this->user()->save($user);
-
 
         auth()->user()->refresh();
     }
