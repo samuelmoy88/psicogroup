@@ -84,6 +84,10 @@ window.data = function () {
         togglePatientsMenu() {
             this.isPatientsMenuOpen = !this.isPatientsMenuOpen
         },
+        isOnlinePlatformsMenuOpen: shouldOnlinePlatformsBeOpened === 'true',
+        toggleOnlinePlatformsMenu() {
+            this.isOnlinePlatformsMenuOpen = !this.isOnlinePlatformsMenuOpen
+        },
     }
 }
 

@@ -85,28 +85,39 @@ if (!function_exists('cacheAllSpecialists')) {
 if (!function_exists('cacheAllEntities')) {
     function cacheAllEntities()
     {
-        foreach (\App\Models\Services::orderBy('order', 'desc')->get() as $service) {
+        foreach (\App\Models\Services::orderBy('order', 'asc')->get() as $service) {
             $service->cache();
+            break;
         }
 
-        foreach (\App\Models\Speciality::orderBy('order', 'desc')->get() as $speciality) {
+        foreach (\App\Models\Speciality::orderBy('order', 'asc')->get() as $speciality) {
             $speciality->cache();
+            break;
         }
 
-        foreach (\App\Models\Disease::orderBy('order', 'desc')->get() as $disease) {
+        foreach (\App\Models\Disease::orderBy('order', 'asc')->get() as $disease) {
             $disease->cache();
+            break;
         }
 
-        foreach (\App\Models\Unease::orderBy('order', 'desc')->get() as $uneasiness) {
+        foreach (\App\Models\Unease::orderBy('order', 'asc')->get() as $uneasiness) {
             $uneasiness->cache();
+            break;
         }
 
-        foreach (\App\Models\PaymentMethod::orderBy('order', 'desc')->get() as $paymentMethod) {
+        foreach (\App\Models\PaymentMethod::orderBy('order', 'asc')->get() as $paymentMethod) {
             $paymentMethod->cache();
+            break;
         }
 
-        foreach (\App\Models\SecurityMeasures::orderBy('order', 'desc')->get() as $securityMeasure) {
+        foreach (\App\Models\SecurityMeasures::orderBy('order', 'asc')->get() as $securityMeasure) {
             $securityMeasure->cache();
+            break;
+        }
+
+        foreach (\App\Models\OnlineConsultationPlatform::orderBy('order', 'asc')->get() as $securityMeasure) {
+            $securityMeasure->cache();
+            break;
         }
     }
 }

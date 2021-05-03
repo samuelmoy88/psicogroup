@@ -6,6 +6,7 @@ use App\Http\Requests\AddressRequest;
 use App\Models\Address;
 use App\Models\AddressAccessibility;
 use App\Models\InsuranceSupport;
+use App\Models\OnlineConsultationPlatform;
 use App\Models\PaymentMethod;
 use App\Models\Services;
 use App\Models\SecurityMeasures;
@@ -36,9 +37,9 @@ class AddressController extends Controller
         return view('specialist.address.create', [
             'addressAccessibility' => AddressAccessibility::all(),
             'services' => Services::orderBy('order')->get(),
-            'insuranceSupport' => InsuranceSupport::all(),
             'securityMeasures' => SecurityMeasures::orderBy('order')->get(),
             'paymentMethods' => PaymentMethod::orderBy('order')->get(),
+            'onlinePlatforms' => OnlineConsultationPlatform::orderBy('order')->get(),
         ]);
     }
 
@@ -86,6 +87,7 @@ class AddressController extends Controller
             'insuranceSupport' => InsuranceSupport::all(),
             'securityMeasures' => SecurityMeasures::orderBy('order')->get(),
             'paymentMethods' => PaymentMethod::orderBy('order')->get(),
+            'onlinePlatforms' => OnlineConsultationPlatform::orderBy('order')->get(),
         ]);
     }
 

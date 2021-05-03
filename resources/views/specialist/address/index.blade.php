@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="form-card">
         <div class="flex justify-between mb-2">
-            <h2 class="font-bold text-xl">{{ __('common.addresses') }}</h2>
+            <h2 class="font-bold text-xl">{{ __('common.consultations') }}</h2>
             <a class="text-blue-500" href="{{ route('specialist.addresses.create', auth()->user()->uuid) }}">{{ __('address.add_new') }}</a>
         </div>
         @if(isset($success))

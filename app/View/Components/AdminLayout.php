@@ -193,6 +193,29 @@ class AdminLayout extends Component
                 'dropdown-click-event' => 'toggleSecurityMeasuresMenu'
             ],
             [
+                'name' => 'Plataformas online',
+                'icon' => '<i class="fas fa-video"></i>',
+                'permission' => 'online_platform_read',
+                'sub-modules' => [
+                    [
+                        'name' => __('online-platforms.op_list'),
+                        'uri' => route('online-platforms.index'),
+                        'list_class' => request()->routeIs('online-platforms.index') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('online-platforms.index') ? 'text-white' : '',
+                        'permission' => 'online_platform_read',
+                    ],
+                    [
+                        'name' => __('online-platforms.new_op'),
+                        'uri' => route('online-platforms.create'),
+                        'list_class' => request()->routeIs('online-platforms.create') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('online-platforms.create') ? 'text-white' : '',
+                        'permission' => 'online_platform_create',
+                    ],
+                ],
+                'dropdown-variable' => 'isOnlinePlatformsMenuOpen',
+                'dropdown-click-event' => 'toggleOnlinePlatformsMenu'
+            ],
+            [
                 'name' => 'Configuración',
                 'icon' => '<i class="fas fa-cogs"></i>',
                 'permission' => 'config_read',

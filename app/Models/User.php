@@ -184,6 +184,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 $services = [];
                 $payments = [];
                 $accessibility = [];
+                $platforms = [];
 
                 if (count($address->services) > 0) {
                     foreach ($address->services as $service) {
@@ -215,6 +216,13 @@ class User extends Authenticatable implements MustVerifyEmail
                         $accessibility[] = $_accessibility->title;
                     }
                 }
+
+                if (count($address->onlinePlatforms) > 0) {
+                    foreach ($address->onlinePlatforms as $onlinePlatform) {
+                        $platforms[] = $onlinePlatform->title;
+                    }
+                }
+
                 if ($address->consultation_type === 'online')
                     $data['has_online_consultation'] = true;
                     $data['addresses'][] = [
@@ -230,6 +238,7 @@ class User extends Authenticatable implements MustVerifyEmail
                         'accessibility' => $accessibility,
                         'services' => $services,
                         'payment_methods' =>  $payments,
+                        'online_platforms' =>  $platforms,
                     ];
             }
         }

@@ -33,7 +33,7 @@
                         <a class="w-full block {{ request()->routeIs('specialist.addresses.*') ? 'text-white' : '' }}
                          {{ request()->routeIs('specialist.addresses.*') ? 'text-white' : '' }}"
                            href="{{ route('specialist.addresses.index', auth()->user()->uuid) }}">
-                            Direcciones
+                            Consultas
                         </a>
                     </li>
                     <li class="{{ request()->routeIs('specialist.services.*') ? 'bg-brand-color' : '' }}

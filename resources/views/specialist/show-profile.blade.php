@@ -1,4 +1,34 @@
 <x-app-layout>
+    <div class="mb-2">
+        <nav>
+            <ul class="flex space-x-2 text-xs profile-breadcrumbs">
+                <li>
+                    <a href="/" class="underline">{{ __('common.home') }}</a>
+                </li>
+                @if($specialist->profile->specialities)
+                    <li class="">
+                @foreach($specialist->profile->specialities as $specialities)
+                    <a href="/search?speciality[]={{ $specialities->id }}" class="underline breadcrumbs-specialities">{{ $specialities->title }}</a>
+                    @if($loop->index === 2) @break @endif
+                @endforeach
+                    </li>
+                @endif
+                @if($specialist->addresses)
+                    <li>
+                    @foreach($specialist->addresses as $address)
+                        @if($address->city)
+                            @if($loop->index > 0) @break @endif
+                            <a href="/search?location={{ $address->city }}" class="underline">{{ $address->city }}</a>
+                        @endif
+                    @endforeach
+                    </li>
+                @endif
+                <li>
+                    {{ $specialist->profile->prefixLabel }} {{ $specialist->first_name }} {{ $specialist->last_name }}
+                </li>
+            </ul>
+        </nav>
+    </div>
     <div class="form-card sm:w-2/3 mb-4">
         <div class="flex">
             <div class="specialist-avatar mb-4 mr-4">
@@ -6,7 +36,7 @@
                      class="rounded" height="140" width="140">
             </div>
             <div class="flex-1">
-                <h3 class="text-xl font-bold">{{ $specialist->first_name }} {{ $specialist->last_name }}
+                <h3 class="text-xl font-bold">{{ $specialist->profile->prefixLabel }} {{ $specialist->first_name }} {{ $specialist->last_name }}
                     @if($specialist->profile->is_verified) <i class="fas fa-check-circle text-brand-color"></i>@endif</h3>
                 @if($specialist->profile->license_number)
                     <p class="text-xs mt-3 mb-2">{{ __('common.license_number') }}</p>
@@ -77,7 +107,7 @@
                                     @if($address->web_site)
                                         <div class="address_element">
                                             <i class="fas fa-link mr-4"></i>
-                                            <a href="{{ $address->web_site }}" class="underline text-blue-500" target="_blank" rel="noopener">{{ $address->web_site }}</a>
+                                            <a href="{{ $address->getWebSite() }}" class="underline text-blue-500" target="_blank" rel="noopener">{{ $address->web_site }}</a>
                                         </div>
                                     @endif
                                     @if(count($address->accessibility) > 0)

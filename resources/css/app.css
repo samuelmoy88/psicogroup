@@ -2,6 +2,16 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.profile-breadcrumbs li:not(:last-child):after{
+    content: '>';
+    display: inline-block;
+    margin: 0 3px;
+}
+.breadcrumbs-specialities:not(:last-child):after{
+    content: '/';
+    display: inline-block;
+    margin: 0 3px;
+}
 .specialist-avatar {
     width: 140px;
 }

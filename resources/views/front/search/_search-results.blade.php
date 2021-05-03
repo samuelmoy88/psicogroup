@@ -14,7 +14,7 @@
                                 {{ $specialist['full_name'] }}</a>
                             @if($specialist['is_verified']) <i
                                 class="fas fa-check-circle text-brand-color"></i> @endif</h3>
-                        @if($specialist['specialities'])
+                        @if(isset($specialist['specialities']) && $specialist['specialities'])
                             <p class="font-light">{{ implode(', ', $specialist['specialities']) }}</p>
                         @endif
                     </div>
@@ -39,19 +39,27 @@
                 @endif
             </div>
             <hr class="bg-gray-100"/>
-            <div class="max-h-24 overflow-y-auto">
+            <div class="max-h-32 overflow-y-auto">
                 <div x-ref="cards">
                     @if(isset($specialist['addresses']) && count($specialist['addresses']) > 0)
                         @foreach($specialist['addresses'] as $key => $address)
                             <div class="mt-3 transition-all duration-700 {{ $key !== 0 ? 'hidden' : '' }}"
                                  style="">
-                                @if($address['consultation_type'] !== 'online')
+                                @if($address['street'] && $address['city'])
                                     <div class="flex mb-2">
                                         <i class="fas fa-map-marked-alt mr-2 text-gray-500"></i>
                                         <div>
                                             <p>{{ $address['street'] }}, {{ $address['city'] }}
                                                 , {{ $address['zip_code'] }}</p>
                                             <p>{{ $address['title'] }}</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if(count($address['online_platforms']) > 0)
+                                    <div class="flex">
+                                        <i class="fas fa-video mr-2 text-gray-500"></i>
+                                        <div>
+                                            <p>Vía {{ implode(', ', $address['online_platforms']) }}</p>
                                         </div>
                                     </div>
                                 @endif

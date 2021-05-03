@@ -3890,6 +3890,10 @@ window.data = function () {
     isPatientsMenuOpen: shouldPatientsMenuBeOpened === 'true',
     togglePatientsMenu: function togglePatientsMenu() {
       this.isPatientsMenuOpen = !this.isPatientsMenuOpen;
+    },
+    isOnlinePlatformsMenuOpen: shouldOnlinePlatformsBeOpened === 'true',
+    toggleOnlinePlatformsMenu: function toggleOnlinePlatformsMenu() {
+      this.isOnlinePlatformsMenuOpen = !this.isOnlinePlatformsMenuOpen;
     }
   };
 };

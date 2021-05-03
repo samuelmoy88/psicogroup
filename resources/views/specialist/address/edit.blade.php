@@ -93,19 +93,35 @@
             @endif
             @if($address->consultation_type === \App\Models\Address::TYPE_ONLINE)
             <h2 class="font-bold text-xl">{{ __('address.online_address_indications') }}</h2>
+            <p class="text-bold text-black">Indicar de que forma los pacientes podrán llevar a cabo la consulta. Por ejemplo:</p>
+            <ul class="pl-4 text-small list-disc">
+                <li class="pt-3 text-gray-500">Cómo se realizará la consulta: teléfono, videollamada, etc. Ej: Skype, Whatsapp, Google Hangouts, Zoom...</li>
+                <li class="pt-3 text-gray-500">Si la consulta es a través de alguna aplicación (como Skype, WhatsApp o Zoom) dígale al paciente qué necesita descargarse y/o cómo registrarse.</li>
+                <li class="pt-3 text-gray-500">Si la consulta es a través de Skype, escriba su usuario y pídale al paciente que le agregue a su lista de contactos. Si la consulta es telefónica, escriba su número de teléfono.</li>
+                <li class="pt-3 text-gray-500">Hágale saber al paciente si le contactará antes de la consulta para ofrecerle información adicional o un enlace para iniciar la videollamada, y cuándo lo va a hacer.</li>
+            </ul>
             @endif
             <div class="my-4 text-sm">
-                <x-textarea name="address_indications" id="address_indications">{{ $address->address_indications }}</x-textarea>
+                <x-textarea name="address_indications" id="address_indications" rows="3">{{ $address->address_indications }}</x-textarea>
             </div>
             @if($address->consultation_type === \App\Models\Address::TYPE_ONLINE)
                 <div class="my-4 text-sm">
-                    <ul class="pl-4 text-small list-disc">
-                        <li class="pt-3 text-gray-500">Cómo se realizará la consulta: teléfono, videollamada, etc. Ej: Skype, Whatsapp, Google Hangouts, Zoom...</li>
-                        <li class="pt-3 text-gray-500">Si la consulta es a través de alguna aplicación (como Skype, WhatsApp o Zoom) dígale al paciente qué necesita descargarse y/o cómo registrarse.</li>
-                        <li class="pt-3 text-gray-500">Si la consulta es a través de Skype, escriba su usuario y pídale al paciente que le agregue a su lista de contactos. Si la consulta es telefónica, escriba su número de teléfono.</li>
-                        <li class="pt-3 text-gray-500">Hágale saber al paciente si le contactará antes de la consulta para ofrecerle información adicional o un enlace para iniciar la videollamada, y cuándo lo va a hacer.</li>
-                        <li class="pt-3 text-gray-500">Si quiere que el paciente le contacte, o si desea añadir alguna otra información relevante, puede hacerlo aquí.</li>
-                    </ul>
+                    <p class="text-bold text-black mb-4">Indicar la plataforma por la cual se realizarán las consultas online</p>
+                    <div class="mb-4 text-sm flex">
+                        @foreach($onlinePlatforms as $key => $onlinePlatform)
+                            @if($key == 0 || round(count($onlinePlatforms) / 2) == $key )
+                                <div class="w-full md:w-1/2">
+                                    @endif
+                                    <label class="flex items-center mb-2 cursor-pointer">
+                                        <x-checkbox  checked="{{ $address->onlinePlatforms->contains($onlinePlatform->id) ? true : false }}"
+                                            name="onlinePlatforms[{{ $onlinePlatform->id }}]" value="{{ $onlinePlatform->id }}"/>
+                                        <span class="ml-2">{{ $onlinePlatform->title }}</span>
+                                    </label>
+                                    @if($key == (count($onlinePlatforms) - 1) || round(count($onlinePlatforms) / 2) == ($key + 1))
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
             @endif
         </div>

@@ -20,6 +20,8 @@ return [
     'license_number' => 'Número de colegiado',
     'addresses' => 'Direcciones',
     'address' => 'Dirección',
+    'consultation' => 'Consulta',
+    'consultations' => 'Consultas',
     'practice_type' => 'Tipo de práctica',
     'private_practice' => 'Consultorio privado',
     'medical_center' => 'Centro médico',

@@ -50,6 +50,7 @@
         const shouldServicesMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'services' ? 'true' : 'false' }}';
         const shouldConfigMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'config' ? 'true' : 'false' }}';
         const shouldPatientsMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'patients' ? 'true' : 'false' }}';
+        const shouldOnlinePlatformsBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'online-platforms' ? 'true' : 'false' }}';
         const shouldSpecialistsMenuBeOpened = '{{
         explode('/', Request::decodedPath())[0] === 'doctors' ||
         explode('/', Request::decodedPath())[0] === 'changes'

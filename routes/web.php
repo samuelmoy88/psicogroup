@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DiseaseController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\OnlineConsultationPlatformController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionsController;
@@ -51,6 +52,7 @@ Route::domain(config('app.admin_backend'))->group(function ($router) {
         Route::put('/uneasiness/sort', [UneaseController::class, 'sort'])->name('uneasiness.sort');
         Route::put('/payment-methods/sort', [PaymentMethodController::class, 'sort'])->name('payment-methods.sort');
         Route::put('/security-measures/sort', [SecurityMeasuresController::class, 'sort'])->name('security-measures.sort');
+        Route::put('/online-platforms/sort', [OnlineConsultationPlatformController::class, 'sort'])->name('online-platforms.sort');
 
         // Specialities routes
         Route::resource('/specialities', SpecialityController::class);
@@ -59,6 +61,7 @@ Route::domain(config('app.admin_backend'))->group(function ($router) {
         Route::resource('/uneasiness', UneaseController::class);
         Route::resource('/payment-methods', PaymentMethodController::class);
         Route::resource('/security-measures', SecurityMeasuresController::class);
+        Route::resource('/online-platforms', OnlineConsultationPlatformController::class);
         Route::resource('/doctors', SpecialistController::class);
         Route::resource('/patients', PatientsController::class);
         Route::get('/changes', [SpecialistChangesController::class, 'index'])->name('changes.index');

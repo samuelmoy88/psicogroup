@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Requests\AddressRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Address extends Model
 {
@@ -68,9 +69,28 @@ class Address extends Model
             );
     }
 
+    public function onlinePlatforms()
+    {
+        return $this->belongsToMany(
+            OnlineConsultationPlatform::class,
+            'addresses_online_consultation_platforms',
+            'address_id',
+            'online_consultation_platform_id'
+            );
+    }
+
     public function getPracticeLabelAttribute()
     {
         return $this->is_private ? __('common.private_practice') : __('common.medical_center');
+    }
+
+    public function getWebSite()
+    {
+        if (!Str::contains(strtolower($this->web_site),'https://')) {
+            return 'https://' . str_replace(['http://', 'http', '//'], '', $this->web_site);
+        }
+
+        return $this->web_site;
     }
 
     public function new(AddressRequest $request)
@@ -111,6 +131,12 @@ class Address extends Model
             }
         }
 
+        if ($request->onlinePlatforms) {
+            foreach ($request->onlinePlatforms as $onlinePlatform => $value) {
+                $this->toggleOnlinePlatform($onlinePlatform, $value);
+            }
+        }
+
         auth()->user()->addresses()->attach($address->id);
 
     }
@@ -141,6 +167,12 @@ class Address extends Model
         if ($request->securityMeasures) {
             foreach ($request->securityMeasures as $securityMeasure => $value) {
                 $this->toggleSecurityMeasure($securityMeasure, $value);
+            }
+        }
+
+        if ($request->onlinePlatforms) {
+            foreach ($request->onlinePlatforms as $onlinePlatform => $value) {
+                $this->toggleOnlinePlatform($onlinePlatform, $value);
             }
         }
     }
@@ -186,6 +218,17 @@ class Address extends Model
 
         if ($this->securityMeasures->contains($security_measure_id) && $value == '0') {
             return $this->securityMeasures()->detach($security_measure_id);
+        }
+    }
+
+    protected function toggleOnlinePlatform($online_consultation_platform_id, $value)
+    {
+        if (!$this->onlinePlatforms->contains($online_consultation_platform_id) && $value) {
+            return $this->onlinePlatforms()->attach($online_consultation_platform_id);
+        }
+
+        if ($this->onlinePlatforms->contains($online_consultation_platform_id) && $value == '0') {
+            return $this->onlinePlatforms()->detach($online_consultation_platform_id);
         }
     }
 }

@@ -94,24 +94,39 @@
         <div class="form-card">
             <div x-ref="physicalIndications">
                 <h2 class="font-bold text-xl">{{ __('address.address_indications') }}</h2>
+                <p class="text-bold text-black">Información que los pacientes recibirán tras agendar cita y que les ayudará
+                    a encontrar su consulta más fácilmente. P. ej. cómo acceder al edificio de entrada, cómo llegar con
+                    transporte público, etc.</p>
             </div>
             <div class="hidden" x-ref="onlineIndications">
                 <h2 class="font-bold text-xl">{{ __('address.online_address_indications') }}</h2>
-            </div>
-            <p class="text-bold text-black">Información que los pacientes recibirán tras agendar cita y que les ayudará
-                a encontrar su consulta más fácilmente. P. ej. cómo acceder al edificio de entrada, cómo llegar con
-                transporte público, etc.</p>
-            <div class="my-4 text-sm">
-                <x-textarea name="address_indications" id="address_indications"></x-textarea>
-            </div>
-            <div class="my-4 text-sm hidden" x-ref="onlineDetails">
+                <p class="text-bold text-black">Indicar de que forma los pacientes podrán llevar a cabo la consulta. Por ejemplo:</p>
                 <ul class="pl-4 text-small list-disc">
                     <li class="pt-3 text-gray-500">Cómo se realizará la consulta: teléfono, videollamada, etc. Ej: Skype, Whatsapp, Google Hangouts, Zoom...</li>
                     <li class="pt-3 text-gray-500">Si la consulta es a través de alguna aplicación (como Skype, WhatsApp o Zoom) dígale al paciente qué necesita descargarse y/o cómo registrarse.</li>
                     <li class="pt-3 text-gray-500">Si la consulta es a través de Skype, escriba su usuario y pídale al paciente que le agregue a su lista de contactos. Si la consulta es telefónica, escriba su número de teléfono.</li>
                     <li class="pt-3 text-gray-500">Hágale saber al paciente si le contactará antes de la consulta para ofrecerle información adicional o un enlace para iniciar la videollamada, y cuándo lo va a hacer.</li>
-                    <li class="pt-3 text-gray-500">Si quiere que el paciente le contacte, o si desea añadir alguna otra información relevante, puede hacerlo aquí.</li>
                 </ul>
+            </div>
+            <div class="my-4 text-sm">
+                <x-textarea name="address_indications" id="address_indications" rows="3"></x-textarea>
+            </div>
+            <div class="my-4 text-sm hidden" x-ref="onlineDetails">
+                <p class="text-bold text-black mb-4">Indicar la plataforma por la cual se realizarán las consultas online</p>
+                <div class="mb-4 text-sm flex">
+                    @foreach($onlinePlatforms as $key => $onlinePlatform)
+                        @if($key == 0 || round(count($onlinePlatforms) / 2) == $key )
+                            <div class="w-full md:w-1/2">
+                                @endif
+                                <label class="flex items-center mb-2 cursor-pointer">
+                                    <x-checkbox name="onlinePlatforms[]" value="{{ $onlinePlatform->id }}"/>
+                                    <span class="ml-2">{{ $onlinePlatform->title }}</span>
+                                </label>
+                                @if($key == (count($onlinePlatforms) - 1) || round(count($onlinePlatforms) / 2) == ($key + 1))
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
 
