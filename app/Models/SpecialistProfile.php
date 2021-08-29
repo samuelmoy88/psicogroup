@@ -216,4 +216,9 @@ class SpecialistProfile extends Model
     {
         return $this->hasMany(SpecialistProfileChanges::class)->onlyRecentAndPending();
     }
+
+    public function isPremium()
+    {
+        return (bool)$this->is_premium;
+    }
 }
