@@ -7,10 +7,10 @@ require('./admin-alpine');
 let form = document.querySelector('form');
 
 if (form) {
-    let submitButton = document.getElementById('submitButton');
+    let submitButton = document.querySelector('._submitButton');
     form.addEventListener('submit', function () {
-        let buttonText = document.querySelector('#submitButton .slot');
-        let loaderSlot = document.querySelector('#submitButton .loaderSlot');
+        let buttonText = document.querySelector('._submitButton .slot');
+        let loaderSlot = document.querySelector('._submitButton .loaderSlot');
 
         buttonText.innerText = 'Cargando...';
         loaderSlot.innerHTML = '<i id="loader" class="fa fa-spinner fa-spin mr-2"></i>';

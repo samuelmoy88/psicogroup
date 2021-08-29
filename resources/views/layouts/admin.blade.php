@@ -25,7 +25,7 @@
 <body class="font-sans antialiased">
 <div class="flex min-h-screen bg-gray-100 dark:bg-gray-900">
     <!-- Desktop sidebar -->
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+    <aside class="z-20 hidden w-72 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         @include('layouts.admin-sidebar')
     </aside>
     <!-- Mobile sidebar -->
@@ -44,13 +44,15 @@
     <script>
         const shouldSpecialitiesMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'specialities' ? 'true' : 'false' }}';
         const shouldDiseasesMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'diseases' ? 'true' : 'false' }}';
-        const shouldUneasinessMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'diseases' ? 'true' : 'false' }}';
+        const shouldUneasinessMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'uneasiness' ? 'true' : 'false' }}';
         const shouldPaymentMethodsMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'payment-methods' ? 'true' : 'false' }}';
         const shouldSecurityMeasuresMethodsMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'security-measures' ? 'true' : 'false' }}';
         const shouldServicesMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'services' ? 'true' : 'false' }}';
         const shouldConfigMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'config' ? 'true' : 'false' }}';
         const shouldPatientsMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'patients' ? 'true' : 'false' }}';
         const shouldOnlinePlatformsBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'online-platforms' ? 'true' : 'false' }}';
+        const shouldRatingDisputeMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'rating-disputes' ? 'true' : 'false' }}';
+        const shouldRatingFeedbackMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'rating-feedback' ? 'true' : 'false' }}';
         const shouldSpecialistsMenuBeOpened = '{{
         explode('/', Request::decodedPath())[0] === 'doctors' ||
         explode('/', Request::decodedPath())[0] === 'changes'

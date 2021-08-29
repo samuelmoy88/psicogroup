@@ -20,10 +20,10 @@ class SpecialistController extends Controller
 
         return view('admin.specialists.index', [
             'specialists' => User::where('profile_type', SpecialistProfile::class)->latest('updated_at','DESC')->paginate(config('app.per_page')),
-            'attributes' => ['first_name','last_name', 'license_number','email','phone', 'createdReadable'],
+            'attributes' => ['fullName','license_number','email','phone', 'createdReadable'],
             'headers' => [
-                __('common.first_name'),
-                __('common.last_names'),
+                '',
+                __('common.specialist'),
                 __('common.license_number'),
                 __('common.email'),
                 __('common.phone'),

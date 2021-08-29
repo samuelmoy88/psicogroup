@@ -14,7 +14,7 @@
         </li>--}}
         @foreach($modules as $module)
             @if(isset($module['permission']) && auth()->user()->can($module['permission']))
-            <li class="relative px-6 py-3">
+            <li class="relative px-6 py-3 truncate">
                 <button
                     class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     @click="{{ $module['dropdown-click-event'] }}" aria-haspopup="true">
@@ -37,7 +37,7 @@
                         aria-label="submenu">
                     @foreach($module['sub-modules'] as $subModule)
                         @if(isset($subModule['permission']) && auth()->user()->can($subModule['permission']))
-                            <li class="{{ $subModule['list_class'] }}
+                            <li class="{{ $subModule['list_class'] }} truncate
                                 rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
                                 <a class="w-full block {{ $subModule['anchor_class'] }}"
                                    href="{{ $subModule['uri'] }}">

@@ -58,12 +58,12 @@ class Search
             ->get()
             ->toArray();
 
-        if (count($specialities) > 0) {
-            $results['specialities'] = $specialities;
-        }
-
         if (count($services) > 0) {
             $results['services'] = $services;
+        }
+
+        if (count($specialities) > 0) {
+            $results['specialities'] = $specialities;
         }
 
         if (count($specialists) > 0) {
@@ -84,7 +84,7 @@ class Search
     public function advancedSearch(Request $request)
     {
         $queryBuilder = DB::table('users AS u')
-            ->select(...$this->getSelectColumns())
+            ->selectRaw(...$this->getSelectColumns())
             ->whereRaw('pg_u.profile_type = ' . "'".str_replace("\\", "\\\\", SpecialistProfile::class)."'")
             ->whereRaw('pg_u.status = "active"')
             ->whereNull('u.banned_until');
@@ -120,6 +120,23 @@ class Search
                 ->where('a.consultation_type', Address::TYPE_ONLINE);
         }
 
+        if ($request->query('location')) {
+            $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
+
+            $term = str_replace($reservedSymbols, '', $request->query('location'));
+
+            $words = explode(' ', $term);
+
+            foreach ($words as $index => $word) {
+                $words[$index] = '+' . $word . '*';
+            }
+
+            $term = implode(' ',$words);
+            $queryBuilder->join('addresses_users AS au', 'au.user_id', '=', 'u.id')
+                ->join('addresses as a', 'a.id', '=', 'au.address_id')
+                ->whereRaw("MATCH (`street`, `city`) AGAINST (? IN BOOLEAN MODE)", $term);
+        }
+
         $results = $queryBuilder->get();
 
         if ($results->count() > 0) {
@@ -144,7 +161,7 @@ class Search
     private function getSelectColumns()
     {
         return [
-            'u.uuid',
+            'distinct `pg_u`.`uuid` as uuid',
         ];
     }
 }

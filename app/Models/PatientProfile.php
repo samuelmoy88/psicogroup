@@ -22,15 +22,31 @@ class PatientProfile extends Model
         return $this->hasMany(Consultation::class);
     }
 
+    public function givenRatings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
     public function specialists()
     {
-        return $this->hasManyThrough(
-            User::class,
-            Consultation::class,
-            'specialist_profile_id',
-            'profile_id',
-            'id',
-            'id'
-        )->where('profile_type', SpecialistProfile::class);
+        return User::specialistProfile()
+            ->join('specialist_profiles', 'users.profile_id', '=', 'specialist_profiles.id')
+            ->join('consultations', 'consultations.specialist_profile_id', '=', 'specialist_profiles.id')
+            ->where('consultations.patient_profile_id', '=', $this->id)
+            ->selectRaw('pg_users.*, COUNT(pg_consultations.id) AS consultations')
+            ->groupByRaw('pg_users.id')
+            ->get();
+    }
+
+    public function executedConsultations()
+    {
+        return $this->consultations()->where('state', 'executed');
+    }
+
+    public function verify()
+    {
+        $this->is_verified = 1;
+
+        $this->save();
     }
 }

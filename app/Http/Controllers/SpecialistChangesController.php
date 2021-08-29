@@ -19,7 +19,7 @@ class SpecialistChangesController extends Controller
 
         return view('admin.changes.index', [
             'changes' => SpecialistProfileChanges::with('specialist.user')
-                ->latest('created_at', 'DESC')
+                ->latest('created_at', 'ASC')
                 ->groupBy('specialist_profile_id')
                 ->paginate(config('app.per_page')),
             'headers' => [

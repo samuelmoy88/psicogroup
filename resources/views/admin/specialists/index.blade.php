@@ -11,9 +11,13 @@
                         <tr
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                         >
-                            @foreach($headers as $header)
-                                <th class="px-4 py-3">{{ $header }}</th>
-                            @endforeach
+                            <th class="px-4 py-3" width="8%"></th>
+                            <th class="px-4 py-3">{{ __('common.specialist') }}</th>
+                            <th class="px-4 py-3">{{ __('common.license_number') }}</th>
+                            <th class="px-4 py-3">{{ __('common.email') }}</th>
+                            <th class="px-4 py-3">{{ __('common.phone')  }}</th>
+                            <th class="px-4 py-3">{{ __('common.created_at') }}</th>
+                            <th class="px-4 py-3">{{ __('common.actions') }}</th>
                         </tr>
                         </thead>
                         <tbody
@@ -21,18 +25,12 @@
                         >
                         @foreach($specialists as $specialist)
                             <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3 truncate" title="{{ $specialist->first_name }}">
-                                    <div class="flex items-center text-sm">
-                                        <div class="relative hidden w-12 h-12 mr-3 rounded-full md:block">
-                                            <img class="object-cover w-full h-full rounded-full" src="{{ $specialist->profile->avatarPath }}" alt="" loading="lazy">
-                                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold">{{ $specialist->first_name }}</p>
-                                        </div>
-                                    </div>
+                                <td class="px-4 py-3">
+                                    <img class="object-cover w-12 h-12 rounded-full" src="{{ $specialist->profile->avatarPath }}" alt="" loading="lazy">
                                 </td>
-                                <td class="px-4 py-3 truncate" title="{{ $specialist->last_name }}">{{ $specialist->last_name }}</td>
+                                <td class="px-4 py-3 truncate" title="{{ $specialist->fullName }}">
+                                    <span class="font-semibold">{{ $specialist->fullName }}</span>
+                                </td>
                                 <td class="px-4 py-3 truncate" title="{{ $specialist->profile->license_number }}">{{ $specialist->profile->license_number ?: '-' }}</td>
                                 <td class="px-4 py-3 truncate" title="{{ $specialist->email }}">{{ $specialist->email }}</td>
                                 <td class="px-4 py-3 truncate" title="{{ $specialist->phone }}">{{ $specialist->phone }}</td>

@@ -47,21 +47,23 @@
         <hr>
         <div class="xs:overflow-x-auto mb-4 relative" x-spread="container" x-data="tabs()">
             <ul class="flex" x-ref="tabs">
-                @if($specialist->addresses)
+                @if(!$specialist->addresses->isEmpty())
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
                     {{ __('common.consultations') }}</li>
                 @endif
-                @if($specialist->profile->specialities)
+                @if(!$specialist->profile->specialities->isEmpty())
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
                     {{ __('common.services') }}</li>
                 @endif
-                @if($specialist->profile->specialities || $specialist->profile->diseases)
+                @if(!$specialist->profile->specialities->isEmpty() || $specialist->profile->diseases->isEmpty())
                 <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
                     {{ __('common.experience') }}</li>
                 @endif
-                {{--<li class="mr-2 p-2 border-b-2 border-brand-color-bottom text-brand-color">
-                    Opiniones
-                </li>--}}
+                @if(!$specialist->profile->ratings->isEmpty())
+                <li x-spread="tab" class="transition mr-2 p-2 cursor-pointer">
+                    {{ __('common.ratings') }} ({{ $specialist->profile->ratings->count() }})
+                </li>
+                @endif
                 <div x-spread="indicator" class="border-t-2 border-brand-color-top absolute left-0 bottom-0 transition-all duration-500"></div>
             </ul>
         </div>
@@ -243,6 +245,53 @@
                 </div>
             </div>
             @endif
+        </div>
+        @endif
+        @if($specialist->profile->ratings)
+        <div class="hidden">
+            <div class="form-card sm:w-2/3 mb-4">
+                @foreach($specialist->profile->ratings as $rating)
+                    @if(!$rating->remarks) @continue @endif
+                    <div class="mb-4">
+                        <div class="mb-3">
+                            <p>{{ $rating->patient->user->first_name }} {{ $rating->patient->user->last_name }}</p>
+                            @if($rating->patient->is_verified)
+                                <p>{{ __('ratings.verified_patient') }} <i class="fas fa-check-circle text-brand-color ml-2 "></i></p>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <small>
+                                {{ $rating->consultation->created_at->locale('es_ES')->format('j \d\e F \d\e Y') }}
+                                |
+                                {{ $rating->consultation->address->title }}
+                                |
+                                {{ $rating->consultation->service->title }}
+                            </small>
+                        </div>
+                        <div class="mb-3">
+                            {{ $rating->remarks }}
+                        </div>
+                        @if($rating->specialist_reply)
+                            <div class="flex items-start space-x-3">
+                                <div class="p-4 bg-gray-200 rounded flex-1 min-w-0">
+                                    <small class="mb-2">
+                                        {{ __('ratings.specialist_reply') }}
+                                        {{ $rating->specialist->prefix_id ? $rating->specialist->prefixLabel : ''}}
+                                        {{ $rating->specialist->user->first_name }} {{ $rating->specialist->user->last_name }}
+                                    </small>
+                                    <p class="">
+                                        {{ $rating->specialist_reply }}
+                                    </p>
+                                </div>
+                                <div class="flex-shink-0">
+                                    <img class="object-cover h-10 w-10 rounded-full" src="{{ $specialist->profile->avatarPath }}" alt="" loading="lazy">
+                                </div>
+                            </div>
+                        @endif
+                        <hr class="border-t-2 border-gray-2 my-4">
+                    </div>
+                @endforeach
+            </div>
         </div>
         @endif
     </div>

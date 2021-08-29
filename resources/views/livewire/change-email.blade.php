@@ -4,17 +4,17 @@
         <div class="mt-4 mb-6">
             <div class="mb-4">
                 <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                    {{ __('Change email') }}
+                    {{ __('common.change_email') }}
                 </p>
             </div>
             <form method="post" wire:submit.prevent="changeEmail" id="change-email">
                 <div class="mb-4">
-                    <x-label for="password">{{ __('Current password') }}</x-label>
+                    <x-label for="password">{{ __('common.current_email') }}</x-label>
                     <x-input wire:model.lazy="password" type="password" id="password" name="password"></x-input>
                     @error('password') <span class="text-red-500 italic text-sm">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
-                    <x-label for="email">{{ __('New email') }}</x-label>
+                    <x-label for="email">{{ __('common.new_email') }}</x-label>
                     <x-input wire:model.lazy="email" type="text" id="email" name="email"></x-input>
                     @error('email') <span class="text-red-500 italic text-sm">{{ $message }}</span> @enderror
                 </div>

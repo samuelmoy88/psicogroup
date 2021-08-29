@@ -113,6 +113,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->profile_type == AdminProfile::class;
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -226,6 +231,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 if ($address->consultation_type === 'online')
                     $data['has_online_consultation'] = true;
                     $data['addresses'][] = [
+                        'id' => $address->id,
                         'clinic_name' => $address->clinic_name,
                         'title' => $address->title,
                         'street' => $address->street,
@@ -271,5 +277,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeSpecialistProfile($query)
     {
         return $query->where('profile_type', SpecialistProfile::class)->where('status', 'active')->whereNull('banned_until');
+    }
+
+    public function scopePatientProfile($query)
+    {
+        return $query->where('profile_type', PatientProfile::class)->where('status', 'active')->whereNull('banned_until');
     }
 }

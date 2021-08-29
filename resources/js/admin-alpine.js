@@ -88,6 +88,14 @@ window.data = function () {
         toggleOnlinePlatformsMenu() {
             this.isOnlinePlatformsMenuOpen = !this.isOnlinePlatformsMenuOpen
         },
+        isRatingDisputeMenuOpen: shouldRatingDisputeMenuBeOpened === 'true',
+        toggleRatingDisputeMenu() {
+            this.isRatingDisputeMenuOpen = !this.isRatingDisputeMenuOpen
+        },
+        isRatingFeedbackMenuOpen: shouldRatingFeedbackMenuBeOpened === 'true',
+        toggleRatingFeedbackMenu() {
+            this.isRatingFeedbackMenuOpen = !this.isRatingFeedbackMenuOpen
+        },
     }
 }
 

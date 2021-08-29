@@ -29,7 +29,8 @@ class QuerySearch extends Component
         'search',
         'refreshComponent',
         'incrementHighlight',
-        'decrementHighlight'
+        'decrementHighlight',
+        'autofillSelection'
     ];
 
     public function baseSearch()
@@ -43,9 +44,10 @@ class QuerySearch extends Component
 
         $services = Services::active()->orderBy('order', 'desc')->select('title','id')->limit(5)->get()->toArray();
 
+        $this->baseSearch['services'] = $services;
+
         $this->baseSearch['specialities'] = $specialities;
 
-        $this->baseSearch['services'] = $services;
     }
 
     public function search()
@@ -136,5 +138,46 @@ class QuerySearch extends Component
         }
 
         $this->highlightIndex--;
+    }
+
+    public function autofillSelection()
+    {
+        if (!$this->search && !$this->baseSearch) {
+            return;
+        }
+
+        if (!$this->search && $this->baseSearch) {
+            $this->takeFirstAvailableItem($this->baseSearch['services'], 'service');
+            $this->dispatchBrowserEvent('submitSearch');
+            return;
+        }
+
+        if (isset($this->search['services'])) {
+            $this->takeFirstAvailableItem($this->search['services'], 'service');
+            $this->dispatchBrowserEvent('submitSearch');
+            return;
+        }
+
+        if (isset($this->search['specialities'])) {
+            $this->takeFirstAvailableItem($this->search['specialities'], 'speciality');
+            $this->dispatchBrowserEvent('submitSearch');
+            return;
+        }
+
+    }
+
+    public function takeFirstAvailableItem($searchResult, $type)
+    {
+        $firstItem = array_shift($searchResult);
+
+        if ($type === 'service') {
+            $this->fillService($firstItem['id']);
+        }
+
+        if ($type === 'speciality') {
+            $this->fillSpeciality($firstItem['id']);
+        }
+
+        $this->query = $firstItem['title'];
     }
 }

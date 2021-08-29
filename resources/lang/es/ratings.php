@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'state_pending' => 'Pendiente',
+    'state_in_progress' => 'En progreso',
+    'state_resolved' => 'Resuelta',
+    'request_dispute' => 'Solicitar revisión de valoración',
+    'dispute_created' => 'Se ha enviado la solicitud de revisión',
+    'rating_is_in' => 'Esta valoración se encuentra',
+    'my_ratings_go_back' => 'Volver a mis valoraciones',
+    'updated_success' => 'Valoración actualizada exitosamente',
+    'error_wrong_user' => 'Error. Esta valoración no es tuya',
+    'user_feedback' => 'Observaciones del usuario',
+    'specialist_feedback' => 'Observaciones del especialista',
+    '1_rating_copy' => 'Terrible',
+    '2_rating_copy' => 'Mal',
+    '3_rating_copy' => 'Regular',
+    '4_rating_copy' => 'Bien',
+    '5_rating_copy' => '¡Genial!',
+    'select_executed_consultation' => 'Por favor, seleccione la consulta por la que realiza esta valoración',
+    'select_executed_consultation_copy' => 'Consultas realizadas',
+    'show_executed_consultation_copy' => 'Consulta de esta valoración',
+    'verified_patient' => 'Paciente verificado',
+    'specialist_reply' => 'Respuesta de',
+];

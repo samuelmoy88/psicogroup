@@ -12,8 +12,8 @@
                 @foreach($specialist->profile->consultations as $consultation)
                     <div class="tr">
                         <div class="td">
-                            {{ $specialist->profile->patients->firstWhere('profile_id', $consultation->patient_profile_id)->first_name }}
-                            {{ $specialist->profile->patients->firstWhere('profile_id', $consultation->patient_profile_id)->last_name }}</div>
+                            {{ $consultation->first_name }}
+                            {{ $consultation->last_name }}</div>
                         <div class="td">{{ $specialist->addresses->firstWhere('id', $consultation->address_id)->title }}</div>
                         <div class="td">{{ $consultation->createdReadable }}</div>
                     </div>

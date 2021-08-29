@@ -20,6 +20,7 @@
     <script src="https://kit.fontawesome.com/0333ea10da.js" crossorigin="anonymous"></script>
     @livewireStyles
     @livewireScripts
+    <script data-ad-client="ca-pub-1170159379901140" crossorigin="anonymous" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body class="font-sans antialiased">
 <div class="flex flex-col flex-wrap">
@@ -39,6 +40,7 @@
     <!-- Page Heading -->
     @include('layouts.navigation')
     <main class="overflow-y-auto {{ request()->routeIs('search.*') ? 'bg-gray-100' : '' }}">
+        @stack('ads')
         {{ $slot }}
     </main>
     @include('layouts.footer')

@@ -27,7 +27,7 @@
                                 <td class="px-4 py-3">{{ __('specialists.field_'.$change->field) }}</td>
                                 <td class="px-4 py-3">{{ $change->old_value }}</td>
                                 <td class="px-4 py-3">{{ $change->new_value }}</td>
-                                <td class="px-4 py-3">{{ $change->createdReadable }}</td>
+                                <td class="px-4 py-3">{{ $change->createdAtAsHuman }}</td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a title="{{ __('common.view') }}" href="{{ route('changes.show', $change->specialist->user->uuid) }}">

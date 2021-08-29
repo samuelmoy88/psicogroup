@@ -74,19 +74,22 @@ class SpecialistProfile extends Model
 
     public function patients()
     {
-        return $this->hasManyThrough(
-            User::class,
-            Consultation::class,
-            'patient_profile_id',
-            'profile_id',
-            'id',
-            'id'
-            )->where('profile_type', PatientProfile::class);
+        return User::patientProfile()
+            ->join('patient_profiles', 'users.profile_id', '=', 'patient_profiles.id')
+            ->join('consultations', 'consultations.patient_profile_id', '=', 'patient_profiles.id')
+            ->where('consultations.specialist_profile_id', '=', $this->id)
+            ->selectRaw('DISTINCT pg_users.*')
+            ->get();
     }
 
     public function consultations()
     {
         return $this->hasMany(Consultation::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 
     public function getAvatarPathAttribute()
@@ -101,7 +104,7 @@ class SpecialistProfile extends Model
 
     public function storeAvatar($file)
     {
-        $this->avatar = Str::random() . '.jpg';
+        $this->avatar = $this->user->uuid . '.jpg';
 
         Storage::disk('avatars')->put(
             $this->avatar,
@@ -202,5 +205,15 @@ class SpecialistProfile extends Model
         $this->is_verified = 1;
 
         $this->save();
+    }
+
+    public function pendingConsultations()
+    {
+        return $this->consultations->where('state', 'pending')->count();
+    }
+
+    public function recentChanges()
+    {
+        return $this->hasMany(SpecialistProfileChanges::class)->onlyRecentAndPending();
     }
 }

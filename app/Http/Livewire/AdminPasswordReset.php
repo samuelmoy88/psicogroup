@@ -33,7 +33,7 @@ class AdminPasswordReset extends Component
 
         $this->user->resetPassword($password);
 
-        NotifyAdminPasswordReset::dispatchAfterResponse($this->user->profile, $password);
+        dispatch(new NotifyAdminPasswordReset($this->user->profile, $password));
 
         $this->dispatchBrowserEvent('passwordReset');
 

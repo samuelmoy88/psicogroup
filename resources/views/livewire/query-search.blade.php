@@ -6,6 +6,7 @@
            wire:keydown.tab="$emit('refreshComponent')"
            wire:click="$emit('baseSearch')"
            wire:model.debounce.700ms="query"
+           wire:keydown.enter.prevent="$emit('autofillSelection')"
     />
     <input type="hidden" name="service[]" wire:model="service" value="$service">
     <input type="hidden" name="speciality[]" wire:model="speciality" value="$speciality">

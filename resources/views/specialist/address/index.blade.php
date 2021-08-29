@@ -28,7 +28,7 @@
             @endforeach
             </ul>
         @else
-            <span>No tienes direcciones registradas, haz click <a href="{{ route('specialist.addresses.create', auth()->user()->uuid) }}" class="text-blue-500">aquí</a> para crear una</span>
+            <span>No tienes consultas registradas, haz click <a href="{{ route('specialist.addresses.create', auth()->user()->uuid) }}" class="text-blue-500">aquí</a> para crear una</span>
         @endif
     </div>
     @if(session('success'))

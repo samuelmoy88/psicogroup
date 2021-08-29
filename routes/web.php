@@ -6,44 +6,61 @@ use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DiseaseController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\OnlineConsultationPlatformController;
+use App\Http\Controllers\PasswordValidationController;
+use App\Http\Controllers\PatientConsultationController;
 use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\PatientSpecialists;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\RatingDisputeController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\SecurityMeasuresController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SpecialistChangesController;
+use App\Http\Controllers\SpecialistConsultationController;
 use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\SpecialistDashboardController;
+use App\Http\Controllers\SpecialistRatingController;
 use App\Http\Controllers\SpecialistsProfileController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SpecialistProfileServicesController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\UneaseController;
+use App\Http\Controllers\VerifyAccountController;
+use App\Http\Controllers\RatingFeedbackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
+// Front end routes
 Route::middleware(['admin.redirect'])->group(function () {
     Route::get('/', [FrontEndController::class, 'index'])->name('front.home');
     Route::get('/search', SearchController::class)->name('search.index');
+    Route::get('/consultation/{doctor}/{address}', [ConsultationController::class, 'create'])->name('consultation.create');
+    Route::post('/consultations/', [ConsultationController::class, 'store'])->name('consultation.store');
+    Route::get('/consultations/{consultation}/confirm', [ConsultationController::class, 'confirm'])->name('consultation.confirm');
+    Route::get('/faq', function () {
+        return view('front.faq');
+    })->name('front.faq');
+    Route::get('/aviso-legal', function () {
+        return view('front.legal-notice');
+    })->name('front.legal-notice');
+    Route::get('/politica-privacidad', function () {
+        return view('front.privacy-policy');
+    })->name('front.privacy-policy');
+    Route::get('/politica-cookies', function () {
+        return view('front.cookies-policy');
+    })->name('front.cookies-policy');
+
 });
 
-Route::domain(config('app.admin_backend'))->group(function ($router) {
+// Back office routes
+Route::domain(config('app.admin_backend'))->group(function () {
     Route::middleware(['auth','active','admin'])->group(function () {
         Route::get('/dashboard', AdminDashboardController::class)->name('admin.dashboard');
-
 
         // Sort models
         Route::put('/specialities/sort', [SpecialityController::class, 'sort'])->name('specialities.sort');
@@ -53,6 +70,7 @@ Route::domain(config('app.admin_backend'))->group(function ($router) {
         Route::put('/payment-methods/sort', [PaymentMethodController::class, 'sort'])->name('payment-methods.sort');
         Route::put('/security-measures/sort', [SecurityMeasuresController::class, 'sort'])->name('security-measures.sort');
         Route::put('/online-platforms/sort', [OnlineConsultationPlatformController::class, 'sort'])->name('online-platforms.sort');
+        Route::put('/rating-feedback/sort', [RatingFeedbackController::class, 'sort'])->name('rating-feedback.sort');
 
         // Specialities routes
         Route::resource('/specialities', SpecialityController::class);
@@ -64,8 +82,11 @@ Route::domain(config('app.admin_backend'))->group(function ($router) {
         Route::resource('/online-platforms', OnlineConsultationPlatformController::class);
         Route::resource('/doctors', SpecialistController::class);
         Route::resource('/patients', PatientsController::class);
+        Route::resource('/rating-feedback', RatingFeedbackController::class);
         Route::get('/changes', [SpecialistChangesController::class, 'index'])->name('changes.index');
         Route::get('/changes/{doctor}', [SpecialistChangesController::class, 'show'])->name('changes.show');
+        Route::get('/rating-disputes', [RatingDisputeController::class, 'index'])->name('rating-dispute.index');
+        Route::get('/rating-disputes/{dispute}', [RatingDisputeController::class, 'show'])->name('rating-dispute.show');
         Route::prefix('config')->name('config.')->group(function () {
             Route::resource('/users', AdminController::class);
             Route::resource('/permissions', PermissionsController::class);
@@ -74,6 +95,7 @@ Route::domain(config('app.admin_backend'))->group(function ($router) {
     });
 });
 
+// Registered user routes
 Route::middleware(['auth','active'])->group(function () {
     Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
     // Account routes
@@ -81,9 +103,18 @@ Route::middleware(['auth','active'])->group(function () {
     Route::put('/account/edit', [AccountController::class, 'update'])->name('account.update');
     Route::delete('/account/delete', [AccountController::class, 'destroy'])->name('account.destroy');
 
-    Route::post('/user/password/validate', \App\Http\Controllers\PasswordValidationController::class);
+    Route::post('/user/password/validate', PasswordValidationController::class);
+    Route::get('/account/send-verification', VerifyAccountController::class)->name('account.send-verification');
+    Route::get('/account/{patient}/consultations', [PatientConsultationController::class, 'index'])->name('account.consultations.index');
+    Route::get('/account/{patient}/consultations/{consultation}', [PatientConsultationController::class, 'show'])->name('account.consultations.show');
+    Route::get('/account/{patient}/specialists', [PatientSpecialists::class, 'index'])->name('account.specialists.index');
+    Route::get('/account/rating/{patient}/{doctor}/create', [RatingController::class, 'create'])->name('account.feedback.create');
+    Route::get('/account/rating/{rating}', [RatingController::class, 'show'])->name('account.feedback.show');
+    Route::post('/account/rating/{patient}/{doctor}', [RatingController::class, 'store'])->name('account.feedback.store');
+    Route::put('/account/rating/{rating}', [RatingController::class, 'update'])->name('account.feedback.update');
 });
 
+// Specialists routes
 Route::middleware(['auth', 'specialist','active'])->group(function () {
     // Specialists dashboard
     Route::get('/dashboard', SpecialistDashboardController::class)->name('specialist.dashboard');
@@ -91,6 +122,11 @@ Route::middleware(['auth', 'specialist','active'])->group(function () {
     Route::get('/profile/{uuid}/edit', [SpecialistsProfileController::class, 'edit'])->name('specialist.edit');
 
     Route::put('/profile/{uuid}', [SpecialistsProfileController::class, 'update'])->name('specialist.update');
+
+    Route::get('/profile/{uuid}/rating', [SpecialistRatingController::class, 'index'])->name('specialist.ratings.index');
+
+    Route::get('/profile/{uuid}/rating/{rating}', [SpecialistRatingController::class, 'show'])->name('specialist.ratings.show');
+    Route::put('/profile/{uuid}/rating/{rating}', [SpecialistRatingController::class, 'update'])->name('specialist.ratings.update');
 
     // Specialist's address routes
     Route::get('/profile/{uuid}/addresses', [AddressController::class, 'index'])->name('specialist.addresses.index');
@@ -104,6 +140,10 @@ Route::middleware(['auth', 'specialist','active'])->group(function () {
     Route::put('/profile/{uuid}/addresses/{address}', [AddressController::class, 'update'])->name('specialist.addresses.update');
 
     Route::delete('/profile/{uuid}/addresses/{address}/delete', [AddressController::class, 'destroy'])->name('specialist.address.destroy');
+
+    Route::get('/profile/{doctor}/consultations/', [SpecialistConsultationController::class, 'index'])->name('specialist.consultations.index');
+
+    Route::get('/profile/{doctor}/consultations/{consultation}', [SpecialistConsultationController::class, 'show'])->name('specialist.consultations.show');
 
     // Specialist's services routes
     Route::get('/profile/{uuid}/services', [SpecialistProfileServicesController::class, 'index'])->name('specialist.services.index');

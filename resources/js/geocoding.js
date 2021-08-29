@@ -1,26 +1,143 @@
-var placeSearch, autocomplete;
-
-var componentForm = {
-    street_number: 'short_name',
-    route: 'short_name',
-    administrative_area_level_1: 'short_name',
-    country: 'short_name',
-    postal_code: 'short_name'
-};
-
 initAutocomplete();
 
+//Executes a callback after a given time has passed
+function defer(fn, ms) {
+    let timer = 0;
+    return function(...args) {
+        clearTimeout(timer)
+        timer = setTimeout(fn.bind(this, ...args), ms || 0)
+    }
+}
+let resultsTemplate = function (results, target) {
+
+    let items = '<li class="suggestion py-3 px-3 flex border-gray-300">No se han encontrado resultados</li>';
+
+    let item_selector = target.replace('#', '');
+
+    if (results.length > 0) {
+        items = '';
+        for (let i=0; i < results.length; i++) {
+            items += `<li class="suggestion py-4 px-4 flex border-gray-300 cursor-pointer hover:bg-gray-100">
+<i class="fas fa-map-marker-alt mr-2 "></i>
+<div class="street-results" data-street="${results[i].description}" data-place="${results[i].place_id}"
+>${results[i].description}</div>
+</li>`;
+        }
+    }
+target = '#street-results';
+    let list = `<ul class="mt-2 bg-white rounded border-gray-200 shadow-md">${items}</ul>`;
+
+    document.querySelector(target).innerHTML = list;
+    document.querySelector(target).classList.remove('hidden');
+}
+let resultsCityTemplate = function (results, target) {
+
+    let items = '<li class="suggestion py-3 px-3 flex border-gray-300">No se han encontrado resultados</li>';
+
+    let item_selector = target.replace('#', '');
+
+    if (results.length > 0) {
+        items = '';
+        for (let i=0; i < results.length; i++) {
+            items += `<li class="suggestion py-4 px-4 flex border-gray-300 cursor-pointer hover:bg-gray-100">
+<i class="fas fa-map-marker-alt mr-2 "></i>
+<div class="city-results" data-street="${results[i].description}" data-place="${results[i].place_id}"
+>${results[i].description}</div>
+</li>`;
+        }
+    }
+target = '#city-results';
+    let list = `<ul class="mt-2 bg-white rounded border-gray-200 shadow-md">${items}</ul>`;
+
+    document.querySelector(target).innerHTML = list;
+    document.querySelector(target).classList.remove('hidden');
+}
+
 function initAutocomplete() {
+    let service = new google.maps.places.AutocompleteService();
+    let sessionToken = new google.maps.places.AutocompleteSessionToken();
+    // let geoCoder = new google.maps.Geocoder();
+
+    let street = document.getElementById('route');
+    let city = document.getElementById('locality');
+
+    if (street) {
+        // Address geo location event
+        street.addEventListener('keyup', defer(function () {
+            let value = this.value;
+            value.replace('"', '\\"').replace(/^\s+|\s+$/g, '');
+            if (value !== "" && value.length > 4) {
+                service.getPlacePredictions({
+                    input: value,
+                    location: new google.maps.LatLng({lat: -10.17, lng: -76.87}),
+                    radius:300000,
+                    sessionToken: sessionToken
+                }, resultsTemplate);
+            }
+        },500));
+    }
+
+    if (city) {
+        city.addEventListener('keyup', defer(function () {
+            let value = this.value;
+            value.replace('"', '\\"').replace(/^\s+|\s+$/g, '');
+            if (value !== "" && value.length > 4) {
+                service.getPlacePredictions({
+                    input: value,
+                    location: new google.maps.LatLng({lat: -10.17, lng: -76.87}),
+                    radius:300000,
+                    sessionToken: sessionToken
+                }, resultsCityTemplate);
+            }
+        },500));
+    }
+
+    let geo_results = document.querySelectorAll('.geo-coder-results');
+
+    for (let i = 0; i < geo_results.length; i++) {
+        geo_results[i].addEventListener('click', function (e) {
+            let clickedAddress = e.target;
+            let address = clickedAddress.dataset.street;
+            if (e.target && e.target.matches('div.street-results')) {
+                //Get to the nearest input
+                if (clickedAddress.dataset.place) {
+                    let request = {placeId: clickedAddress.dataset.place};
+                    /*geoCoder.geocode(request, function (responses, status) {
+                        if (status === 'OK') {
+                            document.getElementById('latitude').value = responses[0].geometry.location.lat();
+                            document.getElementById('longitude').value = responses[0].geometry.location.lng();
+                        }
+                    });*/
+                }
+                street.value = address.split(',')[0];
+                document.getElementById('street-results').classList.add('hidden');
+            }
+            if (e.target && e.target.matches('div.city-results')) {
+                //Get to the nearest input
+                let cityResult = address.split(',');
+                cityResult.pop();
+                city.value = cityResult;
+                document.getElementById('city-results').classList.add('hidden');
+            }
+
+        });
+    }
+}
+
+/*function initAutocomplete() {
 
     // Create the autocomplete object, restricting the search predictions to
     // geographical location types.
     let options = {
         types: ['address'],
         componentRestrictions: {country: 'pe'},
-        fields: ['address_component']
+        fields: ['address_component', 'geometry'],
     };
     autocomplete = new google.maps.places.Autocomplete(
         document.getElementById('route'), options
+    );
+    autocompleteCity = new google.maps.places.Autocomplete(
+        document.getElementById('locality'), options
     );
 
     // Avoid paying for data that you don't need by restricting the set of
@@ -32,28 +149,32 @@ function initAutocomplete() {
 
     autocomplete.addListener('place_changed', fillInAddress);
 
-}
+}*/
 
-function fillInAddress() {
+/*function fillInAddress() {
     // Get the place details from the autocomplete object.
-    var place = autocomplete.getPlace();
-debugger;
-    for (var component in componentForm) {
-        // document.getElementById(component).value = '';
-        document.getElementById(component).disabled = false;
-    }
+    let place = autocomplete.getPlace();
 
     // Get each component of the address from the place details,
     // and then fill-in the corresponding field on the form.
     let address_placed = false;
-    for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
+    let address_component;
+
+    for (let i = 0; i < place.address_components.length; i++) {
+        let addressType = place.address_components[i].types[0];
         if (componentForm[addressType]) {
-            var val = place.address_components[i][componentForm[addressType]];
-            if(val){
-                document.getElementById(addressType).value = val;
+
+            let val = place.address_components[i][componentForm[addressType]];
+            address_component = document.getElementById(addressType);
+            if(val && address_component){
+                address_component.value = val;
             }
             address_placed = true;
         }
     }
-}
+
+    if (place.address_components.length > 0) {
+        document.getElementById('latitude').value = place.geometry.location.lat();
+        document.getElementById('longitude').value = place.geometry.location.lng();
+    }
+}*/

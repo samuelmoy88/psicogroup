@@ -15,6 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
     .js('resources/js/geocoding.js', 'public/js')
     .js('resources/js/front.js', 'public/js')
+    .js('resources/js/specialist-rating.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),

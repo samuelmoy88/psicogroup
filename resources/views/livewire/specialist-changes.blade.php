@@ -13,12 +13,12 @@
             </div>
         </div>
         <div class="tbody">
-            @foreach($specialist->profile->changes as $changes)
+            @foreach($specialist->profile->recentChanges as $changes)
                 <div class="tr">
                     <div class="td">{{ __('specialists.field_'.$changes->field) }}</div>
                     <div class="td">{{ $changes->old_value }}</div>
                     <div class="td">{{ $changes->new_value }}</div>
-                    <div class="td">{{ $changes->createdReadable }}</div>
+                    <div class="td">{{ $changes->createdAtAsHuman }}</div>
                     @if(request()->routeIs('changes.show') || strpos(request()->route()->uri,'livewire/message') !== false)
                         <div class="td">{{ __('changes-history.state_'.$changes->state) }}</div>
                         <div class="td">

@@ -43,7 +43,7 @@ class AdminProfile extends Model
             }
         }
 
-        NotifyUserCreated::dispatchAfterResponse($admin, $password);
+        dispatch(new NotifyUserCreated($admin, $password));
 
         return $admin->id;
     }

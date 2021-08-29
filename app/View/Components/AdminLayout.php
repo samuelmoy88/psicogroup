@@ -216,6 +216,45 @@ class AdminLayout extends Component
                 'dropdown-click-event' => 'toggleOnlinePlatformsMenu'
             ],
             [
+                'name' => 'Disputa de valoraciones',
+                'icon' => '<i class="fas fa-balance-scale-right"></i>',
+                'permission' => 'dispute_read',
+                'sub-modules' => [
+                    [
+                        'name' => __('rating-dispute.name'),
+                        'uri' => route('rating-dispute.index'),
+                        'list_class' => request()->routeIs('online-platforms.index') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('online-platforms.index') ? 'text-white' : '',
+                        'permission' => 'dispute_read',
+                    ],
+                ],
+                'dropdown-variable' => 'isRatingDisputeMenuOpen',
+                'dropdown-click-event' => 'toggleRatingDisputeMenu'
+            ],
+            [
+                'name' => __('rating-feedback.rating_feedback'),
+                'icon' => '<i class="fas fa-viruses"></i>',
+                'permission' => 'diseases_read',
+                'sub-modules' => [
+                    [
+                        'name' => __('rating-feedback.rf_list'),
+                        'uri' => route('rating-feedback.index'),
+                        'list_class' => request()->routeIs('rating-feedback.index') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('rating-feedback.index') ? 'text-white' : '',
+                        'permission' => 'rating_feedback_read',
+                    ],
+                    [
+                        'name' => __('rating-feedback.new_rf'),
+                        'uri' => route('rating-feedback.create'),
+                        'list_class' => request()->routeIs('rating-feedback.create') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('rating-feedback.create') ? 'text-white' : '',
+                        'permission' => 'rating_feedback_create',
+                    ],
+                ],
+                'dropdown-variable' => 'isRatingFeedbackMenuOpen',
+                'dropdown-click-event' => 'toggleRatingFeedbackMenu'
+            ],
+            [
                 'name' => 'Configuración',
                 'icon' => '<i class="fas fa-cogs"></i>',
                 'permission' => 'config_read',

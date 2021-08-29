@@ -9,6 +9,29 @@ if (!function_exists('isAllowedTo')) {
     }
 }
 
+if (!function_exists('readRatingFeedbackFromCache')) {
+    function readRatingFeedbackFromCache() : \Illuminate\Support\Collection
+    {
+        return cache()
+            ->store(config('cache.default'))
+            ->get(\App\Models\RatingFeedback::class);
+    }
+}
+
+if (!function_exists('readPositiveRatingFeedbackFromCache')) {
+    function readPositiveRatingFeedbackFromCache() : \Illuminate\Support\Collection
+    {
+        return readRatingFeedbackFromCache()->where('type', 'positive');
+    }
+}
+
+if (!function_exists('readNegativeRatingFeedbackFromCache')) {
+    function readNegativeRatingFeedbackFromCache() : \Illuminate\Support\Collection
+    {
+        return readRatingFeedbackFromCache()->where('type', 'negative');
+    }
+}
+
 if (!function_exists('readSpecialistFromCache')) {
     function readSpecialistFromCache(string $uuid) : \Illuminate\Support\Collection
     {
@@ -117,6 +140,11 @@ if (!function_exists('cacheAllEntities')) {
 
         foreach (\App\Models\OnlineConsultationPlatform::orderBy('order', 'asc')->get() as $securityMeasure) {
             $securityMeasure->cache();
+            break;
+        }
+
+        foreach (\App\Models\RatingFeedback::orderBy('order', 'asc')->get() as $ratingFeedback) {
+            $ratingFeedback->cache();
             break;
         }
     }

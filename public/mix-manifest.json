@@ -3,5 +3,6 @@
     "/js/admin.js": "/js/admin.js",
     "/js/geocoding.js": "/js/geocoding.js",
     "/js/front.js": "/js/front.js",
+    "/js/specialist-rating.js": "/js/specialist-rating.js",
     "/css/app.css": "/css/app.css"
 }

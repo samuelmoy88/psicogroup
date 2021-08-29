@@ -46,20 +46,20 @@
                     <div class="mb-4 text-sm w-full md:w-1/2 md:pr-4">
                         <input type="hidden" name="latitude" id="latitude" value="">
                         <input type="hidden" name="longitude" id="longitude" value="">
-                        <x-label for="street">{{ __("common.street") }} *</x-label>
-                        <x-input type="text" value="" id="street" name="street"/>
+                        <x-label for="route">{{ __("common.street") }} *</x-label>
+                        <x-input type="text" value="" id="route" name="street"/>
                         <div id="street-results" class="absolute w-half hidden geo-coder-results"></div>
                     </div>
 
                     <div class="mb-4 text-sm w-full md:w-1/4">
-                        <x-label for="city">{{ __("common.city") }} *</x-label>
-                        <x-input type="text" value="" id="city" name="city"/>
+                        <x-label for="locality">{{ __("common.city") }} *</x-label>
+                        <x-input type="text" value="" id="locality" name="city"/>
                         <div id="city-results" class="absolute w-full hidden geo-coder-results"></div>
                     </div>
 
                     <div class="mb-4 text-sm w-full md:w-1/4 md:pl-4">
-                        <x-label for="zip_code">{{ __("common.zip") }} *</x-label>
-                        <x-input type="text" value="" id="zip_code" name="zip_code"/>
+                        <x-label for="postal_code">{{ __("common.zip") }} *</x-label>
+                        <x-input type="text" value="" id="postal_code" name="zip_code"/>
                         <small>Si no conoces tu CP, haz click <a class="underline text-blue-500" href="http://www.codigopostal.gob.pe" target="_blank">aquí</a></small>
                     </div>
                 </div>

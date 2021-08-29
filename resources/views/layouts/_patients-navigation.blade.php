@@ -19,10 +19,10 @@
                 <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">
                     {{ __('common.home') }}
                 </a>
-                <a href="{{ route('specialist.edit', auth()->user()->uuid) }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                <a href="{{ route('account.edit') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                     Mi perfil
                 </a>
-                <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                <a href="{{ route('front.faq') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                     {{ __('common.faq') }}
                 </a>
                 <div class="text-base font-medium text-gray-500 hover:text-gray-900">
@@ -66,12 +66,12 @@
                                     {{ __('common.home') }}
                                 </div>
                             </a>
-                            <a href="{{ route('specialist.edit', auth()->user()->uuid) }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('account.edit') }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div class="text-base font-medium text-gray-900">
                                     Mi perfil
                                 </div>
                             </a>
-                            <a href="/" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('front.faq') }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div class="text-base font-medium text-gray-900">
                                     {{ __('common.faq') }}
                                 </div>

@@ -28,5 +28,19 @@ class SpecialistProfileChanges extends Model
         return $this->save();
     }
 
+    public function scopeOnlyRecentAndPending($query)
+    {
+//        return $query->where('careated_at', '>=', date('Y-m-d H:i:s', strtotime('14 days ago')))->orWhere('state', 'pending');
+        return $query->where(function ($q) {
+            $q->orWhere('created_at', '>=', date('Y-m-d H:i:s', strtotime('14 days ago')))
+                ->orWhere('state', 'pending');
+        });
+    }
+
+    public function getCreatedAtAsHumanAttribute()
+    {
+        return $this->created_at->locale('es_ES')->diffForHumans();
+    }
+
 
 }

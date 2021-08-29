@@ -21,8 +21,8 @@ class ChangeEmail extends Component
         $this->modal = $modal;
 
         $this->validationAttributes = [
-            'password' => __('Current password'),
-            'email' => __('Email address'),
+            'password' => __('common.current_password'),
+            'email' => __('common.email'),
         ];
 
 

@@ -54,6 +54,12 @@
                 </div>
             </div>
         </div>
+        <div class="relative rounded bg-white border-gray-100 form-item" x-spread="input">
+            <livewire:location-search :classes="'text-left border-gray-100 rounded w-full py-2 px-3'" :location="$location"  />
+        </div>
+        <div>
+            Consulta online
+        </div>
     </div>
     <div class="flex-shrink-0 w-full">
         <x-button type="submit w-full">{{ __('common.apply_filters') }}</x-button>

@@ -45,6 +45,8 @@ window.tabs = function() {
         tab: {
             ['@click'](event) {
                 const element = event.target
+                const address = element.dataset.ref;
+                const parent = element.dataset.parent;
 
                 this.setWidthAndXFromElement(element)
 
@@ -58,8 +60,18 @@ window.tabs = function() {
                     .classList
                     .remove('text-brand-color')
 
-                document.querySelector(`div[x-ref=cards]`).children[this.previousTab].classList.add('hidden');
-                document.querySelector(`div[x-ref=cards]`).children[this.activeTab].classList.remove('hidden');
+                // document.querySelector(`div[x-ref=cards] div[data-tab='${address}']`).children[this.previousTab].classList.add('hidden');
+                let elements = document.querySelectorAll(`div[data-hide='${parent}']`);
+                for (let e of elements) {
+                    e.classList.add('hidden');
+                }
+                let consultations = document.querySelectorAll(`div[data-specialist='${parent}'] a`);
+                for (let e of consultations) {
+                    e.classList.add('hidden');
+                }
+                // document.querySelector(`div[data-hide='${parent}']`)
+                document.querySelector(`div[data-show='${address}']`).classList.remove('hidden');
+                document.querySelector(`a[data-consultation='${address}']`).classList.remove('hidden');
 
                 element.classList.add('text-brand-color')
             }
@@ -117,9 +129,36 @@ window.searchInputs = function () {
 let formBoxes = document.querySelectorAll('div[x-ref="box"]');
 
 if (formBoxes) {
-    for (let i in formBoxes) {
-        formBoxes[i].addEventListener('focusout', function () {
+    for (let i of formBoxes) {
+        i.addEventListener('focusout', function () {
             // formBoxes[i].classList.add('hidden');
         });
     }
 }
+
+const toggleSpecialities = function (event) {
+    event.target.parentElement.classList.toggle('hidden');
+    if (event.target.parentElement.nextElementSibling) {
+        event.target.parentElement.nextElementSibling.classList.toggle('hidden');
+    } else {
+        event.target.parentElement.previousElementSibling.classList.toggle('hidden');
+    }
+};
+
+let moreSpecialities = document.querySelectorAll('.toggle-specialities');
+
+if (moreSpecialities) {
+    for (let i of moreSpecialities) {
+        i.addEventListener('click', function (e) {
+            toggleSpecialities(e);
+        });
+    }
+}
+
+const submitSearchForm = function () {
+    let form = document.querySelector('.search-form');
+    form.submit();
+}
+window.addEventListener('submitSearch', () => {
+    submitSearchForm();
+});

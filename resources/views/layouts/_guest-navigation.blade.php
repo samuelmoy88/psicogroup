@@ -19,10 +19,10 @@
                 <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">
                     {{ __('common.home') }}
                 </a>
-                <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                    {{ __('common.specialities') }}
+                <a href="/#dna" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                    {{ __('common.dna') }}
                 </a>
-                <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                <a href="{{ route('front.faq') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                     {{ __('common.faq') }}
                 </a>
                 <div class="relative">
@@ -92,12 +92,12 @@
                                     {{ __('common.home') }}
                                 </div>
                             </a>
-                            <a href="/" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                            <a href="/#dna" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div class="text-base font-medium text-gray-900">
-                                    {{ __('common.specialities') }}
+                                    {{ __('common.dna') }}
                                 </div>
                             </a>
-                            <a href="/" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('front.faq') }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div class="text-base font-medium text-gray-900">
                                     {{ __('common.faq') }}
                                 </div>

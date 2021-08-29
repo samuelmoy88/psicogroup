@@ -4,5 +4,16 @@
         @include('front.search._side-form')</aside>
         <div class="lg:col-span-4 lg:col-start-3">
         @include('front.search._search-results')</div>
+        @push('ads')
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-format="fluid"
+                 data-ad-layout-key="-fb+5w+4e-db+86"
+                 data-ad-client="ca-pub-1170159379901140"
+                 data-ad-slot="4753262210"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        @endpush
     </div>
 </x-front-layout>

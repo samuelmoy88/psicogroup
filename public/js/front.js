@@ -3826,6 +3826,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpinejs__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -3865,12 +3871,49 @@ window.tabs = function () {
     }),
     tab: _defineProperty({}, '@click', function click(event) {
       var element = event.target;
+      var address = element.dataset.ref;
+      var parent = element.dataset.parent;
       this.setWidthAndXFromElement(element);
       this.previousTab = this.activeTab;
       this.activeTab = Array.from(this.$refs.tabs.children).indexOf(element);
-      this.$refs.tabs.children[this.previousTab].classList.remove('text-brand-color');
-      document.querySelector("div[x-ref=cards]").children[this.previousTab].classList.add('hidden');
-      document.querySelector("div[x-ref=cards]").children[this.activeTab].classList.remove('hidden');
+      this.$refs.tabs.children[this.previousTab].classList.remove('text-brand-color'); // document.querySelector(`div[x-ref=cards] div[data-tab='${address}']`).children[this.previousTab].classList.add('hidden');
+
+      var elements = document.querySelectorAll("div[data-hide='".concat(parent, "']"));
+
+      var _iterator = _createForOfIteratorHelper(elements),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var e = _step.value;
+          e.classList.add('hidden');
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      var consultations = document.querySelectorAll("div[data-specialist='".concat(parent, "'] a"));
+
+      var _iterator2 = _createForOfIteratorHelper(consultations),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var _e = _step2.value;
+
+          _e.classList.add('hidden');
+        } // document.querySelector(`div[data-hide='${parent}']`)
+
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      document.querySelector("div[data-show='".concat(address, "']")).classList.remove('hidden');
+      document.querySelector("a[data-consultation='".concat(address, "']")).classList.remove('hidden');
       element.classList.add('text-brand-color');
     })
   };
@@ -3920,11 +3963,61 @@ window.searchInputs = function () {
 var formBoxes = document.querySelectorAll('div[x-ref="box"]');
 
 if (formBoxes) {
-  for (var i in formBoxes) {
-    formBoxes[i].addEventListener('focusout', function () {// formBoxes[i].classList.add('hidden');
-    });
+  var _iterator3 = _createForOfIteratorHelper(formBoxes),
+      _step3;
+
+  try {
+    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+      var i = _step3.value;
+      i.addEventListener('focusout', function () {// formBoxes[i].classList.add('hidden');
+      });
+    }
+  } catch (err) {
+    _iterator3.e(err);
+  } finally {
+    _iterator3.f();
   }
 }
+
+var toggleSpecialities = function toggleSpecialities(event) {
+  event.target.parentElement.classList.toggle('hidden');
+
+  if (event.target.parentElement.nextElementSibling) {
+    event.target.parentElement.nextElementSibling.classList.toggle('hidden');
+  } else {
+    event.target.parentElement.previousElementSibling.classList.toggle('hidden');
+  }
+};
+
+var moreSpecialities = document.querySelectorAll('.toggle-specialities');
+
+if (moreSpecialities) {
+  var _iterator4 = _createForOfIteratorHelper(moreSpecialities),
+      _step4;
+
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      var _i = _step4.value;
+
+      _i.addEventListener('click', function (e) {
+        toggleSpecialities(e);
+      });
+    }
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
+  }
+}
+
+var submitSearchForm = function submitSearchForm() {
+  var form = document.querySelector('.search-form');
+  form.submit();
+};
+
+window.addEventListener('submitSearch', function () {
+  submitSearchForm();
+});
 
 /***/ }),
 

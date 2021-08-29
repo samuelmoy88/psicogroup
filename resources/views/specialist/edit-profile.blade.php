@@ -6,7 +6,10 @@
             <x-alert-success>{{ $success }}</x-alert-success>
         @endif
         @if(!$specialist->email_verified_at)
-            <x-alert-notify>Aún no has verificado tu cuenta. Por favor, revisa el email con el que te has registrado para completar el proceso de verificación</x-alert-notify>
+            <x-alert-notify>
+                Aún no has verificado tu cuenta. Por favor, revisa el email con el que te has registrado para completar el proceso de verificación.
+                Si no tienes el email, haz click <a class="text-blue-500 underline" href="{{ route('account.send-verification') }}">aquí</a> y te lo volveremos a enviar
+            </x-alert-notify>
         @endif
         <div class="form-card">
             <h2 class="font-bold text-xl">Tus datos</h2>

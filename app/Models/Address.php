@@ -3,17 +3,20 @@
 namespace App\Models;
 
 use App\Http\Requests\AddressRequest;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Address extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $guarded = ['id'];
 
     protected $with = ['paymentMethods', 'services', 'accessibility'];
+
+    protected $searchable = ['city'];
 
     const TYPE_PHYSICAL = 'physical';
     const TYPE_ONLINE = 'online';
@@ -132,8 +135,8 @@ class Address extends Model
         }
 
         if ($request->onlinePlatforms) {
-            foreach ($request->onlinePlatforms as $onlinePlatform => $value) {
-                $this->toggleOnlinePlatform($onlinePlatform, $value);
+            foreach ($request->onlinePlatforms as $onlinePlatform) {
+                $address->onlinePlatforms()->attach($onlinePlatform);
             }
         }
 

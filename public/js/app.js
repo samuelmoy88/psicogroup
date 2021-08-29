@@ -3804,10 +3804,10 @@ __webpack_require__(/*! ./init-alpine */ "./resources/js/init-alpine.js");
 var form = document.querySelector('form');
 
 if (form) {
-  var submitButton = document.getElementById('submitButton');
+  var submitButton = document.querySelector('._submitButton');
   form.addEventListener('submit', function () {
-    var buttonText = document.querySelector('#submitButton .slot');
-    var loaderSlot = document.querySelector('#submitButton .loaderSlot');
+    var buttonText = document.querySelector('._submitButton .slot');
+    var loaderSlot = document.querySelector('._submitButton .loaderSlot');
     buttonText.innerText = 'Cargando...';
     loaderSlot.innerHTML = '<i id="loader" class="fa fa-spinner fa-spin mr-2"></i>';
     submitButton.disabled = true;

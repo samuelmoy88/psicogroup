@@ -3,6 +3,7 @@
         <x-logo-horizontal/>
     </a>
     <ul class="">
+        @if(auth()->user()->isSpecialist)
         <li class="relative px-6 py-3">
             <button
                 class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -44,6 +45,26 @@
                             Servicios
                         </a>
                     </li>
+                    <li class="{{ request()->routeIs('specialist.consultations.*') ? 'bg-brand-color' : '' }} flex justify-between items-center
+                        rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
+                        <a class="w-full block {{ request()->routeIs('specialist.consultations.*') ? 'text-white' : '' }}
+                         {{ request()->routeIs('specialist.consultations.*') ? 'text-white' : '' }}"
+                           href="{{ route('specialist.consultations.index', auth()->user()->uuid) }}">
+                            Solicitudes de consulta
+
+                        </a>
+                        {!! auth()->user()->profile->pendingConsultations() ?
+                        '<div class="rounded-full h-5 w-5 flex items-center justify-center bg-red-500 text-white text-xs">'.auth()->user()->profile->pendingConsultations().'</div>'
+                        : '' !!}
+                    </li>
+                    <li class="{{ request()->routeIs('specialist.ratings.*') ? 'bg-brand-color' : '' }}
+                        rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
+                        <a class="w-full block {{ request()->routeIs('specialist.ratings.*') ? 'text-white' : '' }}
+                        {{ request()->routeIs('specialist.ratings.*') ? 'text-white' : '' }}"
+                           href="{{ route('specialist.ratings.index', auth()->user()->uuid) }}">
+                            Valoración de mis pacientes
+                        </a>
+                    </li>
                     <li class="{{ request()->routeIs('specialist.show') ? 'bg-brand-color' : '' }} rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
                         <a class="w-full block {{ request()->routeIs('specialist.show') ? 'text-white' : '' }}"
                            href="{{ route('specialist.show', ['specialist' => auth()->user()->username, 'uuid' => auth()->user()->uuid]) }}">Ver perfil</a>
@@ -51,6 +72,7 @@
                 </ul>
             </template>
         </li>
+        @endif
         <li class="relative px-6 py-3">
             <button
                 class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -76,6 +98,16 @@
                         <a class="w-full block {{ request()->routeIs('account.edit') ? 'text-white' : '' }}"
                            href="{{ route('account.edit') }}">Ver mi cuenta</a>
                     </li>
+                    @if(auth()->user()->isPatient)
+                    <li class="{{ request()->routeIs('account.consultations.*') ? 'bg-brand-color' : '' }} rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
+                        <a class="w-full block {{ request()->routeIs('account.consultations.*') ? 'text-white' : '' }}"
+                           href="{{ route('account.consultations.index', auth()->user()->uuid) }}">Ver mis consultas</a>
+                    </li>
+                    <li class="{{ request()->routeIs('account.specialists.*') ? 'bg-brand-color' : '' }} rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
+                        <a class="w-full block {{ request()->routeIs('account.specialists.*') ? 'text-white' : '' }}"
+                           href="{{ route('account.specialists.index', auth()->user()->uuid) }}">Ver mis especialistas</a>
+                    </li>
+                    @endif
                     <li class="rounded px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer">
                         <form action="{{ route('logout') }}" method="post">
                             @csrf

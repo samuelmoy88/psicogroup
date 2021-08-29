@@ -11,6 +11,6 @@ class JobsController extends Controller
 {
     public function enqueue(User $user, $body)
     {
-        NotifySpecialistAboutChange::dispatchAfterResponse($user, $body);
+        dispatch(new NotifySpecialistAboutChange($user, $body));
     }
 }
