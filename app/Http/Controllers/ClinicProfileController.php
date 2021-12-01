@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\CommonHelper;
-use App\Http\Requests\UpdateSpecialistRequest;
+use App\Http\Requests\UpdateClinicRequest;
+use App\Models\ClinicProfile;
 use App\Models\Disease;
 use App\Models\Prefix;
 use App\Models\Services;
-use App\Models\SpecialistProfile;
+use App\Models\SocialMedia;
 use App\Models\Speciality;
 use App\Models\Unease;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class SpecialistsProfileController extends Controller
+class ClinicProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,14 +49,13 @@ class SpecialistsProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $specialist
-     * @param string $uuid
-     * @return void
+     * @param User $clinic
+     * @return \Illuminate\Http\Response
      */
-    public function show(User $specialist, string $uuid)
+    public function show(User $clinic)
     {
-        return view('specialist.show-profile', [
-            'specialist' => $specialist,
+        return view('clinic.show-profile', [
+            'clinic' => $clinic,
             'dbServices' => Services::all()
         ]);
     }
@@ -69,46 +68,45 @@ class SpecialistsProfileController extends Controller
      */
     public function edit(User $uuid)
     {
-        //TODO: show an alert before 'save changes' button explaining the user that he has to check everything before submitting the form
         if ($uuid->id === auth()->user()->id) {
-            return view('specialist.edit-profile', [
-                'specialist' => auth()->user(),
-                'prefixes' => Prefix::all(),
+            return view('clinic.edit-profile', [
+                'clinic' => auth()->user(),
+                'specialistsVolume' => $uuid->profile->specialistsVolume(),
                 'specialities' => Speciality::orderBy('order')->get(),
                 'diseases' => Disease::orderBy('order')->get(),
-                'uneasiness' => Unease::orderBy('order')->get(),
+                'social_media' => SocialMedia::orderBy('order')->get(),
             ]);
         }
-        //TODO: build a cool 404 page
         return view('errors.404');
-
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateSpecialistRequest $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSpecialistRequest $request)
+    public function update(UpdateClinicRequest $request)
     {
         $request->validated();
 
-        /** @var SpecialistProfile $specialist */
-        $specialist = SpecialistProfile::find(auth()->user()->profile->id);
+        /** @var ClinicProfile $clinic */
+        $clinic = ClinicProfile::find(auth()->user()->profile->id);
 
-        $specialist->commitChanges($request);
+        $clinic->commitChanges($request);
 
-        return redirect(route('specialist.edit', $specialist->user->uuid))->with('success', __('common.save_changes_success'));
+        return redirect(
+            route('clinic.edit', $clinic->user->uuid)
+        )->with('success', __('common.save_changes_success'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $uuid
-     * @return void
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(User $uuid)
+    public function destroy(User $user)
     {
         //
     }

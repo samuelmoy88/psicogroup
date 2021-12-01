@@ -14,8 +14,7 @@
                 1. INFORMACIÓN LEGAL Y ACEPTACIÓN
             </p>
             <div class="pl-5">
-                <p class="mb-5">1.1. Las disposiciones contenidas en este Aviso Legal regulan el acceso y condiciones del portal de Internet bajo el dominio: www.psico-group.com, (en adelante, el Sitio Web), registrado a favor de Gonzalo Martínez García (en adelante, el Titular), Licenciado en Psicología, con DNI 40187849 y domicilio fiscal en Valle Riestra 436 número de teléfono +51 950 114 146, correo electrónico
-                    <a href=""></a>.</p>
+                <p class="mb-5">1.1. Las disposiciones contenidas en este Aviso Legal regulan el acceso y condiciones del portal de Internet bajo el dominio: www.psico-group.com, (en adelante, el Sitio Web), registrado a favor de Gonzalo Martínez García (en adelante, el Titular), Licenciado en Psicología, con DNI 40187849 y domicilio fiscal en Valle Riestra 436 número de teléfono +51 950 114 146, correo electrónico <a href="mailto:protecciondedatos@psico-group.com" class="text-blue-500 underline">protecciondedatos@psico-group.com</a>.</p>
             </div>
             <div class="pl-5">
                 <p class="mb-5">1.2. El hecho de acceder y/o usar este Sitio Web le atribuyen la condición de usuario del Sitio web (en adelante, el Usuario) e implica la aceptación plena y sin reserva alguna, de todas y cada una de las cláusulas contenidas en el presente Aviso Legal y Condiciones de Uso, en la versión publicada por el Sitio Web en el mismo momento en que se acceda a este. En caso de no estar de acuerdo con todo o parte de las cláusulas establecidas en el presente Aviso Legal, el Usuario deberá abstenerse de acceder y/o utilizar los servicios y/o contenidos puestos a su disposición en el Sitio Web, procediendo a abandonarlo.</p>

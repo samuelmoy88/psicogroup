@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\SocialMedia;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -43,6 +44,10 @@ class RouteServiceProvider extends ServiceProvider
             return User::where('uuid', $value)->firstOrFail();
         });
 
+        Route::bind('clinic', function ($value) {
+            return User::where('uuid', $value)->firstOrFail();
+        });
+
         Route::bind('patient', function ($value) {
             return User::where('uuid', $value)->firstOrFail();
         });
@@ -51,7 +56,20 @@ class RouteServiceProvider extends ServiceProvider
             return User::where('id', $value)->firstOrFail();
         });
 
+        Route::bind('social_medium', function ($value) {
+            return SocialMedia::where('id', $value)->firstOrFail();
+        });
+
         Route::bind('specialist', function ($username, $route) {
+            $uuid = $route->parameter('uuid');
+
+            return User::where([
+                'username' => $username,
+                'uuid' => $uuid
+            ])->firstOrFail();
+        });
+
+        Route::bind('medical_center', function ($username, $route) {
             $uuid = $route->parameter('uuid');
 
             return User::where([

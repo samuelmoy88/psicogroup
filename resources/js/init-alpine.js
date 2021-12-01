@@ -136,19 +136,23 @@ window.toggle = function () {
                     element.classList.add('hidden');
             }
         },
-        toggleOnlineConsultation(physicalIndications, onlineIndications, addressElement, onlineDetailsElement, onlinePaymentDetails, otherInformation,  action) {
+        toggleOnlineConsultation(physicalIndications, onlineIndications, onlineDetailsElement, onlinePaymentDetails, otherInformation, street, city, zip,  action) {
             if (action === 'off') {
-                addressElement.classList.remove('hidden');
                 otherInformation.classList.remove('hidden');
                 physicalIndications.classList.remove('hidden');
+                street.classList.remove('hidden');
+                zip.classList.remove('hidden');
+                city.classList.add('md:w-1/4');
                 onlineDetailsElement.classList.add('hidden');
                 onlinePaymentDetails.classList.add('hidden');
                 onlineIndications.classList.add('hidden');
                 return
             }
-            addressElement.classList.add('hidden');
             otherInformation.classList.add('hidden');
             physicalIndications.classList.add('hidden');
+            street.classList.add('hidden');
+            zip.classList.add('hidden');
+            city.classList.remove('md:w-1/4');
             onlineDetailsElement.classList.remove('hidden');
             onlinePaymentDetails.classList.remove('hidden');
             onlineIndications.classList.remove('hidden');

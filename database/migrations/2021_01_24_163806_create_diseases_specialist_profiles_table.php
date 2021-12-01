@@ -13,16 +13,12 @@ class CreateDiseasesSpecialistProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('diseases_specialist_profiles', function (Blueprint $table) {
+        Schema::create('diseases_profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('specialist_profile_id');
+            $table->unsignedBigInteger('profile_id');
             $table->unsignedBigInteger('disease_id');
+            $table->string('profile_type', 50);
             $table->timestamps();
-
-            $table->foreign('specialist_profile_id', 'sp_id_foreign_2')
-                ->references('id')
-                ->on('specialist_profiles')
-                ->onDelete('cascade');
 
             $table->foreign('disease_id', 'd_id_foreign')
                 ->references('id')
@@ -38,6 +34,6 @@ class CreateDiseasesSpecialistProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diseases_specialist_profiles');
+        Schema::dropIfExists('diseases_profiles');
     }
 }

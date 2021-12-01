@@ -10,11 +10,11 @@
             <h2 class="font-bold text-xl">{{ __('address.type') }}</h2>
             <p class="text-bold text-black">{{ __('address.physical_or_online') }}</p>
             <div class="mt-4 mb-4 text-sm">
-                <label @click="toggleOnlineConsultation($refs.physicalIndications, $refs.onlineIndications, $refs.physicalAddress, $refs.onlineDetails, $refs.onlinePaymentDetails, $refs.otherInformation, 'off')"
+                <label @click="toggleOnlineConsultation($refs.physicalIndications, $refs.onlineIndications, $refs.onlineDetails, $refs.onlinePaymentDetails, $refs.otherInformation, $refs.street, $refs.city, $refs.zip,'off')"
                        class="mb-1 cursor-pointer mr-2">
                     <x-radio value="physical" checked name="consultation_type"/> {{__('address.physical')}}
                 </label>
-                <label @click="toggleOnlineConsultation($refs.physicalIndications, $refs.onlineIndications, $refs.physicalAddress, $refs.onlineDetails, $refs.onlinePaymentDetails, $refs.otherInformation, 'on')"
+                <label @click="toggleOnlineConsultation($refs.physicalIndications, $refs.onlineIndications, $refs.onlineDetails, $refs.onlinePaymentDetails, $refs.otherInformation, $refs.street, $refs.city, $refs.zip,'on')"
                        class="mb-1 cursor-pointer mr-2">
                     <x-radio value="online" name="consultation_type"/> {{__('address.online')}}
                 </label>
@@ -42,8 +42,8 @@
                     <x-input type="text" value="" id="title" name="title"/>
                 </div>
 
-                <div class="flex flex-wrap w-full" x-ref="physicalAddress">
-                    <div class="mb-4 text-sm w-full md:w-1/2 md:pr-4">
+                <div class="flex flex-wrap w-full">
+                    <div class="mb-4 text-sm w-full md:w-1/2 md:pr-4" x-ref="street">
                         <input type="hidden" name="latitude" id="latitude" value="">
                         <input type="hidden" name="longitude" id="longitude" value="">
                         <x-label for="route">{{ __("common.street") }} *</x-label>
@@ -51,16 +51,16 @@
                         <div id="street-results" class="absolute w-half hidden geo-coder-results"></div>
                     </div>
 
-                    <div class="mb-4 text-sm w-full md:w-1/4">
+                    <div class="mb-4 text-sm w-full md:w-1/4" x-ref="city">
                         <x-label for="locality">{{ __("common.city") }} *</x-label>
                         <x-input type="text" value="" id="locality" name="city"/>
                         <div id="city-results" class="absolute w-full hidden geo-coder-results"></div>
                     </div>
 
-                    <div class="mb-4 text-sm w-full md:w-1/4 md:pl-4">
+                    <div class="mb-4 text-sm w-full md:w-1/4 md:pl-4"x-ref="zip">
                         <x-label for="postal_code">{{ __("common.zip") }} *</x-label>
                         <x-input type="text" value="" id="postal_code" name="zip_code"/>
-                        <small>Si no conoces tu CP, haz click <a class="underline text-blue-500" href="http://www.codigopostal.gob.pe" target="_blank">aquí</a></small>
+                        <small>Si no conoces tu CP, haz click <a class="underline text-blue-500" href="http://www.codigopostal.gob.pe" rel="noreferrer noopener" target="_blank">aquí</a></small>
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Events\CacheSpecialist;
+use App\Events\CacheUser;
 use App\Events\UpdatingSpecialist;
 use App\Traits\FormatDates;
 use App\Traits\Searchable;
@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $dispatchesEvents = [
         'updating' => UpdatingSpecialist::class,
-        'saved' => CacheSpecialist::class,
+        'saved' => CacheUser::class,
     ];
 
     protected $searchable = [
@@ -98,9 +98,20 @@ class User extends Authenticatable implements MustVerifyEmail
         )->withPivot('profile_type');
     }
 
+    public function socialMedia()
+    {
+        return $this->belongsToMany(SocialMedia::class)
+            ->withPivot('url', 'username');
+    }
+
     public function getIsSpecialistAttribute()
     {
         return $this->profile_type == SpecialistProfile::class;
+    }
+
+    public function getIsClinicAttribute()
+    {
+        return $this->profile_type == ClinicProfile::class;
     }
 
     public function getIsPatientAttribute()
@@ -160,17 +171,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function saveToCache()
     {
-        $data['full_name'] = $this->first_name . ' ' . $this->last_name;
+        $data['full_name'] = $this->fullName;
         $data['uuid'] = $this->uuid;
         $data['username'] = $this->username;
         $data['status'] = $this->status;
         $data['banned_until'] = $this->banned_until;
-        $data['prefix'] = $this->profile->prefixLabel;
-        $data['license_number'] = $this->profile->license_number;
+        $data['prefix'] = $this->profile->prefixLabel ?? '';
+        $data['license_number'] = $this->profile->license_number ?? '';
         $data['is_verified'] = $this->profile->is_verified;
         $data['avatar'] = $this->profile->avatarPath;
         $data['about'] = $this->profile->about;
+        $data['our_offer'] = $this->profile->our_offer ?? '';
         $data['has_online_consultation'] = false;
+        $data['profile_type'] = $this->profile_type;
 
         if ($this->profile->services) {
             foreach ($this->profile->services as $service) {
@@ -261,6 +274,12 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         }
 
+        if (!$this->socialMedia->isEmpty()) {
+            foreach ($this->socialMedia as $media) {
+                $data['social_media'][$media->name] = $media->pivot->url;
+            }
+        }
+
         return cache()->store(config('cache.default'))->set($this->uuid, collect($data), now()->addDays(5));
     }
 
@@ -279,8 +298,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('profile_type', SpecialistProfile::class)->where('status', 'active')->whereNull('banned_until');
     }
 
+    public function scopeClinicProfile($query)
+    {
+        return $query->where('profile_type', ClinicProfile::class)->where('status', 'active')->whereNull('banned_until');
+    }
+
     public function scopePatientProfile($query)
     {
         return $query->where('profile_type', PatientProfile::class)->where('status', 'active')->whereNull('banned_until');
+    }
+
+    public function scopeSearchProfessionalProfiles($query)
+    {
+        return $query->whereIn('profile_type', [ClinicProfile::class, SpecialistProfile::class])
+            ->where('status', 'active')
+            ->whereNull('banned_until')
+            ->whereNotNull('email_verified_at');
     }
 }

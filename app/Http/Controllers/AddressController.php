@@ -57,7 +57,7 @@ class AddressController extends Controller
 
         $address->new($request);
 
-        return redirect(route('specialist.addresses.index', auth()->user()->uuid))->with('success', __('Changes saved successfully'));
+        return redirect(route('specialist.addresses.index', auth()->user()->uuid))->with('success', __('common.save_changes_success'));
 
     }
 

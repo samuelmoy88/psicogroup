@@ -33,3 +33,37 @@ if (form) {
     }
 
 }
+
+import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
+
+
+let sortableEl = document.querySelectorAll('.sortable');
+
+if (sortableEl) {
+    for (let i of sortableEl) {
+        Sortable.create(i, {
+            handle: '.handle',
+            animation: 150,
+            swapThreshold: 0.70,
+            direction: 'vertical',
+            onEnd: function (event) {
+                if (event.newIndex !== event.oldIndex) {
+                    reorderItems(event);
+                }
+            }
+        });
+    }
+
+}
+
+function reorderItems(event) {
+    let order = 1;
+
+    if (event.from.children.length > 0) {
+        for (let child of event.from.children) {
+            document.querySelector(`input[name='${child.dataset.order}']`).value = order;
+            order++;
+        }
+    }
+
+}

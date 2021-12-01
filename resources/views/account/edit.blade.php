@@ -8,26 +8,28 @@
         <div class="form-card">
             <h2 class="font-bold text-xl mb-4">Configuración de tu cuenta</h2>
             <div class="mb-4 text-sm">
-                <x-label for="first_name">{{ __('First name') }} *</x-label>
+                <x-label for="first_name">{{ __('common.first_name') }} *</x-label>
                 <x-input type="text" value="{{ $user->first_name }}" id="first_name" name="first_name" placeholder=""/>
             </div>
+            @if(!auth()->user()->isClinic)
             <div class="mb-4 text-sm">
-                <x-label for="last_name">{{ __('Last name') }} *</x-label>
+                <x-label for="last_name">{{ __('common.last_names') }} *</x-label>
                 <x-input type="text" value="{{ $user->last_name }}" id="last_name" name="last_name" placeholder=""/>
             </div>
+            @endif
             <div class="mb-4 text-sm">
-                <x-label for="phone">{{ __('Phone number') }} *</x-label>
+                <x-label for="phone">{{ __('common.phone') }} *</x-label>
                 <x-input type="tel" value="{{ $user->phone }}" id="phone" name="phone" placeholder=""/>
             </div>
             <div class="mb-4 text-sm">
-                <x-label >{{ __('Email') }}</x-label>
+                <x-label >{{ __('common.email') }}</x-label>
                 <x-label >
                     {{ $user->email }} -
                     <span class="text-blue-500 underline cursor-pointer" @click="openModal('#emailModal')">{{ __('common.change_email') }}</span>
                 </x-label>
             </div>
             <div class="mb-4 text-sm">
-                <x-label for="">{{ __('Password') }} </x-label>
+                <x-label for="">{{ __('common.password') }} </x-label>
                 <x-label class="text-blue-500 underline cursor-pointer" @click="openModal('#passwordModal')">{{ __('common.change_password') }}</x-label>
             </div>
         </div>

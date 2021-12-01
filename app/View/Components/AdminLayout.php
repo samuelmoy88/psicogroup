@@ -255,6 +255,52 @@ class AdminLayout extends Component
                 'dropdown-click-event' => 'toggleRatingFeedbackMenu'
             ],
             [
+                'name' => __('social-media.name'),
+                'icon' => '<i class="fas fa-hashtag"></i>',
+                'permission' => 'social_media_read',
+                'sub-modules' => [
+                    [
+                        'name' => __('social-media.sm_list'),
+                        'uri' => route('social-media.index'),
+                        'list_class' => request()->routeIs('social-media.index') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('social-media.index') ? 'text-white' : '',
+                        'permission' => 'social_media_read',
+                    ],
+                    [
+                        'name' => __('social-media.new_sm'),
+                        'uri' => route('social-media.create'),
+                        'list_class' => request()->routeIs('social-media.create') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('social-media.create') ? 'text-white' : '',
+                        'permission' => 'social_media_create',
+                    ],
+                ],
+                'dropdown-variable' => 'isSocialMediaMenuOpen',
+                'dropdown-click-event' => 'toggleSocialMediaMenu'
+            ],
+            [
+                'name' => __('education-degree.name'),
+                'icon' => '<i class="fas fa-graduation-cap"></i>',
+                'permission' => 'education_degree_read',
+                'sub-modules' => [
+                    [
+                        'name' => __('education-degree.ed_list'),
+                        'uri' => route('education-degree.index'),
+                        'list_class' => request()->routeIs('education-degree.index') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('education-degree.index') ? 'text-white' : '',
+                        'permission' => 'education_degree_read',
+                    ],
+                    [
+                        'name' => __('education-degree.new_ed'),
+                        'uri' => route('education-degree.create'),
+                        'list_class' => request()->routeIs('education-degree.create') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('education-degree.create') ? 'text-white' : '',
+                        'permission' => 'education_degree_create',
+                    ],
+                ],
+                'dropdown-variable' => 'isEducationDegreeMenuOpen',
+                'dropdown-click-event' => 'toggleEducationDegreeMenu'
+            ],
+            [
                 'name' => 'Configuración',
                 'icon' => '<i class="fas fa-cogs"></i>',
                 'permission' => 'config_read',

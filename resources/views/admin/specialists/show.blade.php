@@ -11,7 +11,7 @@
                     <div class="flex flex-wrap justify-between">
                         <h2 class="font-bold text-lg mb-4">{{ __('specialists.specialist_data') }}</h2>
                         <a class="text-blue-500"
-                           target="_blank" rel="noopener"
+                           target="_blank" rel="noreferrer noopener"
                            href="https://psico-group.com{{ route('specialist.show', ['specialist' => $specialist->username, 'uuid' => $specialist->uuid], false) }}">
                             {{ __('common.view_profile') }}</a>
                     </div>

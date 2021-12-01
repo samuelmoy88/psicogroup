@@ -40,7 +40,7 @@ class ResetAdminPassword extends Mailable
         return $this->to($this->user->email)
             ->subject('Contraseña reestablecida')
             ->markdown('emails.users.admin-password-reset',[
-                'url' => route('config.users.show', ['user' => $this->user->id]),
+                'url' => config('app.url') . route('config.users.show', ['user' => $this->user->id], false),
             ]);
     }
 }

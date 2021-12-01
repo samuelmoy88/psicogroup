@@ -19,7 +19,7 @@ class EnsureUserIsAdmin
     {
         if (!auth()->user()->isAdmin) {
             Auth::logout();
-            return redirect(route('login'))->with('message', 'Unauthorized');
+            return redirect(route('login'))->with('message', __('common.unauthorized'));
         }
         return $next($request);
     }

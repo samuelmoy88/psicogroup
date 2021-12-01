@@ -20,6 +20,10 @@
     @apply px-4 py-3 mb-8 bg-white rounded-lg shadow-md;
 }
 
+.flex-1-full {
+    flex: 1 1 100%;
+}
+
 .border-brand-color {
     border-color: #9a4b97;
 }
@@ -176,6 +180,18 @@ input:checked ~ .toggle__dot {
     flex-basis: 0;
     word-break: break-word;
     padding: 0.75rem;
+}
+
+i.svg-icon.svg-icon-size-32 {
+    height: 32px;
+    width: 32px;
+}
+.svg-icon {
+    fill: #93989d;
+    display: inline-block;
+    height: 16px;
+    position: relative;
+    width: 16px;
 }
 
 .hidden-important {

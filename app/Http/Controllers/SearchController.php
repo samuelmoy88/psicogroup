@@ -11,7 +11,7 @@ class SearchController extends Controller
     {
         $search = new Search();
 
-        $specialists = $search->advancedSearch($request);
+        $searchResults = $search->advancedSearch($request);
 
         $services = readServicesFromCache();
 
@@ -41,7 +41,7 @@ class SearchController extends Controller
         }
 
         return view('front.search.index', [
-            'specialists' => $specialists,
+            'searchResults' => $searchResults,
             'services' => $services,
             'specialties' => $specialties,
             'diseases' => $diseases,

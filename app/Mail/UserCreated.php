@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 
 class UserCreated extends Mailable
 {
@@ -40,7 +41,7 @@ class UserCreated extends Mailable
         return $this->to($this->user->email)
             ->subject('Bienvenido al equipo de '. config('app.name').'!')
             ->markdown('emails.users.user-created',[
-                'url' => route('config.users.show', ['user' => $this->user->id]),
+                'url' => Config::get('app.url') . route('config.users.show', ['user' => $this->user->id], false),
             ]);
     }
 }

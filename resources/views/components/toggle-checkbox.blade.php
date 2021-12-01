@@ -1,6 +1,6 @@
 @props(['id' => '', 'value' => '', 'checked' => false])
 
-<label for="{{ $id }}" class="flex items-center cursor-pointer">
+<label for="{{ $id }}" {!! $attributes->merge(['class' => 'flex items-center cursor-pointer']) !!}>
     <!-- toggle -->
     <div class="relative">
         <!-- input -->

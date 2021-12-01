@@ -33,11 +33,11 @@ class UpdateSpecialistRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.required' => __('Please, provide a first name'),
-            'first_name.max' => __('First name must be shorter'),
-            'last_name.required' => __('Please, provide a last name'),
-            'last_name.max' => __('Last name must be shorter'),
-            'profile.avatar' => __('Please, upload a valid image')
+            'first_name.required' => __('specialists.first_name_required'),
+            'first_name.max' => __('specialists.first_name_max'),
+            'last_name.required' => __('specialists.last_name_required'),
+            'last_name.max' => __('specialists.last_name_max'),
+            'profile.avatar' => __('specialists.avatar')
         ];
     }
 }

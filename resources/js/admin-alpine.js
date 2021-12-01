@@ -96,6 +96,14 @@ window.data = function () {
         toggleRatingFeedbackMenu() {
             this.isRatingFeedbackMenuOpen = !this.isRatingFeedbackMenuOpen
         },
+        isSocialMediaMenuOpen: shouldSocialMediaMenuBeOpened === 'true',
+        toggleSocialMediaMenu() {
+            this.isSocialMediaMenuOpen = !this.isSocialMediaMenuOpen
+        },
+        isEducationDegreeMenuOpen: shouldEducationDegreeMenuBeOpened === 'true',
+        toggleEducationDegreeMenu() {
+            this.isEducationDegreeMenuOpen = !this.isEducationDegreeMenuOpen
+        },
     }
 }
 

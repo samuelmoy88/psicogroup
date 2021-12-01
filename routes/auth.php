@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\ClinicRegisteredUserController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
@@ -64,6 +65,12 @@ Route::middleware('guest')->group(function (){
 
     Route::post('/register-specialist', [SpecialistRegisteredUserController::class, 'store'])
         ->name('store.specialist');
+
+    Route::get('/register-clinic', [ClinicRegisteredUserController::class, 'create'])
+        ->name('register.clinic');
+
+    Route::post('/register-clinic', [ClinicRegisteredUserController::class, 'store'])
+        ->name('store.clinic');
 
     Route::get('/register-patient', [PatientRegisteredUserController::class, 'create'])
         ->middleware('guest')

@@ -36,6 +36,10 @@ class AuthenticatedSessionController extends Controller
             return redirect(RouteServiceProvider::HOME);
         }
 
+        if (\auth()->user()->isClinic) {
+            return redirect(route('clinic.dashboard'));
+        }
+
         return redirect(RouteServiceProvider::DASHBOARD);
     }
 

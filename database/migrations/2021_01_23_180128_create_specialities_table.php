@@ -22,16 +22,12 @@ class CreateSpecialitiesTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('specialist_profiles_specialities', function (Blueprint $table){
+        Schema::create('profiles_specialities', function (Blueprint $table){
             $table->id();
-            $table->unsignedBigInteger('specialist_profile_id');
+            $table->unsignedBigInteger('profile_id');
             $table->unsignedBigInteger('speciality_id');
+            $table->string('profile_type', 50);
             $table->timestamps();
-
-            $table->foreign('specialist_profile_id', 'sp_id_foreign')
-                ->references('id')
-                ->on('specialist_profiles')
-                ->onDelete('cascade');
 
             $table->foreign('speciality_id', 's_id_foreign')
                 ->references('id')
@@ -48,6 +44,6 @@ class CreateSpecialitiesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('specialities');
-        Schema::dropIfExists('specialist_profiles_specialities');
+        Schema::dropIfExists('profiles_specialities');
     }
 }

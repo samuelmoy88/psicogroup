@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\CacheSpecialist;
+use App\Events\CacheUser;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CacheSpecialistAfterSave
+class CacheUserAfterSave
 {
     /**
      * Create the event listener.
@@ -21,10 +21,10 @@ class CacheSpecialistAfterSave
     /**
      * Handle the event.
      *
-     * @param CacheSpecialist $event
+     * @param CacheUser $event
      * @return void
      */
-    public function handle(CacheSpecialist $event)
+    public function handle(CacheUser $event)
     {
         $event->user->saveToCache();
     }

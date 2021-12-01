@@ -4,6 +4,8 @@
     @else
         @if(auth()->user()->isSpecialist)
             @include('layouts._specialists-navigation')
+        @elseif(auth()->user()->isClinic)
+            @include('layouts._clinics-navigation')
         @elseif(auth()->user()->isPatient)
             @include('layouts._patients-navigation')
         @else
@@ -11,4 +13,3 @@
         @endif
     @endif
 </header>
-

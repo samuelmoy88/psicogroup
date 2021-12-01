@@ -12,6 +12,8 @@ trait Searchable
             return $term;
         }
 
+        $term = trim($term);
+
         $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
 
         $term = str_replace($reservedSymbols, '', $term);

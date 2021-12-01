@@ -70,6 +70,16 @@ class Consultation extends Model
         );
     }
 
+    public function clinic()
+    {
+        return $this->belongsTo(
+            ClinicProfile::class,
+            'clinic_profile_id',
+            'id',
+            'clinic_profiles'
+        );
+    }
+
     public function patient()
     {
         return $this->belongsTo(

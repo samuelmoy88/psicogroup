@@ -101,6 +101,12 @@ class Address extends Model
         /** @var Address $address */
         $address = self::create($request->all());
 
+        if (auth()->user()->isClinic) {
+            $address->is_private = true;
+            $address->title = auth()->user()->first_name;
+            $address->save();
+        }
+
         if ($request->accessibility) {
             foreach ($request->accessibility as $accessibility) {
                 $address->accessibility()->attach($accessibility);

@@ -2,35 +2,49 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ClinicAddressController;
+use App\Http\Controllers\ClinicDashboardController;
+use App\Http\Controllers\ClinicInvitationResend;
+use App\Http\Controllers\ClinicProfileController;
+use App\Http\Controllers\ClinicSpecialistController;
+use App\Http\Controllers\ClinicSpecialistsInvitation;
+use App\Http\Controllers\ClinicSpecialistsRatingController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DiseaseController;
+use App\Http\Controllers\EducationDegreeController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\OnlineConsultationPlatformController;
 use App\Http\Controllers\PasswordValidationController;
 use App\Http\Controllers\PatientConsultationController;
-use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientSpecialists;
 use App\Http\Controllers\PaymentMethodController;
-use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PremiumPlanListController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RatingDisputeController;
-use App\Http\Controllers\RolesController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\SecurityMeasuresController;
-use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\SpecialistChangesController;
+use App\Http\Controllers\SpecialistClinicController;
+use App\Http\Controllers\SpecialistClinicInvitationResend;
+use App\Http\Controllers\SpecialistClinicsInvitation;
 use App\Http\Controllers\SpecialistConsultationController;
 use App\Http\Controllers\SpecialistController;
 use App\Http\Controllers\SpecialistDashboardController;
 use App\Http\Controllers\SpecialistRatingController;
-use App\Http\Controllers\SpecialistsProfileController;
+use App\Http\Controllers\SpecialistProfileController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SpecialistProfileServicesController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\UneaseController;
 use App\Http\Controllers\VerifyAccountController;
 use App\Http\Controllers\RatingFeedbackController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -42,6 +56,7 @@ Route::middleware(['admin.redirect'])->group(function () {
     Route::get('/consultation/{doctor}/{address}', [ConsultationController::class, 'create'])->name('consultation.create');
     Route::post('/consultations/', [ConsultationController::class, 'store'])->name('consultation.store');
     Route::get('/consultations/{consultation}/confirm', [ConsultationController::class, 'confirm'])->name('consultation.confirm');
+    Route::get('/planes-premium', PremiumPlanListController::class);
     Route::get('/faq', function () {
         return view('front.faq');
     })->name('front.faq');
@@ -57,47 +72,59 @@ Route::middleware(['admin.redirect'])->group(function () {
 
 });
 
-// Back office routes
+// Admin Back office routes
 Route::domain(config('app.admin_backend'))->group(function () {
     Route::middleware(['auth','active','admin'])->group(function () {
         Route::get('/dashboard', AdminDashboardController::class)->name('admin.dashboard');
 
         // Sort models
         Route::put('/specialities/sort', [SpecialityController::class, 'sort'])->name('specialities.sort');
-        Route::put('/services/sort', [ServicesController::class, 'sort'])->name('services.sort');
+        Route::put('/services/sort', [ServiceController::class, 'sort'])->name('services.sort');
         Route::put('/diseases/sort', [DiseaseController::class, 'sort'])->name('diseases.sort');
         Route::put('/uneasiness/sort', [UneaseController::class, 'sort'])->name('uneasiness.sort');
         Route::put('/payment-methods/sort', [PaymentMethodController::class, 'sort'])->name('payment-methods.sort');
         Route::put('/security-measures/sort', [SecurityMeasuresController::class, 'sort'])->name('security-measures.sort');
         Route::put('/online-platforms/sort', [OnlineConsultationPlatformController::class, 'sort'])->name('online-platforms.sort');
         Route::put('/rating-feedback/sort', [RatingFeedbackController::class, 'sort'])->name('rating-feedback.sort');
+        Route::put('/social-media/sort', [SocialMediaController::class, 'sort'])->name('social-media.sort');
+        Route::put('/education-degree/sort', [EducationDegreeController::class, 'sort'])->name('education-degree.sort');
 
         // Specialities routes
         Route::resource('/specialities', SpecialityController::class);
-        Route::resource('/services', ServicesController::class);
+        Route::resource('/services', ServiceController::class);
         Route::resource('/diseases', DiseaseController::class);
         Route::resource('/uneasiness', UneaseController::class);
         Route::resource('/payment-methods', PaymentMethodController::class);
         Route::resource('/security-measures', SecurityMeasuresController::class);
         Route::resource('/online-platforms', OnlineConsultationPlatformController::class);
         Route::resource('/doctors', SpecialistController::class);
-        Route::resource('/patients', PatientsController::class);
+        Route::resource('/patients', PatientController::class);
         Route::resource('/rating-feedback', RatingFeedbackController::class);
+        Route::resource('/social-media', SocialMediaController::class);
+        Route::resource('/education-degree', EducationDegreeController::class);
         Route::get('/changes', [SpecialistChangesController::class, 'index'])->name('changes.index');
         Route::get('/changes/{doctor}', [SpecialistChangesController::class, 'show'])->name('changes.show');
         Route::get('/rating-disputes', [RatingDisputeController::class, 'index'])->name('rating-dispute.index');
         Route::get('/rating-disputes/{dispute}', [RatingDisputeController::class, 'show'])->name('rating-dispute.show');
         Route::prefix('config')->name('config.')->group(function () {
             Route::resource('/users', AdminController::class);
-            Route::resource('/permissions', PermissionsController::class);
-            Route::resource('/roles', RolesController::class);
+            Route::resource('/permissions', PermissionController::class);
+            Route::resource('/roles', RoleController::class);
         });
     });
 });
 
 // Registered user routes
 Route::middleware(['auth','active'])->group(function () {
-    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/dashboard', function () {
+        if (auth()->user()->isSpecialist) {
+            return redirect(\route('specialist.dashboard'));
+        }
+        if (auth()->user()->isClinic) {
+            return redirect(\route('clinic.dashboard'));
+        }
+        return view('dashboard');
+    })->name('dashboard');
     // Account routes
     Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
     Route::put('/account/edit', [AccountController::class, 'update'])->name('account.update');
@@ -114,52 +141,105 @@ Route::middleware(['auth','active'])->group(function () {
     Route::put('/account/rating/{rating}', [RatingController::class, 'update'])->name('account.feedback.update');
 });
 
-// Specialists routes
+// Specialists back office routes
 Route::middleware(['auth', 'specialist','active'])->group(function () {
     // Specialists dashboard
-    Route::get('/dashboard', SpecialistDashboardController::class)->name('specialist.dashboard');
-    // Specialist routes
-    Route::get('/profile/{uuid}/edit', [SpecialistsProfileController::class, 'edit'])->name('specialist.edit');
+    Route::get('/dashboard/specialist', SpecialistDashboardController::class)->name('specialist.dashboard');
+    // Edit specialist routes
+    Route::get('/profile/specialist/{uuid}/edit', [SpecialistProfileController::class, 'edit'])->name('specialist.edit');
 
-    Route::put('/profile/{uuid}', [SpecialistsProfileController::class, 'update'])->name('specialist.update');
+    Route::put('/profile/specialist/{uuid}', [SpecialistProfileController::class, 'update'])->name('specialist.update');
 
-    Route::get('/profile/{uuid}/rating', [SpecialistRatingController::class, 'index'])->name('specialist.ratings.index');
+    // Specialist ratings
+    Route::get('/profile/specialist/{uuid}/rating', [SpecialistRatingController::class, 'index'])->name('specialist.ratings.index');
 
-    Route::get('/profile/{uuid}/rating/{rating}', [SpecialistRatingController::class, 'show'])->name('specialist.ratings.show');
-    Route::put('/profile/{uuid}/rating/{rating}', [SpecialistRatingController::class, 'update'])->name('specialist.ratings.update');
+    Route::get('/profile/specialist/{uuid}/rating/{rating}', [SpecialistRatingController::class, 'show'])->name('specialist.ratings.show');
+    Route::put('/profile/specialist/{uuid}/rating/{rating}', [SpecialistRatingController::class, 'update'])->name('specialist.ratings.update');
 
     // Specialist's address routes
-    Route::get('/profile/{uuid}/addresses', [AddressController::class, 'index'])->name('specialist.addresses.index');
+    Route::get('/profile/specialist/{uuid}/addresses', [AddressController::class, 'index'])->name('specialist.addresses.index');
 
-    Route::post('/profile/{uuid}/addresses', [AddressController::class, 'store'])->name('specialist.addresses.store');
+    Route::post('/profile/specialist/{uuid}/addresses', [AddressController::class, 'store'])->name('specialist.addresses.store');
 
-    Route::get('/profile/{uuid}/addresses/new', [AddressController::class, 'create'])->name('specialist.addresses.create');
+    Route::get('/profile/specialist/{uuid}/addresses/new', [AddressController::class, 'create'])->name('specialist.addresses.create');
 
-    Route::get('/profile/{uuid}/addresses/{address}/edit', [AddressController::class, 'edit'])->name('specialist.addresses.edit');
+    Route::get('/profile/specialist/{uuid}/addresses/{address}/edit', [AddressController::class, 'edit'])->name('specialist.addresses.edit');
 
-    Route::put('/profile/{uuid}/addresses/{address}', [AddressController::class, 'update'])->name('specialist.addresses.update');
+    Route::put('/profile/specialist/{uuid}/addresses/{address}', [AddressController::class, 'update'])->name('specialist.addresses.update');
 
-    Route::delete('/profile/{uuid}/addresses/{address}/delete', [AddressController::class, 'destroy'])->name('specialist.address.destroy');
+    Route::delete('/profile/specialist/{uuid}/addresses/{address}/delete', [AddressController::class, 'destroy'])->name('specialist.address.destroy');
 
-    Route::get('/profile/{doctor}/consultations/', [SpecialistConsultationController::class, 'index'])->name('specialist.consultations.index');
+    Route::get('/profile/specialist/{doctor}/consultations/', [SpecialistConsultationController::class, 'index'])->name('specialist.consultations.index');
 
-    Route::get('/profile/{doctor}/consultations/{consultation}', [SpecialistConsultationController::class, 'show'])->name('specialist.consultations.show');
+    Route::get('/profile/specialist/{doctor}/consultations/{consultation}', [SpecialistConsultationController::class, 'show'])->name('specialist.consultations.show');
 
     // Specialist's services routes
-    Route::get('/profile/{uuid}/services', [SpecialistProfileServicesController::class, 'index'])->name('specialist.services.index');
+    Route::get('/profile/specialist/{uuid}/services', [SpecialistProfileServicesController::class, 'index'])->name('specialist.services.index');
 
-    Route::post('/profile/{uuid}/services', [SpecialistProfileServicesController::class, 'store'])->name('specialist.services.store');
+    Route::post('/profile/specialist/{uuid}/services', [SpecialistProfileServicesController::class, 'store'])->name('specialist.services.store');
 
-    Route::get('/profile/{uuid}/services/new', [SpecialistProfileServicesController::class, 'create'])->name('specialist.services.create');
+    Route::get('/profile/specialist/{uuid}/services/new', [SpecialistProfileServicesController::class, 'create'])->name('specialist.services.create');
 
-    Route::get('/profile/{uuid}/services/{service}/edit', [SpecialistProfileServicesController::class, 'edit'])->name('specialist.services.edit');
+    Route::get('/profile/specialist/{uuid}/services/{service}/edit', [SpecialistProfileServicesController::class, 'edit'])->name('specialist.services.edit');
 
-    Route::put('/profile/{uuid}/services/{service}', [SpecialistProfileServicesController::class, 'update'])->name('specialist.services.update');
+    Route::put('/profile/specialist/{uuid}/services/{service}', [SpecialistProfileServicesController::class, 'update'])->name('specialist.services.update');
 
-    Route::delete('/profile/{uuid}/services/{service}/delete', [SpecialistProfileServicesController::class, 'destroy'])->name('specialist.services.destroy');
+    Route::delete('/profile/specialist/{uuid}/services/{service}/delete', [SpecialistProfileServicesController::class, 'destroy'])->name('specialist.services.destroy');
+
+
+    // Specialists' clinics routes
+    Route::get('/profile/specialist/{uuid}/clinics', [SpecialistClinicController::class, 'index'])->name('specialist.clinics.index');
+    Route::post('/profile/specialist/{clinic}/invitations/resend', SpecialistClinicInvitationResend::class)->name('specialist.invitations.resend');
+    Route::delete('/profile/specialist/{uuid}/clinics/{clinicSpecialist}', [SpecialistClinicController::class, 'destroy'])->name('specialist.clinics.destroy');
+
+    // Specialist clinic invitation
+    Route::get('/profile/specialist/{uuid}/clinics/accept/{token}', [SpecialistClinicsInvitation::class, 'store'])->name('specialist.clinics.accept');
+    Route::get('/profile/specialist/{uuid}/clinics/reject/{token}', [SpecialistClinicsInvitation::class, 'destroy'])->name('specialist.clinics.reject');
 });
 
-// View public profile
-Route::get('/{specialist}/psicologo/{uuid}', [SpecialistsProfileController::class, 'show'])->name('specialist.show');
+// Clinic back office routes
+Route::middleware(['auth', 'clinic', 'active'])->group(function () {
+    // Specialists dashboard
+    Route::get('/dashboard/clinic', ClinicDashboardController::class)->name('clinic.dashboard');
+
+    // Edit clinic routes
+    Route::get('/profile/clinic/{uuid}/edit', [ClinicProfileController::class, 'edit'])->name('clinic.edit');
+
+    Route::put('/profile/clinic/{uuid}', [ClinicProfileController::class, 'update'])->name('clinic.update');
+
+    // Clinic's addresses routes
+    Route::get('/profile/clinic/{uuid}/addresses', [ClinicAddressController::class, 'index'])->name('clinic.addresses.index');
+
+    Route::post('/profile/clinic/{uuid}/addresses', [ClinicAddressController::class, 'store'])->name('clinic.addresses.store');
+
+    Route::get('/profile/clinic/{uuid}/addresses/new', [ClinicAddressController::class, 'create'])->name('clinic.addresses.create');
+
+    Route::get('/profile/clinic/{uuid}/addresses/{address}/edit', [ClinicAddressController::class, 'edit'])->name('clinic.addresses.edit');
+
+    Route::put('/profile/clinic/{uuid}/addresses/{address}', [ClinicAddressController::class, 'update'])->name('clinic.addresses.update');
+
+    Route::delete('/profile/clinic/{uuid}/addresses/{address}/delete', [ClinicAddressController::class, 'destroy'])->name('clinic.address.destroy');
+
+    // Clinics specialists routes
+    Route::get('/profile/clinic/{uuid}/specialists', [ClinicSpecialistController::class, 'index'])->name('clinic.specialists.index');
+    Route::put('/profile/clinic/{uuid}/specialists/{clinicSpecialist}', [ClinicSpecialistController::class, 'update'])->name('clinic.specialists.update');
+    Route::delete('/profile/clinic/{uuid}/specialists/{clinicSpecialist}', [ClinicSpecialistController::class, 'destroy'])->name('clinic.specialists.destroy');
+    Route::post('/profile/clinic/{doctor}/invitations/resend', ClinicInvitationResend::class)->name('clinic.invitations.resend');
+
+    // Clinic specialist's ratings
+    Route::get('/profile/clinic/{uuid}/rating', [ClinicSpecialistsRatingController::class, 'index'])->name('clinic.ratings.index');
+
+    Route::get('/profile/clinic/{uuid}/rating/{rating}', [ClinicSpecialistsRatingController::class, 'show'])->name('clinic.ratings.show');
+
+    // Specialist clinic invitation
+    Route::get('/profile/clinic/{uuid}/specialists/accept/{token}', [ClinicSpecialistsInvitation::class, 'store'])->name('clinics.specialist.accept');
+    Route::get('/profile/clinic/{uuid}/specialists/reject/{token}', [ClinicSpecialistsInvitation::class, 'destroy'])->name('clinics.specialist.reject');
+});
+
+// View specialist public profile
+Route::get('/psicologos/{specialist}/{uuid}', [SpecialistProfileController::class, 'show'])->name('specialist.show');
+
+// View clinic public profile
+Route::get('/centro-medico/{medical_center}/{uuid}', [ClinicProfileController::class, 'show'])->name('clinic.show');
 
 require __DIR__.'/auth.php';

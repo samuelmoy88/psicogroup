@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PatientsController extends Controller
+class PatientController extends Controller
 {
     /**
      * Display a listing of the resource.

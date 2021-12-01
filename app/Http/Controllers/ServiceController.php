@@ -6,7 +6,7 @@ use App\Models\Services;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ServicesController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.

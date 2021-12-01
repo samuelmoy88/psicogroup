@@ -20,7 +20,7 @@ class EnsureUserIsActive
     {
         if (!auth()->user()->status === User::STATUS_INACTIVE) {
             Auth::logout();
-            return redirect(route('login'))->with('message', 'Unauthorized');
+            return redirect(route('login'))->with('message', __('common.unauthorized'));
         }
         return $next($request);
     }

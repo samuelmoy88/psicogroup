@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\SpecialistsProfileController;
+use App\Http\Controllers\SpecialistProfileController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SpecialistProfileServicesController;
 use Illuminate\Support\Facades\Route;
 

@@ -35,10 +35,10 @@ class RequestPatientConsultationFeedback extends Mailable
             ->subject(__('common.feedback_request'))
             ->markdown('emails.users.request-patient-feedback',[
                 'consultation' => $this->consultation,
-                'url' => route('account.feedback.create', [
+                'url' => config('app.url') . route('account.feedback.create', [
                     'patient' => $this->consultation->patient->user->uuid,
                     'doctor' => $this->consultation->specialist->user->uuid,
-                ]),
+                ], false),
             ]);
     }
 }

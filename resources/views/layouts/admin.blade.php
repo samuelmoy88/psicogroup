@@ -53,6 +53,8 @@
         const shouldOnlinePlatformsBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'online-platforms' ? 'true' : 'false' }}';
         const shouldRatingDisputeMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'rating-disputes' ? 'true' : 'false' }}';
         const shouldRatingFeedbackMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'rating-feedback' ? 'true' : 'false' }}';
+        const shouldSocialMediaMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'social-media' ? 'true' : 'false' }}';
+        const shouldEducationDegreeMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'education-degree' ? 'true' : 'false' }}';
         const shouldSpecialistsMenuBeOpened = '{{
         explode('/', Request::decodedPath())[0] === 'doctors' ||
         explode('/', Request::decodedPath())[0] === 'changes'

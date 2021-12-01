@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Disease;
 use App\Models\Services;
 use App\Models\Speciality;
 use App\Search;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class QuerySearch extends Component
@@ -16,6 +18,10 @@ class QuerySearch extends Component
     public string $service = '';
 
     public string $speciality = '';
+
+    public string $disease = '';
+
+    public string $profile = '';
 
     public array $baseSearch = [];
 
@@ -30,10 +36,11 @@ class QuerySearch extends Component
         'refreshComponent',
         'incrementHighlight',
         'decrementHighlight',
-        'autofillSelection'
+        'autofillSelection',
+        'setProfile'
     ];
 
-    public function baseSearch()
+    public function baseSearch() : void
     {
         if (strlen($this->query) > 1) {
             $this->search();
@@ -44,15 +51,18 @@ class QuerySearch extends Component
 
         $services = Services::active()->orderBy('order', 'desc')->select('title','id')->limit(5)->get()->toArray();
 
+        $diseases = Disease::active()->orderBy('order', 'desc')->select('title','id')->limit(5)->get()->toArray();
+
         $this->baseSearch['services'] = $services;
 
         $this->baseSearch['specialities'] = $specialities;
 
+        $this->baseSearch['diseases'] = $diseases;
     }
 
-    public function search()
+    public function search() : void
     {
-        if (strlen($this->query) < 2) {
+        if (strlen($this->query) < 3) {
             $this->baseSearch();
             return;
         }
@@ -64,7 +74,13 @@ class QuerySearch extends Component
         $this->search = $search->basicSearch($this->query);
     }
 
-    public function fillQuery($query, $queryType = '', $typeId = null)
+    /**
+     * Called when the user clicks on result items
+     * @param $query
+     * @param string $queryType
+     * @param null $typeId
+     */
+    public function fillQuery($query, $queryType = '', $typeId = null) : void
     {
         $this->query = $query;
 
@@ -76,34 +92,45 @@ class QuerySearch extends Component
             $this->fillService($typeId);
         }
 
+        if ($queryType === 'diseases') {
+            $this->fillDisease($typeId);
+        }
+
         $this->reset('baseSearch');
     }
 
-    public function fillService($id)
+    public function fillService($id) : void
     {
         $this->service = $id;
 
-        $this->reset('baseSearch');
+        $this->reset('baseSearch', 'speciality', 'disease');
     }
 
-    public function fillSpeciality($id)
+    public function fillSpeciality($id) : void
     {
         $this->speciality = $id;
 
-        $this->reset('baseSearch');
+        $this->reset('baseSearch', 'service', 'disease');
     }
 
-    public function updatedQuery()
+    public function fillDisease($id) : void
+    {
+        $this->disease = $id;
+
+        $this->reset('baseSearch', 'service', 'speciality');
+    }
+
+    public function updatedQuery() : void
     {
         $this->search();
     }
 
-    public function render()
+    public function render() : View
     {
         return view('livewire.query-search');
     }
 
-    public function refreshComponent()
+    public function refreshComponent() : void
     {
         $this->baseSearch = [];
 
@@ -112,7 +139,7 @@ class QuerySearch extends Component
         $this->highlightIndex = 0;
     }
 
-    public function incrementHighlight()
+    public function incrementHighlight() : void
     {
         if (count($this->baseSearch) === $this->highlightIndex) {
             $this->highlightIndex = 0;
@@ -125,7 +152,7 @@ class QuerySearch extends Component
         $this->highlightIndex++;
     }
 
-    public function decrementHighlight()
+    public function decrementHighlight() : void
     {
         if ($this->highlightIndex === 0) {
             if (count($this->baseSearch) > 0) {
@@ -140,7 +167,7 @@ class QuerySearch extends Component
         $this->highlightIndex--;
     }
 
-    public function autofillSelection()
+    public function autofillSelection() : void
     {
         if (!$this->search && !$this->baseSearch) {
             return;
@@ -164,9 +191,15 @@ class QuerySearch extends Component
             return;
         }
 
+        if (isset($this->search['diseases'])) {
+            $this->takeFirstAvailableItem($this->search['diseases'], 'disease');
+            $this->dispatchBrowserEvent('submitSearch');
+            return;
+        }
+
     }
 
-    public function takeFirstAvailableItem($searchResult, $type)
+    public function takeFirstAvailableItem($searchResult, $type) : void
     {
         $firstItem = array_shift($searchResult);
 
@@ -178,6 +211,15 @@ class QuerySearch extends Component
             $this->fillSpeciality($firstItem['id']);
         }
 
+        if ($type === 'disease') {
+            $this->fillDisease($firstItem['id']);
+        }
+
         $this->query = $firstItem['title'];
+    }
+
+    public function setProfile(string $profile) : void
+    {
+        $this->profile = $profile;
     }
 }

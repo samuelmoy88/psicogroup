@@ -119,6 +119,35 @@
             </div>
         </div>
         @endif
+
+        @if($social_media)
+            <div class="form-card">
+                <h2 class="font-bold text-xl">{{ __('social-media.name') }}</h2>
+                <p class="font-normal text-base mb-2">{{ __('social-media.sm_copy') }}</p>
+                <div class="mb-4 text-sm grid gap-4 sm:grid-cols-2">
+                    @foreach($social_media as $media)
+                        <div>
+                            <label class="flex items-center mb-1 cursor-pointer">{{ $media->name }}</label>
+                            <x-input type="text" value="{{
+                            !$specialist->socialMedia->isEmpty() && $specialist->socialMedia->contains('id', $media->id)
+                            ? $specialist->socialMedia->firstWhere('id', $media->id)->pivot->url
+                            : ''
+                            }}" name="social_media[{{ $media->id }}]"/>
+                        </div>
+                    @endforeach
+                </div>
+                @if(!auth()->user()->profile->isPremium())
+                    <x-premium-sponsor-block title="{{ __('social-media.sm_premium_copy_title') }}" subtitle="{{ __('social-media.sm_premium_copy_subtitle') }}"/>
+                @endif
+            </div>
+        @endif
+
+        <livewire:specialist-education :specialist="$specialist"/>
+        <livewire:specialist-publications :specialist="$specialist"/>
+        <livewire:specialist-awards :specialist="$specialist"/>
+        <livewire:specialist-certificates :specialist="$specialist"/>
+        <livewire:specialist-experiences :specialist="$specialist"/>
+        <livewire:specialist-languages :specialist="$specialist"/>
         <div class="mb-4 text-sm text-right">
             <x-button>{{ __('common.save_changes') }}</x-button>
         </div>

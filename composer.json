@@ -15,8 +15,10 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "livewire-ui/modal": "^1.0",
         "livewire/livewire": "^2.3",
-        "spatie/laravel-permission": "^4.0"
+        "spatie/laravel-permission": "^4.0",
+        "wire-elements/modal": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-query-detector": "^1.5",

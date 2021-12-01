@@ -3902,6 +3902,14 @@ window.data = function () {
     isRatingFeedbackMenuOpen: shouldRatingFeedbackMenuBeOpened === 'true',
     toggleRatingFeedbackMenu: function toggleRatingFeedbackMenu() {
       this.isRatingFeedbackMenuOpen = !this.isRatingFeedbackMenuOpen;
+    },
+    isSocialMediaMenuOpen: shouldSocialMediaMenuBeOpened === 'true',
+    toggleSocialMediaMenu: function toggleSocialMediaMenu() {
+      this.isSocialMediaMenuOpen = !this.isSocialMediaMenuOpen;
+    },
+    isEducationDegreeMenuOpen: shouldEducationDegreeMenuBeOpened === 'true',
+    toggleEducationDegreeMenu: function toggleEducationDegreeMenu() {
+      this.isEducationDegreeMenuOpen = !this.isEducationDegreeMenuOpen;
     }
   };
 };

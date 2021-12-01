@@ -26,7 +26,24 @@ class Speciality extends Model
 
     public function specialists()
     {
-        return $this->belongsToMany(SpecialistProfile::class, 'specialist_profiles_specialities', 'speciality_id', 'specialist_profile_id');
+        return $this->morphedByMany(
+            SpecialistProfile::class,
+            'profile',
+            'profiles_specialities',
+            'speciality_id',
+            'profile_id'
+        );
+    }
+
+    public function clinics()
+    {
+        return $this->morphedByMany(
+            ClinicProfile::class,
+            'profile',
+            'profiles_specialities',
+            'speciality_id',
+            'profile_id'
+        );
     }
 
     public function getStatusLabelAttribute()
