@@ -10,7 +10,7 @@ class PremiumPlan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'payment_mode', 'price'];
+    protected $fillable = ['title', 'payment_mode', 'payment_mode', 'price', 'currency', 'discount', 'discount_until', 'order'];
 
     protected $casts = [
         'price' => Money::class

@@ -17,8 +17,11 @@ class CreatePremiumPlanTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('payment_mode');
+            $table->string('payment_frequency');
             $table->integer('price');
+            $table->string('currency');
+            $table->float('discount')->nullable();
+            $table->timestamp('discount_until');
             $table->tinyInteger('order')->nullable();
             $table->timestamps();
         });
