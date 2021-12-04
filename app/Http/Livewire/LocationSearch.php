@@ -10,7 +10,7 @@ class LocationSearch extends Component
 
     public ?string $location = '';
 
-    protected array $listeners = ['autofillSelection'];
+    protected $listeners = ['autofillSelection'];
 
     public function mount(string $classes, $location = '')
     {

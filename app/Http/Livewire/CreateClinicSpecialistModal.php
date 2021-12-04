@@ -13,7 +13,7 @@ class CreateClinicSpecialistModal extends Component
 {
     public string $q = '';
 
-    protected array $listeners = ['findSpecialist', 'addToInvitationList', 'removeFromInvitationList', 'sendInvitations'];
+    protected $listeners = ['findSpecialist', 'addToInvitationList', 'removeFromInvitationList', 'sendInvitations'];
 
     public Collection $specialists;
 

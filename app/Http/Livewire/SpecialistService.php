@@ -9,7 +9,7 @@ class SpecialistService extends Component
 {
     public array $services;
 
-    protected array $listeners = [
+    protected $listeners = [
         'serviceLoaded' => 'loadService'
     ];
 

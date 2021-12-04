@@ -16,7 +16,7 @@ class RequestRatingDispute extends Component
 
     public string $reason = '';
 
-    protected array $listeners = ['create'];
+    protected $listeners = ['create'];
 
     public function mount($modal, Rating $rating)
     {

@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class ChangePassword extends Component
 {
-    protected array $listeners = ['changePassword', 'doPasswordsMatch','newPasswordType', 'confirmPasswordType'];
+    protected $listeners = ['changePassword', 'doPasswordsMatch','newPasswordType', 'confirmPasswordType'];
 
     public string $currentPassword = '';
 

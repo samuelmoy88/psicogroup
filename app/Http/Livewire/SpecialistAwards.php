@@ -11,7 +11,7 @@ class SpecialistAwards extends Component
 
     public int $awardsCounter = 0;
 
-    protected array $listeners = ['addAward', 'removeAward'];
+    protected $listeners = ['addAward', 'removeAward'];
 
     public array $removedAwardsList;
 

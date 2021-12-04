@@ -29,7 +29,7 @@ class QuerySearch extends Component
 
     public int $highlightIndex = 0;
 
-    protected array $listeners = [
+    protected $listeners = [
         'baseSearch',
         'fillQuery',
         'search',

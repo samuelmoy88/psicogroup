@@ -12,7 +12,7 @@ class ChangeConsultationState extends Component
 
     public string $newState = '';
 
-    protected array $listeners = ['updateState'];
+    protected $listeners = ['updateState'];
 
     public function mount(Consultation $consultation)
     {

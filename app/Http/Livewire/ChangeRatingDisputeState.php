@@ -12,7 +12,7 @@ class ChangeRatingDisputeState extends Component
 
     public string $newState = '';
 
-    protected array $listeners = ['updateState', 'allowChange',];
+    protected $listeners = ['updateState', 'allowChange',];
 
     public function mount(RatingDispute $dispute)
     {

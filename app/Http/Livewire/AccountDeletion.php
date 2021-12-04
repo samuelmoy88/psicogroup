@@ -12,7 +12,7 @@ class AccountDeletion extends Component
 {
     public string $modal;
 
-    protected array $listeners = ['sendVerificationCode', 'deleteAccount'];
+    protected $listeners = ['sendVerificationCode', 'deleteAccount'];
 
     public bool $codeHasBeenSent = false;
 

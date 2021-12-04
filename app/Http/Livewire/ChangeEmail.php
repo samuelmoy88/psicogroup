@@ -9,7 +9,7 @@ class ChangeEmail extends Component
 {
     public string $modal;
 
-    protected array $listeners = ['changeEmail'];
+    protected $listeners = ['changeEmail'];
 
     public string $password = '';
 

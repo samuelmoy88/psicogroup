@@ -11,7 +11,7 @@ class ValidateConsultationToken extends Component
 
     public string $token = '';
 
-    protected array $listeners = ['confirm'];
+    protected $listeners = ['confirm'];
 
     public bool $validated = false;
 

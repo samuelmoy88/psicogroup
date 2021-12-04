@@ -11,7 +11,7 @@ class SpecialistPublications extends Component
 
     public int $publicationCounter = 0;
 
-    protected array $listeners = ['addPublication', 'removePublication'];
+    protected $listeners = ['addPublication', 'removePublication'];
 
     public array $removedPublicationsList;
 

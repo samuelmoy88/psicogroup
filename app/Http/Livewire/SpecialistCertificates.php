@@ -11,7 +11,7 @@ class SpecialistCertificates extends Component
 
     public int $certificatesCounter = 0;
 
-    protected array $listeners = ['addCertificate', 'removeCertificate'];
+    protected $listeners = ['addCertificate', 'removeCertificate'];
 
     public array $removedCertificatesList;
 

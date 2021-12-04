@@ -15,7 +15,7 @@ class SpecialistEducation extends Component
 
     public int $educationCounter = 0;
 
-    protected array $listeners = ['addEducation', 'removeEducation'];
+    protected $listeners = ['addEducation', 'removeEducation'];
 
     public array $removedEducationList;
 

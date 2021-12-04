@@ -11,7 +11,7 @@ class SpecialistLanguages extends Component
 
     public int $languagesCounter = 0;
 
-    protected array $listeners = ['addLanguage', 'removeLanguage'];
+    protected $listeners = ['addLanguage', 'removeLanguage'];
 
     public array $removedLanguagesList;
 

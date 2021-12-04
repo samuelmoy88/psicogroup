@@ -13,7 +13,7 @@ class AdminPasswordReset extends Component
 
     public User $user;
 
-    protected array $listeners = ['resetPassword'];
+    protected $listeners = ['resetPassword'];
 
     public function mount($modal, User $user)
     {

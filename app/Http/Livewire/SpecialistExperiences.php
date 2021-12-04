@@ -11,7 +11,7 @@ class SpecialistExperiences extends Component
 
     public int $experiencesCounter = 0;
 
-    protected array $listeners = ['addExperience', 'removeExperience'];
+    protected $listeners = ['addExperience', 'removeExperience'];
 
     public array $removedExperiencesList;
 

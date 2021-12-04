@@ -16,7 +16,7 @@ class SpecialistChanges extends Component
 
     public string $body = '';
 
-    protected array $listeners = [
+    protected $listeners = [
         'accept',
         'reject',
         'refresh',

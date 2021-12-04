@@ -14,7 +14,7 @@ class ContactSpecialist extends Component
 
     public User $specialist;
 
-    protected array $listeners = [
+    protected $listeners = [
         'notifySpecialist',
         'specialistContacted',
     ];
