@@ -126,6 +126,10 @@ class ClinicSpecialist extends Model
             'started_by' => $startedBy
         ]);
 
+        if ($startedBy === ClinicProfile::class) {
+            return $this->sendInvitations($specialist, $token, $startedBy);
+        }
+
         return $this->sendInvitations($clinic, $token, $startedBy);
     }
 }
