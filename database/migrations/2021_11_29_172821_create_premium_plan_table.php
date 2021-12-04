@@ -21,7 +21,7 @@ class CreatePremiumPlanTable extends Migration
             $table->integer('price');
             $table->string('currency');
             $table->float('discount')->nullable();
-            $table->timestamp('discount_until');
+            $table->timestamp('discount_until')->nullable();
             $table->tinyInteger('order')->nullable();
             $table->timestamps();
         });
