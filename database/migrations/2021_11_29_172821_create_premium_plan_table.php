@@ -23,6 +23,7 @@ class CreatePremiumPlanTable extends Migration
             $table->float('discount')->nullable();
             $table->timestamp('discount_until')->nullable();
             $table->tinyInteger('order')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
 
