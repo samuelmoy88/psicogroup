@@ -50,6 +50,6 @@ class CreatePremiumPlanTable extends Migration
     public function down()
     {
         Schema::dropIfExists('premium_plan_features');
-        Schema::dropIfExists('premium_plan');
+        Schema::dropIfExists('premium_plans');
     }
 }
