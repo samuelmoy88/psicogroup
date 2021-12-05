@@ -41,6 +41,11 @@ class CreatePremiumPlanTable extends Migration
                 ->references('id')
                 ->onDelete('cascade');
         });
+
+        \Illuminate\Support\Facades\Artisan::call('db:seed', [
+            '--class' => 'PremiumPlanSeeder',
+            '--force' => true
+        ]);
     }
 
     /**
