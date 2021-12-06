@@ -18,6 +18,7 @@ class PremiumPlanSeeder extends Seeder
         $premiumPlans = [
             [
                 'title' => 'Básico para profesionales',
+                'description' => '<p class="mb-4">El plan esencial para estár más cerca de tus pacientes.</p>',
                 'payment_frequency' => 'yearly',
                 'price' => 0,
                 'order' => 1,
