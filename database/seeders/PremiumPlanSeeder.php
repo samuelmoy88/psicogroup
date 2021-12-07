@@ -104,7 +104,8 @@ class PremiumPlanSeeder extends Seeder
             /** @var PremiumPlan $plan */
             $features = $plan['features'];
             unset($plan['features']);
-            $plan = PremiumPlan::create($plan);
+            $plan = new PremiumPlan($plan);
+            $plan->saveQuietly();
             foreach ($features as $feature) {
                 $plan->features()->save(new PremiumPlanFeatures($feature));
             }
