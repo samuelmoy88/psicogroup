@@ -115,3 +115,51 @@ if (banUntil && ban) {
         }
     });
 }
+
+// ckeditor implementation
+let ckeditorElements = document.querySelectorAll('.rich-editor');
+
+if (ckeditorElements.length > 0) {
+    for (let e of ckeditorElements) {
+        CKEDITOR.replace(e, {
+            height: 150
+        });
+    }
+}
+let ckeditorInlineElements = document.querySelectorAll('.inline-editor');
+
+if (ckeditorInlineElements.length > 0) {
+    for (let e of ckeditorInlineElements) {
+        CKEDITOR.inline(e);
+    }
+}
+let sortableFeatures = document.querySelectorAll('.sortable');
+
+if (sortableFeatures) {
+    for (let i of sortableFeatures) {
+        Sortable.create(i, {
+            handle: '.handle',
+            animation: 150,
+            swapThreshold: 0.70,
+            direction: 'vertical',
+            onEnd: function (event) {
+                if (event.newIndex !== event.oldIndex) {
+                    reorderItems(event);
+                }
+            }
+        });
+    }
+
+}
+
+function reorderItems(event) {
+    let order = 1;
+
+    if (event.from.children.length > 0) {
+        for (let child of event.from.children) {
+            document.querySelector(`input[name='${child.dataset.order}']`).value = order;
+            order++;
+        }
+    }
+
+}

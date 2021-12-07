@@ -301,6 +301,29 @@ class AdminLayout extends Component
                 'dropdown-click-event' => 'toggleEducationDegreeMenu'
             ],
             [
+                'name' => __('premium-plans.name'),
+                'icon' => '<i class="fas fa-star"></i>',
+                'permission' => 'premium_plan_read',
+                'sub-modules' => [
+                    [
+                        'name' => __('premium-plans.pp_list'),
+                        'uri' => route('premium-plan.index'),
+                        'list_class' => request()->routeIs('premium-plan.index') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('premium-plan.index') ? 'text-white' : '',
+                        'permission' => 'premium_plan_read',
+                    ],
+                    [
+                        'name' => __('premium-plans.new_pp'),
+                        'uri' => route('premium-plan.create'),
+                        'list_class' => request()->routeIs('premium-plan.create') ? 'bg-brand-color' : '',
+                        'anchor_class' => request()->routeIs('premium-plan.create') ? 'text-white' : '',
+                        'permission' => 'premium_plan_create',
+                    ],
+                ],
+                'dropdown-variable' => 'isPremiumPlanMenuOpen',
+                'dropdown-click-event' => 'togglePremiumPlanMenu'
+            ],
+            [
                 'name' => 'Configuración',
                 'icon' => '<i class="fas fa-cogs"></i>',
                 'permission' => 'config_read',

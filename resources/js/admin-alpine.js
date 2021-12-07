@@ -104,6 +104,10 @@ window.data = function () {
         toggleEducationDegreeMenu() {
             this.isEducationDegreeMenuOpen = !this.isEducationDegreeMenuOpen
         },
+        isPremiumPlanMenuOpen: shouldPremiumPlansMenuBeOpened === 'true',
+        togglePremiumPlanMenu() {
+            this.isPremiumPlanMenuOpen = !this.isPremiumPlanMenuOpen
+        },
     }
 }
 

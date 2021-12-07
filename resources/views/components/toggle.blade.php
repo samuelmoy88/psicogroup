@@ -3,7 +3,7 @@
 <div
     x-data="{ isOn: {{ $checked ? 'true' : 'false' }}, checked_text: '{{ $checkedText }}', unchecked_text: '{{ $uncheckedText }}' }">
     <p x-text="isOn === true ? checked_text : unchecked_text"></p>
-    <button type="button" @click="isOn = !isOn" :class="{'bg-brand-color': isOn, 'bg-gray-200': !isOn}"
+    <button data-class="toggle-component" type="button" @click="isOn = !isOn" :class="{'bg-brand-color': isOn, 'bg-gray-200 is-unchecked': !isOn}"
             {!! $attributes->merge(['class' => 'bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none']) !!}
             role="switch" aria-checked="false">
 

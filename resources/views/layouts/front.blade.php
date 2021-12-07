@@ -39,7 +39,7 @@
     </aside>
     <!-- Page Heading -->
     @include('layouts.navigation')
-    <main class="overflow-y-auto {{ request()->routeIs('search.*') ? 'bg-gray-100' : '' }}">
+    <main class="bg-gray-50 overflow-y-auto {{ request()->routeIs('search.*') ? '' : '' }}">
         @stack('ads')
         {{ $slot }}
     </main>

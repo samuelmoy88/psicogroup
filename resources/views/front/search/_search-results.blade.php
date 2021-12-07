@@ -6,7 +6,7 @@
                     <a href="{{ $searchResult['profile_type'] === \App\Models\SpecialistProfile::class ?
                     route('specialist.show', ['specialist' => $searchResult['username'], 'uuid' => $searchResult['uuid']]) :
                     route('clinic.show', ['medical_center' => $searchResult['username'], 'uuid' => $searchResult['uuid']]) }}">
-                        <img loading="lazy" src="{{ $searchResult['avatar'] }}" alt="{{ __('common.specialist_avatar') }}"
+                        <img loading="lazy" src="{{ asset($searchResult['avatar']) }}" alt="{{ __('common.specialist_avatar') }}"
                              class="rounded" height="100" width="100"></a>
                 </div>
                 <div class="flex-1">

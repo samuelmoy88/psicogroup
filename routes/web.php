@@ -21,6 +21,8 @@ use App\Http\Controllers\PatientSpecialists;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PremiumPlanListController;
+use App\Http\Controllers\PremiumPlansController;
+use App\Http\Controllers\PremiumPricingInquiryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RatingDisputeController;
 use App\Http\Controllers\RoleController;
@@ -56,7 +58,17 @@ Route::middleware(['admin.redirect'])->group(function () {
     Route::get('/consultation/{doctor}/{address}', [ConsultationController::class, 'create'])->name('consultation.create');
     Route::post('/consultations/', [ConsultationController::class, 'store'])->name('consultation.store');
     Route::get('/consultations/{consultation}/confirm', [ConsultationController::class, 'confirm'])->name('consultation.confirm');
-    Route::get('/planes-premium', PremiumPlanListController::class);
+    Route::get('/planes-premium', PremiumPlanListController::class)->name('front.pricing');
+    //Route::middleware('auth')->group(function () {
+        Route::get('/plan-premium-contacto', [PremiumPricingInquiryController::class, 'index'])->name('front.pricing-inquiry-index');
+        Route::post('/plan-premium-contacto', [PremiumPricingInquiryController::class, 'store'])->name('front.pricing-inquiry-store');
+    //});
+    Route::get('/solicitud-enviada', function () {
+        if (!session('inquiry_success')) {
+            return view('errors.404');
+        }
+        return view('front.pricing-inquiry.created-success');
+    })->name('front.pricing-inquiry-done');
     Route::get('/faq', function () {
         return view('front.faq');
     })->name('front.faq');
@@ -88,6 +100,7 @@ Route::domain(config('app.admin_backend'))->group(function () {
         Route::put('/rating-feedback/sort', [RatingFeedbackController::class, 'sort'])->name('rating-feedback.sort');
         Route::put('/social-media/sort', [SocialMediaController::class, 'sort'])->name('social-media.sort');
         Route::put('/education-degree/sort', [EducationDegreeController::class, 'sort'])->name('education-degree.sort');
+        Route::put('/premium-plan/sort', [PremiumPlansController::class, 'sort'])->name('premium-plan.sort');
 
         // Specialities routes
         Route::resource('/specialities', SpecialityController::class);
@@ -102,6 +115,7 @@ Route::domain(config('app.admin_backend'))->group(function () {
         Route::resource('/rating-feedback', RatingFeedbackController::class);
         Route::resource('/social-media', SocialMediaController::class);
         Route::resource('/education-degree', EducationDegreeController::class);
+        Route::resource('/premium-plan', PremiumPlansController::class);
         Route::get('/changes', [SpecialistChangesController::class, 'index'])->name('changes.index');
         Route::get('/changes/{doctor}', [SpecialistChangesController::class, 'show'])->name('changes.show');
         Route::get('/rating-disputes', [RatingDisputeController::class, 'index'])->name('rating-dispute.index');

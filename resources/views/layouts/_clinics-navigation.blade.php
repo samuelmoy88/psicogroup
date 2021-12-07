@@ -25,6 +25,9 @@
                 <a href="{{ route('front.faq') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                     {{ __('common.faq') }}
                 </a>
+                <a href="{{ route('front.pricing') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                    {{ __('common.pricing') }}
+                </a>
                 <div class="text-base font-medium text-gray-500 hover:text-gray-900">
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
@@ -74,6 +77,11 @@
                             <a href="{{ route('front.faq') }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div class="text-base font-medium text-gray-900">
                                     {{ __('common.faq') }}
+                                </div>
+                            </a>
+                            <a href="{{ route('front.pricing') }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                                <div class="text-base font-medium text-gray-900">
+                                    {{ __('common.pricing') }}
                                 </div>
                             </a>
                             <div class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">

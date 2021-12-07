@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Scripts -->
+    <script defer src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('js/admin.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/0333ea10da.js" crossorigin="anonymous"></script>
     @livewireStyles
@@ -55,6 +56,7 @@
         const shouldRatingFeedbackMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'rating-feedback' ? 'true' : 'false' }}';
         const shouldSocialMediaMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'social-media' ? 'true' : 'false' }}';
         const shouldEducationDegreeMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'education-degree' ? 'true' : 'false' }}';
+        const shouldPremiumPlansMenuBeOpened = '{{ explode('/', Request::decodedPath())[0] === 'premium-plan' ? 'true' : 'false' }}';
         const shouldSpecialistsMenuBeOpened = '{{
         explode('/', Request::decodedPath())[0] === 'doctors' ||
         explode('/', Request::decodedPath())[0] === 'changes'

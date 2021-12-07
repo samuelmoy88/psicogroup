@@ -8,6 +8,8 @@ class PremiumPlanListController extends Controller
 {
     public function __invoke()
     {
-        return view();
+        return view('front.pricing.index', [
+            'premiumPlans' => readPremiumPlanFromCache()
+        ]);
     }
 }

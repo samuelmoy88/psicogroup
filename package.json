@@ -23,6 +23,7 @@
     "dependencies": {
         "@mapbox/mapbox-gl-geocoder": "^4.7.0",
         "@mapbox/mapbox-sdk": "^0.12.1",
+        "ckeditor4": "^4.17.1",
         "sortablejs": "^1.13.0"
     }
 }

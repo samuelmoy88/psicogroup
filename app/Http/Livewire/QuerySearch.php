@@ -80,7 +80,7 @@ class QuerySearch extends Component
      * @param string $queryType
      * @param null $typeId
      */
-    public function fillQuery($query, $queryType = '', $typeId = null) : void
+    public function fillQuery($query, string $queryType = '', $typeId = null) : void
     {
         $this->query = $query;
 
