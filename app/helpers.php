@@ -86,6 +86,14 @@ if (!function_exists('readSecurityMeasuresFromCache')) {
     }
 }
 
+if (!function_exists('readPremiumPlanFromCache')) {
+    function readPremiumPlanFromCache(): \Illuminate\Support\Collection
+    {
+        return cache()
+            ->store(config('cache.default'))
+            ->get(\App\Models\PremiumPlan::class);
+    }
+}
 
 if (!function_exists('readUneasinessFromCache')) {
     function readUneasinessFromCache(): \Illuminate\Support\Collection
@@ -152,6 +160,11 @@ if (!function_exists('cacheAllEntities')) {
 
         foreach (\App\Models\SecurityMeasures::orderBy('order', 'asc')->get() as $securityMeasure) {
             $securityMeasure->cache();
+            break;
+        }
+
+        foreach (\App\Models\PremiumPlan::orderBy('order', 'asc')->get() as $premiumPlan) {
+            $premiumPlan->cache();
             break;
         }
 
