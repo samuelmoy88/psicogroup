@@ -154,7 +154,7 @@ class SpecialistProfile extends Model
 
     public function getAvatarPathAttribute()
     {
-        return asset($this->avatar ? Storage::disk('avatars')->url($this->avatar) : url('images/no-avatar.png'));
+        return asset($this->avatar ? Storage::disk('avatars')->url($this->avatar) : 'images/no-avatar.png');
     }
 
     public function getPrefixLabelAttribute()
