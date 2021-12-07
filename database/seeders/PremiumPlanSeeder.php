@@ -19,7 +19,6 @@ class PremiumPlanSeeder extends Seeder
             [
                 'title' => 'Básico para profesionales',
                 'description' => '<p class="mb-4">El plan esencial para estár más cerca de tus pacientes.</p>',
-                'payment_frequency' => 'yearly',
                 'price' => 0,
                 'order' => 1,
                 'features' => [
@@ -41,7 +40,6 @@ class PremiumPlanSeeder extends Seeder
             [
                 'title' => 'Premium para profesionales',
                 'description' => '<p class="mb-4">Destaca sobre el resto, se más visible y llega más fácil a tus pacientes</p><p>Lo mismo del plan básico para profesionales más:</p>',
-                'payment_frequency' => 'yearly',
                 'price' => 720,
                 'order' => 2,
                 'features' => [
@@ -70,7 +68,6 @@ class PremiumPlanSeeder extends Seeder
             [
                 'title' => 'Premium para centros médicos',
                 'description' => '<p>Servicio exclusivo para potenciar la visibilidad de tu clínica o centro</p>',
-                'payment_frequency' => 'yearly',
                 'price' => 1500,
                 'order' => 3,
                 'features' => [
